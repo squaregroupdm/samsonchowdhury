@@ -14,10 +14,11 @@ Upload the whole folder to any web host (Hostinger, cPanel, Cloudflare Pages, Ne
 - data/tributes-data.js : The short recollections rotating on the home page
 - img/og.jpg : The picture shown when a link to the site is shared on WhatsApp or Facebook
 - img/portrait.jpg : The hero portrait (1400px wide); portrait-sm.jpg is the smaller copy used in the menu
-- img/signature.png : His signature, cut out with a transparent background, used in the hero and footer
+- img/signature.png : His signature (from the clean master), transparent background, used above the footer; signature-sm.png is the header copy
 - index.html : Home page
 - js/main.js : Shared behaviour (menu, smooth scroll, reveals, cursor light, tilt cards, 3D ring, quote deck, lightbox)
 - js/sky.js : The starry sky behind every page (three depth layers, twinkle, shooting stars)
+- js/story.js : Home-page storytelling: count-up numbers, the sticky statement, parallax
 - js/timeline.js : The scroll-driven timeline on the home page
 - js/vendor/ : Three.js, GSAP, ScrollTrigger and Lenis, stored locally so nothing depends on the internet
 - newsroom.html : Searchable, filterable news archive
@@ -65,7 +66,9 @@ To add a photo to an album: upload NN.jpg and NN-th.jpg (thumbnail) into that al
 
 - Register: futuristic and classy. Near-black midnight base with a starry sky behind every page; colour arrives only as light in four spectral hues (cyan, violet, magenta, amber). Geist for headlines and text, Geist Mono for years and labels, Cormorant Garamond for quotations only.
 - The sky is a live WebGL field: three layers of stars at different depths, twinkling, drifting gently with the cursor and with scroll, and shooting stars every few seconds. It runs behind the whole site.
-- The hero uses the portrait at full height on the right, masked so it dissolves into the sky, with a soft cyan-violet rim light behind it. His signature writes itself in at the top right, then a hairline settles under it.
+- The hero uses the portrait at full height on the right, masked so it dissolves into the sky, with a soft cyan-violet rim light behind it and a slow parallax drift. His signature is the site mark in the header and draws itself once per visit.
+- "The man" is a sticky editorial statement: the section holds for part of the scroll while the words sharpen from blur, justified, at reading size.
+- Fact cards are compact: label, number, description. Numbers count up when they enter view; the border lights where the cursor is; the image card colours on hover.
 - "Eighty-six years, one line" is a scroll-driven timeline: the section pins, vertical scrolling moves sixteen moments sideways, a spectral progress line fills, the card at the centre lights up and opens, and the year rail jumps to any point. On phones it is a swipeable strip.
 - Fact cards tilt toward the cursor; the lead award and the quote deck carry a rotating spectral border; the photo strip is a coverflow; a soft cursor light follows the pointer.
 - Shape rule: panels 20px radius, images 14px, buttons and chips fully round.

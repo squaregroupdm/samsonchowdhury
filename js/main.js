@@ -24,6 +24,11 @@
     });
   }
 
+  /* ---- Signature draws itself once per visit ---- */
+  try {
+    if (!sessionStorage.getItem("shc-sig")) { $(".brand")?.classList.add("is-first"); sessionStorage.setItem("shc-sig", "1"); }
+  } catch {}
+
   /* ---- Nav: solid after the top of the page, current link, full-screen menu ---- */
   const nav = $(".nav");
   const sentinel = document.createElement("div");
@@ -72,7 +77,7 @@
       return `<span class="w${keys.includes(clean) ? " key" : ""}">${w}</span>`;
     }).join(" ");
     const spans = $$(".w", p);
-    if (reduce) { spans.forEach((s) => s.classList.add("lit")); return; }
+    if (reduce || p.closest(".statement-pin")) { if (reduce) spans.forEach((s) => s.classList.add("lit")); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
