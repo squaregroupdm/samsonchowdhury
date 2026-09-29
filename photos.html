@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0c0e">
+<title>Photos | Samson H Chowdhury</title>
+<meta name="description" content="Photo archive of Samson H Chowdhury: early life, family, work, dignitaries, foreign tours, philanthropy and memorials.">
+<meta property="og:title" content="Photos | Samson H Chowdhury">
+<meta property="og:description" content="Photo archive of Samson H Chowdhury: early life, family, work, dignitaries, foreign tours, philanthropy and memorials.">
+<meta property="og:image" content="https://samsonchowdhury.com/img/og.jpg">
+<link rel="icon" href="https://samsonchowdhury.com/images/samson-h-chowdhury.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="sky" data-sky aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-light" aria-hidden="true"></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="sq" aria-hidden="true"></span>Samson H Chowdhury <small>1925 - 2012</small></a>
+    <div class="nav-right">
+      <ul class="nav-inline"><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="txt">Menu</span><i></i></button>
+    </div>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Main menu">
+  <ul class="menu-links"><li><a href="index.html">Home</a></li><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul>
+  <div class="menu-side">
+    <img src="img/portrait-sm.jpg" alt="">
+    <p class="lead">Founder of Square Group. Born Aruakandi, Gopalganj, 25 September 1925. Died Singapore, 5 January 2012.</p>
+  </div>
+</nav>
+<main>
+<section class="page-hero">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="wrap grid">
+    <h1 class="h1 reveal">Eight albums, one life</h1>
+    <p class="lead reveal" data-delay="1">From infancy in Gopalganj to the launch of this archive. Family collection.</p>
+    <div class="tools pills reveal" role="tablist" data-album-pills data-delay="2"></div>
+  </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+  <div class="wrap">
+    <div class="stat-row reveal"><span class="stat" data-count></span></div>
+    <div class="gallery" data-gallery></div>
+  </div>
+</section>
+</main><footer class="footer">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="footer-mark reveal"><img src="img/signature.png" alt="Signature of Samson H Chowdhury"></div>
+    <div class="footer-grid">
+      <p class="lead">An archive of the life, work and words of the founder of Square Group, kept for the generations who will build on what he started.</p>
+      <div><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li></ul></div>
+      <div><h4>Archive</h4><ul><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Square Group. All rights reserved.</span>
+      <span>Aruakandi, Gopalganj, 1925. Astra Farmhouse, Pabna, 2012.</span>
+    </div>
+  </div>
+</footer>
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="icon-btn lb-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="lb-frame">
+    <button class="icon-btn lb-nav prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <div class="lb-media"></div>
+    <button class="icon-btn lb-nav next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="lb-cap"><span></span><b></b></div>
+  </div>
+</div>
+<script src="js/vendor/lenis.min.js"></script><script src="js/vendor/three.min.js"></script><script src="js/sky.js"></script>
+<script src="data/media-data.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function(){
+  var B = window.PHOTO_BASE, albums = window.ALBUMS || [];
+  var pills = document.querySelector('[data-album-pills]'), grid = document.querySelector('[data-gallery]'), count = document.querySelector('[data-count]');
+  var all = [];
+  albums.forEach(function(a){ a.files.forEach(function(f){ all.push({ album: a.id, albumTitle: a.title, src: B + 'photo-gallery/' + a.id + '/' + f + '.jpg', thumb: B + 'photo-gallery/' + a.id + '/' + f + '-th.jpg', caption: (a.captions && a.captions[f]) || a.title }); }); });
+  pills.innerHTML = '<button class="pill is-active" data-album="all" aria-selected="true">All albums</button>' + albums.map(function(a){ return '<button class="pill" data-album="' + a.id + '">' + a.title + ' <span class="muted">' + a.files.length + '</span></button>'; }).join('');
+  var current = all;
+  function render(list){
+    current = list;
+    grid.innerHTML = list.map(function(p, i){
+      return '<button class="ph reveal" data-i="' + i + '" aria-label="' + p.caption.replace(/"/g,'') + '"><img src="' + p.src + '" alt="' + p.caption.replace(/"/g,'') + '" loading="lazy"><div class="cap">' + p.caption + '</div></button>';
+    }).join('');
+    count.innerHTML = '<b>' + list.length + '</b> photographs';
+    window.observeNew && window.observeNew(grid);
+  }
+  render(all);
+  pills.addEventListener('click', function(e){
+    var b = e.target.closest('[data-album]'); if(!b) return;
+    pills.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('is-active'); p.setAttribute('aria-selected','false'); });
+    b.classList.add('is-active'); b.setAttribute('aria-selected','true');
+    var id = b.dataset.album; render(id === 'all' ? all : all.filter(function(p){ return p.album === id; }));
+  });
+  grid.addEventListener('click', function(e){ var b = e.target.closest('.ph'); if(b) window.openLightbox(current, +b.dataset.i); });
+})();
+</script>
+</body>
+</html>

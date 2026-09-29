@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0c0e">
+<title>Quotes | Samson H Chowdhury</title>
+<meta name="description" content="Sayings of Samson H Chowdhury, founder of Square Group: on quality, faith, honesty and enterprise.">
+<meta property="og:title" content="Quotes | Samson H Chowdhury">
+<meta property="og:description" content="Sayings of Samson H Chowdhury, founder of Square Group: on quality, faith, honesty and enterprise.">
+<meta property="og:image" content="https://samsonchowdhury.com/img/og.jpg">
+<link rel="icon" href="https://samsonchowdhury.com/images/samson-h-chowdhury.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="sky" data-sky aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-light" aria-hidden="true"></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="sq" aria-hidden="true"></span>Samson H Chowdhury <small>1925 - 2012</small></a>
+    <div class="nav-right">
+      <ul class="nav-inline"><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="txt">Menu</span><i></i></button>
+    </div>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Main menu">
+  <ul class="menu-links"><li><a href="index.html">Home</a></li><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul>
+  <div class="menu-side">
+    <img src="img/portrait-sm.jpg" alt="">
+    <p class="lead">Founder of Square Group. Born Aruakandi, Gopalganj, 25 September 1925. Died Singapore, 5 January 2012.</p>
+  </div>
+</nav>
+<main>
+<section class="page-hero">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="wrap grid">
+    <h1 class="h1 reveal">In his own words</h1>
+    <p class="lead reveal" data-delay="1">Plain sayings he repeated for decades, and the moments that produced them.</p>
+  </div>
+</section>
+<section class="section-tight">
+  <div class="wrap">
+    <div class="qw-hero reveal">
+      <blockquote id="q-hero"></blockquote>
+      <cite id="q-hero-cite"></cite>
+    </div>
+    <div class="quote-wall" data-quote-wall></div>
+  </div>
+</section>
+</main><footer class="footer">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="footer-mark reveal"><img src="img/signature.png" alt="Signature of Samson H Chowdhury"></div>
+    <div class="footer-grid">
+      <p class="lead">An archive of the life, work and words of the founder of Square Group, kept for the generations who will build on what he started.</p>
+      <div><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="biography.html">Biography</a></li><li><a href="accolades.html">Accolades</a></li><li><a href="recollections.html">Recollections</a></li></ul></div>
+      <div><h4>Archive</h4><ul><li><a href="photos.html">Photos</a></li><li><a href="videos.html">Videos</a></li><li><a href="newsroom.html">News Room</a></li><li><a href="quotes.html">Quotes</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Square Group. All rights reserved.</span>
+      <span>Aruakandi, Gopalganj, 1925. Astra Farmhouse, Pabna, 2012.</span>
+    </div>
+  </div>
+</footer>
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="icon-btn lb-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="lb-frame">
+    <button class="icon-btn lb-nav prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <div class="lb-media"></div>
+    <button class="icon-btn lb-nav next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="lb-cap"><span></span><b></b></div>
+  </div>
+</div>
+<script src="js/vendor/lenis.min.js"></script><script src="js/vendor/three.min.js"></script><script src="js/sky.js"></script>
+<script src="data/quotes-data.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function(){
+  var q = window.QUOTES || []; if(!q.length) return;
+  var hi = 0; q.forEach(function(x, k){ if (x.text.length < q[hi].text.length) hi = k; });
+  document.getElementById('q-hero').textContent = q[hi].text;
+  document.getElementById('q-hero-cite').textContent = q[hi].context || '';
+  var wall = document.querySelector('[data-quote-wall]');
+  wall.innerHTML = q.filter(function(x, k){ return k !== hi; }).map(function(x){
+    return '<article class="qw reveal"><blockquote>' + x.text + '</blockquote><div class="meta"><cite>' + (x.context||'') + '</cite><button class="btn" data-copy>Copy quote</button></div></article>';
+  }).join('');
+  window.observeNew && window.observeNew(wall);
+  wall.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if(!b) return;
+    var t = b.closest('.qw').querySelector('blockquote').textContent + ' - Samson H Chowdhury';
+    navigator.clipboard && navigator.clipboard.writeText(t).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy quote'; }, 1600); });
+  });
+})();
+</script>
+</body>
+</html>

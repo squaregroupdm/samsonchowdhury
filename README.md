@@ -1,0 +1,75 @@
+# Samson H Chowdhury website (v5: starry sky, portrait, scroll timeline)
+
+Plain HTML, CSS and JavaScript. No installation, no build step, no database.
+Upload the whole folder to any web host (Hostinger, cPanel, Cloudflare Pages, Netlify) and it works.
+
+## Files, sorted A to Z
+
+- accolades.html : Honours and positions held, with filter pills
+- biography.html : Decade timeline plus the full life story with a sticky table of contents
+- css/styles.css : The entire design system (colours, type, layout, motion)
+- data/media-data.js : Photo albums, captions and video list
+- data/news-data.js : Every News Room item. Edit this file to add news.
+- data/quotes-data.js : Every quote. Edit this file to add quotes.
+- data/tributes-data.js : The short recollections rotating on the home page
+- img/og.jpg : The picture shown when a link to the site is shared on WhatsApp or Facebook
+- img/portrait.jpg : The hero portrait (1400px wide); portrait-sm.jpg is the smaller copy used in the menu
+- img/signature.png : His signature, cut out with a transparent background, used in the hero and footer
+- index.html : Home page
+- js/main.js : Shared behaviour (menu, smooth scroll, reveals, cursor light, tilt cards, 3D ring, quote deck, lightbox)
+- js/sky.js : The starry sky behind every page (three depth layers, twinkle, shooting stars)
+- js/timeline.js : The scroll-driven timeline on the home page
+- js/vendor/ : Three.js, GSAP, ScrollTrigger and Lenis, stored locally so nothing depends on the internet
+- newsroom.html : Searchable, filterable news archive
+- photos.html : Album filter plus lightbox gallery
+- quotes.html : Quote wall with copy buttons
+- recollections.html : Ten tributes, expandable
+- videos.html : Video grid with in-page player
+
+## How to preview on your computer
+
+1. Unzip the folder.
+2. Double-click index.html. It opens in your browser.
+3. Click through the menu. Everything works offline except photos and videos, which load from the current samsonchowdhury.com server until you move them (see below).
+
+## How to add a news item (no coding needed)
+
+1. Open data/news-data.js in Notepad (Windows) or TextEdit (Mac).
+2. Copy one block that starts with { and ends with }, (including the comma).
+3. Paste it directly under the line `window.NEWS = [`.
+4. Change the date (YYYY-MM-DD), title, summary, source, url and type.
+   type must be one of: Tribute, Award, Event, Coverage, Announcement
+5. Save. Refresh the page. The newest date automatically becomes the featured story.
+
+Adding a quote works the same way in data/quotes-data.js.
+
+## Photos and videos
+
+Right now the pages load images from https://samsonchowdhury.com/en/photo-gallery/ and videos from https://samsonchowdhury.com/en/videos/.
+When you host the new site on samsonchowdhury.com itself:
+
+1. Copy the existing `photo-gallery` and `videos` folders into the same folder as index.html.
+2. In data/media-data.js change
+   `window.PHOTO_BASE = "https://samsonchowdhury.com/en/";` to `window.PHOTO_BASE = "";`
+   and `window.VIDEO_BASE = "https://samsonchowdhury.com/en/videos/";` to `window.VIDEO_BASE = "videos/";`
+
+To add a photo to an album: upload NN.jpg and NN-th.jpg (thumbnail) into that album's folder, then add "NN" to the album's files list in data/media-data.js.
+
+## Things to change before going live
+
+- recollections.html has a "Send a recollection" button. Replace REPLACE-WITH-YOUR-EMAIL with the real address.
+- The hero portrait on the home page currently uses photo-gallery/while-at-work-or-at-leisure/01.jpg. Swap the file name in index.html for the portrait you prefer.
+- The fonts (Geist, Geist Mono and Cormorant Garamond) load from Google Fonts. Everything else is local. If the font fails to load the site uses a system font.
+
+## Design notes
+
+- Register: futuristic and classy. Near-black midnight base with a starry sky behind every page; colour arrives only as light in four spectral hues (cyan, violet, magenta, amber). Geist for headlines and text, Geist Mono for years and labels, Cormorant Garamond for quotations only.
+- The sky is a live WebGL field: three layers of stars at different depths, twinkling, drifting gently with the cursor and with scroll, and shooting stars every few seconds. It runs behind the whole site.
+- The hero uses the portrait at full height on the right, masked so it dissolves into the sky, with a soft cyan-violet rim light behind it. His signature writes itself in at the top right, then a hairline settles under it.
+- "Eighty-six years, one line" is a scroll-driven timeline: the section pins, vertical scrolling moves sixteen moments sideways, a spectral progress line fills, the card at the centre lights up and opens, and the year rail jumps to any point. On phones it is a swipeable strip.
+- Fact cards tilt toward the cursor; the lead award and the quote deck carry a rotating spectral border; the photo strip is a coverflow; a soft cursor light follows the pointer.
+- Shape rule: panels 20px radius, images 14px, buttons and chips fully round.
+- All motion, including the sky, becomes still for visitors who set "reduce motion" in their system.
+
+## Replacing the portrait
+Put a new photo at img/portrait.jpg (about 1400px wide, taller than wide, subject in the upper half). The mask and glow adjust automatically.
