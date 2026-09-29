@@ -41,7 +41,7 @@
 html { -webkit-text-size-adjust: 100%; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
-body { margin: 0; background: linear-gradient(180deg, var(--sky-top) 0%, #0a1024 28%, var(--sky-bottom) 100%) fixed; color: var(--fg); font-family: var(--font); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { margin: 0; background: linear-gradient(180deg, #0c1530 0%, #080d20 30%, var(--sky-bottom) 100%) fixed; color: var(--fg); font-family: var(--font); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 img, video, canvas { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }

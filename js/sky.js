@@ -36,7 +36,7 @@
       const r = Math.random();
       const c = r < 0.72 ? palette[0] : r < 0.86 ? palette[1] : palette[2 + Math.floor(Math.random() * 4)];
       col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
-      sz[i] = size * (0.6 + Math.random() * (Math.random() < 0.05 ? 3 : 1));
+      sz[i] = size * (0.7 + Math.random() * (Math.random() < 0.08 ? 3.2 : 1.2));
       ph[i] = Math.random() * 6.283;
     }
     const geo = new T.BufferGeometry();
@@ -48,19 +48,19 @@
       uniforms: { map: { value: dot }, time: { value: 0 } },
       vertexShader: `attribute float size; attribute float phase; varying vec3 vC; varying float vA; uniform float time;
         void main(){ vC = color; vec4 mv = modelViewMatrix * vec4(position,1.0);
-          float tw = 0.55 + 0.45 * sin(time * (0.8 + fract(phase) * 1.6) + phase * 7.0);
+          float tw = 0.7 + 0.3 * sin(time * (0.8 + fract(phase) * 1.6) + phase * 7.0);
           vA = tw; gl_PointSize = size * (0.7 + 0.3 * tw) * 320.0 / -mv.z; gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform sampler2D map; varying vec3 vC; varying float vA;
-        void main(){ vec4 t = texture2D(map, gl_PointCoord); gl_FragColor = vec4(vC, t.a * vA); }`,
+        void main(){ vec4 t = texture2D(map, gl_PointCoord); gl_FragColor = vec4(vC, t.a * vA * 1.4); }`,
       vertexColors: true, transparent: true, depthWrite: false, blending: T.AdditiveBlending
     });
     const pts = new T.Points(geo, mat);
     scene.add(pts);
     layers.push({ pts, mat, speed });
   }
-  layer(1400, 26, 0.05, 0.12);
-  layer(700, 16, 0.07, 0.25);
-  layer(260, 8, 0.1, 0.45);
+  layer(4200, 26, 0.08, 0.12);
+  layer(1800, 16, 0.1, 0.25);
+  layer(800, 8, 0.17, 0.45);
 
   /* shooting stars */
   const shooters = [];
@@ -104,7 +104,7 @@
       l.pts.rotation.z = t * 0.004 * l.speed;
     });
     nextShot -= dt;
-    if (nextShot <= 0 && shooters.length < 2) { spawn(); nextShot = 3 + Math.random() * 5; }
+    if (nextShot <= 0 && shooters.length < 3) { spawn(); nextShot = 2 + Math.random() * 4; }
     for (let i = shooters.length - 1; i >= 0; i--) {
       const s = shooters[i]; s.life += dt;
       s.g.position.addScaledVector(s.dir, s.speed * dt);
