@@ -199,7 +199,7 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 .hero .wrap { position: relative; z-index: 1; padding-bottom: clamp(40px, 6vw, 80px); padding-top: calc(var(--nav-h) + 20px); }
 .hero-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; opacity: 0; animation: fade 1s var(--ease) 0.3s forwards; }
 .hero-title { font-size: clamp(3rem, 9vw, 10rem); line-height: 0.9; letter-spacing: -0.045em; font-weight: 500; }
-.hero-title .ln { display: block; overflow: hidden; }
+.hero-title .ln { display: block; overflow: hidden; padding-bottom: 0.16em; margin-bottom: -0.16em; }
 .hero-title .ln span { display: block; transform: translateY(110%); animation: rise 1.2s var(--ease) 0.15s forwards; }
 .hero-title .ln:nth-child(2) span { animation-delay: 0.28s; }
 .hero-bottom { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-top: clamp(28px, 4vw, 48px); align-items: end; }
@@ -209,6 +209,14 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 @keyframes rise { to { transform: none; } }
 @keyframes fade { to { opacity: 1; } }
 @media (max-width: 800px) { .hero-bottom .lead, .hero-bottom .cta { grid-column: 1 / -1; justify-content: flex-start; } }
+
+/* ---------- Motto: "Never Stop Thinking", written in ---------- */
+.motto { width: clamp(200px, 24vw, 360px); margin-bottom: 22px; }
+.motto img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 14px rgba(116, 230, 255, 0.35)); -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%); mask-image: linear-gradient(90deg, #000 40%, transparent 60%); -webkit-mask-size: 250% 100%; mask-size: 250% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0; animation: ink 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards; }
+@keyframes ink { to { -webkit-mask-position: 0% 0; mask-position: 0% 0; } }
+.scrub-hint span::after { content: " to turn"; }
+.scrub.is-armed ~ .scrub-hint { opacity: 1; }
+@media (max-width: 900px) { .motto { width: 200px; margin-bottom: 16px; } }
 
 /* ---------- Signature ---------- */
 .sig { position: absolute; top: calc(var(--nav-h) + clamp(10px, 2vw, 28px)); right: var(--gutter); z-index: 2; width: clamp(150px, 17vw, 240px); pointer-events: none; }
@@ -531,7 +539,7 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-img { opacity: 1; transform: none; clip-path: none; transition: none; }
   .hero-pin { height: auto; } .hero-pin .hero { position: relative; height: auto; min-height: 100dvh; }
-  .hero-title .ln span, .hero-bottom > *, .hero-chips, .portrait, .portrait img, .brand img, .scrub-hint { animation: none; transform: none; opacity: 1; clip-path: none; }
+  .hero-title .ln span, .hero-bottom > *, .hero-chips, .portrait, .portrait img, .brand img, .scrub-hint, .motto img { animation: none; -webkit-mask-image: none; mask-image: none; transform: none; opacity: 1; clip-path: none; }
   .statement .w { filter: none; }
   .statement-pin { height: auto; } .statement-sticky { position: static; min-height: 0; padding: 80px 0; }
   .glow::before, .glow::after, .grad, .aurora::before, .aurora::after, .tl-decade, .statement .w.key.lit, .cover figure { animation: none; }
