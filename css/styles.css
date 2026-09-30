@@ -166,8 +166,26 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 .section-head .side { grid-column: 9 / 13; display: flex; justify-content: flex-end; align-items: end; gap: 12px; }
 @media (max-width: 800px) { .section-head { grid-template-columns: 1fr; row-gap: 20px; } .section-head .h2, .section-head .side { grid-column: 1; justify-content: flex-start; } }
 
+/* ---------- Pinned hero with scroll-scrubbed portrait ---------- */
+.hero-pin { position: relative; height: 260vh; }
+.hero-pin .hero { position: sticky; top: 0; height: 100dvh; min-height: 0; }
+.scrub { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(360px, 54vw, 940px); z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s var(--ease); display: flex; align-items: flex-end; justify-content: center; }
+.scrub.is-ready { opacity: 1; }
+.scrub canvas { width: 100%; height: 100%; mix-blend-mode: screen; -webkit-mask-image: radial-gradient(ellipse 56% 52% at 50% 58%, #000 22%, transparent 66%); mask-image: radial-gradient(ellipse 56% 52% at 50% 58%, #000 22%, transparent 66%); filter: saturate(0.85) contrast(1.04); }
+.scrub::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 46% 52% at 52% 50%, rgba(116, 230, 255, 0.14), rgba(143, 116, 255, 0.07) 45%, transparent 72%); filter: blur(24px); z-index: -1; }
+.scrub-hint { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 2; display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); opacity: 0; animation: fade 1s var(--ease) 1.6s forwards; }
+.scrub-hint i { width: 64px; height: 1px; background: var(--line-2); position: relative; overflow: hidden; }
+.scrub-hint i::after { content: ""; position: absolute; inset: 0; background: var(--c1); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); transition: transform 0.2s linear; }
+@media (max-width: 900px) {
+  .hero-pin { height: 200vh; }
+  .scrub { width: 100%; height: 58vh; bottom: auto; top: 6vh; align-items: center; }
+  .scrub canvas { -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 26%, transparent 74%); mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 26%, transparent 74%); }
+  .scrub-hint { display: none; }
+}
+
 /* ---------- Hero with portrait ---------- */
 .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero .hero-bottom .cta { padding-right: 0; }
 .portrait { position: absolute; top: 15vh; right: 0; bottom: 0; width: clamp(360px, 54vw, 940px); z-index: 0; pointer-events: none; opacity: 0; animation: fade 1.8s var(--ease) 0.2s forwards; }
 .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; -webkit-mask-image: radial-gradient(ellipse 60% 50% at 60% 42%, #000 26%, transparent 74%); mask-image: radial-gradient(ellipse 60% 50% at 60% 42%, #000 26%, transparent 74%); filter: saturate(0.8) contrast(1.05) brightness(0.96); transform: scale(1.06); animation: settle 3s var(--ease) 0.2s forwards; }
 .portrait::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 60% 38%, rgba(116, 230, 255, 0.16), rgba(143, 116, 255, 0.08) 45%, transparent 72%); filter: blur(24px); z-index: -1; }
@@ -513,7 +531,8 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-img { opacity: 1; transform: none; clip-path: none; transition: none; }
-  .hero-title .ln span, .hero-bottom > *, .hero-chips, .portrait, .portrait img, .brand img { animation: none; transform: none; opacity: 1; clip-path: none; }
+  .hero-pin { height: auto; } .hero-pin .hero { position: relative; height: auto; min-height: 100dvh; }
+  .hero-title .ln span, .hero-bottom > *, .hero-chips, .portrait, .portrait img, .brand img, .scrub-hint { animation: none; transform: none; opacity: 1; clip-path: none; }
   .statement .w { filter: none; }
   .statement-pin { height: auto; } .statement-sticky { position: static; min-height: 0; padding: 80px 0; }
   .glow::before, .glow::after, .grad, .aurora::before, .aurora::after, .tl-decade, .statement .w.key.lit, .cover figure { animation: none; }

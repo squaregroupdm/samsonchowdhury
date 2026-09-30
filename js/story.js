@@ -53,7 +53,5 @@
       const amt = parseFloat(el.dataset.parallax) || 0.12;
       gsap.fromTo(el, { yPercent: -amt * 50 }, { yPercent: amt * 50, ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
     });
-    const portrait = document.querySelector(".portrait img");
-    if (portrait) gsap.to(portrait, { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   }
 })();
