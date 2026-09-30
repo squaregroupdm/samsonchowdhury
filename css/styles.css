@@ -154,7 +154,8 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 .menu-links a:hover, .menu-links a.is-current { color: var(--fg); }
 .menu-links a:hover { -webkit-text-fill-color: transparent; background: var(--spectrum); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
 .menu-links li a { transition-delay: calc(var(--i, 0) * 45ms + 120ms); }
-.menu-side { display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; }
+.menu-side { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; gap: 22px; }
+.menu-side p { width: min(100%, calc(min(60vh, 560px) * 0.8)); text-align: left; }
 .menu-side img { width: auto; max-width: 100%; height: min(60vh, 560px); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 8%; border-radius: var(--r-img); border: 1px solid var(--line); filter: grayscale(1) contrast(1.05); align-self: flex-end; }
 @media (max-width: 900px) { .menu { grid-template-columns: 1fr; } .menu-side img { display: none; } }
 
