@@ -95,6 +95,8 @@
     window.observeNew && window.observeNew(grid);
   }
   render(all);
+  // If the archive host is unreachable, show one quiet notice instead of a wall of empty tiles.
+  var probe = new Image(); probe.onerror = function(){ grid.innerHTML = '<div class="archive-note reveal in"><span class="mono">Photographs</span><p>The photograph archive is being moved onto this site and will appear here as soon as the files are in place.</p></div>'; count.innerHTML = ''; }; probe.src = all.length ? all[0].src : '';
   pills.addEventListener('click', function(e){
     var b = e.target.closest('[data-album]'); if(!b) return;
     pills.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('is-active'); p.setAttribute('aria-selected','false'); });

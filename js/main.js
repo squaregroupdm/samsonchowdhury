@@ -67,6 +67,13 @@
   }
   window.observeNew = observeNew;
   observeNew(document);
+  // Safety net: pinned sections shift the layout after the observer first measured, so also
+  // reveal anything that is inside the viewport whenever the page scrolls or resizes.
+  function sweep() {
+    const vh = window.innerHeight;
+    $$(".reveal:not(.in), .reveal-img:not(.in)").forEach((el) => { const r = el.getBoundingClientRect(); if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add("in"); });
+  }
+  if (!reduce) { let t = 0; const onS = () => { if (t) return; t = requestAnimationFrame(() => { sweep(); t = 0; }); }; window.addEventListener("scroll", onS, { passive: true }); window.addEventListener("resize", onS); if (window.__lenis) window.__lenis.on("scroll", onS); setTimeout(sweep, 1200); }
 
   /* ---- Statement: words light up as they cross the middle of the viewport ---- */
   $$(".statement p").forEach((p) => {
@@ -267,6 +274,16 @@
       if (e.key === "ArrowLeft") $(".lb-nav.prev", lb).click();
     });
   }
+
+  /* ---- Any photo that fails to load hides itself and marks its card ---- */
+  document.addEventListener("error", (e) => {
+    const img = e.target; if (!(img instanceof HTMLImageElement)) return;
+    img.classList.add("is-missing");
+    const card = img.closest(".tl-card, figure, .fact, .ph, .tribute-solo .img"); if (card) card.classList.add("no-img");
+    // a photo strip with nothing left to show folds away, so the page never holds an empty band
+    const strip = img.closest(".cover");
+    if (strip && !$("figure:not(.no-img)", strip)) { const sec = strip.closest("section") || strip; sec.hidden = true; sec.style.display = "none"; }
+  }, true);
 
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();

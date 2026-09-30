@@ -83,6 +83,7 @@
     return '<button class="vcard' + (i === 0 ? ' featured' : '') + ' reveal" data-i="' + i + '"><div class="vthumb"><video src="' + B + v.file + '#t=2" preload="metadata" muted playsinline aria-hidden="true"></video>' + play + '</div><div><h3>' + v.title + '</h3><p>' + v.blurb + '</p></div></button>';
   }).join('');
   window.observeNew && window.observeNew(wrap);
+  wrap.addEventListener('error', function(e){ if (e.target && e.target.tagName === 'VIDEO' && !wrap.dataset.off) { wrap.dataset.off = '1'; wrap.innerHTML = '<div class="archive-note reveal in"><span class="mono">Videos</span><p>The video archive is being moved onto this site and will appear here as soon as the files are in place.</p></div>'; } }, true);
   var items = vids.map(function(v){ return { video: true, src: B + v.file, caption: v.title }; });
   wrap.addEventListener('click', function(e){ var b = e.target.closest('.vcard'); if(b) window.openLightbox(items, +b.dataset.i); });
 })();
