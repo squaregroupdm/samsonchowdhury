@@ -15,7 +15,7 @@ Upload the whole folder to any web host (Hostinger, cPanel, Cloudflare Pages, Ne
 - img/never-stop-thinking.png : The handwritten motto above the name, transparent background
 - img/og.jpg : The picture shown when a link to the site is shared on WhatsApp or Facebook
 - img/portrait-sm.jpg : The portrait used in the menu overlay
-- img/seq/ : The 163 frames of the scroll-driven portrait (f001 to f163.webp), cut from SHC360.mp4 with the black background made transparent
+- img/seq/ : The 120 frames of the scroll-driven portrait (f001 to f120.webp), cut from SCH.mp4 with the black background made transparent
 - img/signature.png : His signature (from the clean master), transparent background, used above the footer; signature-sm.png is the header copy
 - index.html : Home page
 - js/main.js : Shared behaviour (menu, smooth scroll, reveals, cursor light, tilt cards, 3D ring, quote deck, lightbox)

@@ -10,7 +10,7 @@
   const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
   const pin = document.querySelector(".hero-pin");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const COUNT = 163, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
+  const COUNT = 120, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
   const canBitmap = "createImageBitmap" in window;
   let current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2), loaded = 0, travel = 1;
 
@@ -24,14 +24,16 @@
 
   function draw(f) {
     // f is a fractional frame index; draw the lower frame and blend the next one on top
-    const i = Math.floor(f), t = f - i, a = frames[i], b = frames[i + 1];
+    let i = Math.floor(f); const t = f - i;
+    while (i > 0 && !frames[i]) i--;
+    const a = frames[i], b = frames[i + 1];
     if (!a) return;
     const key = t < 0.02 || !b ? i : f.toFixed(2);
     if (key === current) return;
     current = key;
     const cw = canvas.width, ch = canvas.height, iw = a.width, ih = a.height;
-    const s = Math.min(cw / iw, ch / ih) * 0.88;
-    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.04, y = (ch - h) * 0.52;
+    const s = Math.min(cw / iw, ch / ih) * 0.78;
+    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.1, y = (ch - h) * 0.5;
     ctx.clearRect(0, 0, cw, ch);
     ctx.globalAlpha = 1; ctx.drawImage(a, x, y, w, h);
     if (b && t > 0.02) { ctx.globalAlpha = t; ctx.drawImage(b, x, y, w, h); ctx.globalAlpha = 1; }
@@ -66,14 +68,18 @@
     loaded++;
   }
 
+  function arm() { if (armed) return; armed = true; stage.classList.add("is-armed"); update(true); }
   (async () => {
     await load(0);
     stage.classList.add("is-ready"); size();
     if (reduce) return;
-    // six parallel lanes so the sequence fills in quickly; scrubbing starts only when all are in
-    const lanes = 6;
-    await Promise.all(Array.from({ length: lanes }, (_, k) => (async () => { for (let i = 1 + k; i < COUNT; i += lanes) await load(i); })()));
-    armed = true; stage.classList.add("is-armed"); update(true);
+    // six parallel lanes so the sequence fills in quickly. Arm once the set is essentially complete,
+    // and in any case after 8 seconds, so a single slow or missing file can never freeze the portrait.
+    const lanes = 6, timer = setTimeout(arm, 8000);
+    await Promise.all(Array.from({ length: lanes }, (_, k) => (async () => {
+      for (let i = 1 + k; i < COUNT; i += lanes) { await load(i); if (loaded >= COUNT * 0.9) arm(); }
+    })()));
+    clearTimeout(timer); arm();
   })();
 
   if (!reduce) {
