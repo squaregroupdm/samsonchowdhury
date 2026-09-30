@@ -10,7 +10,7 @@
   const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
   const pin = document.querySelector(".hero-pin");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const COUNT = 120, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
+  const COUNT = 163, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
   const canBitmap = "createImageBitmap" in window;
   let current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2), loaded = 0, travel = 1;
 
@@ -32,8 +32,8 @@
     if (key === current) return;
     current = key;
     const cw = canvas.width, ch = canvas.height, iw = a.width, ih = a.height;
-    const s = Math.min(cw / iw, ch / ih) * 0.78;
-    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.1, y = (ch - h) * 0.5;
+    const s = Math.min(cw / iw, ch / ih) * 0.88;
+    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.04, y = (ch - h) * 0.52;
     ctx.clearRect(0, 0, cw, ch);
     ctx.globalAlpha = 1; ctx.drawImage(a, x, y, w, h);
     if (b && t > 0.02) { ctx.globalAlpha = t; ctx.drawImage(b, x, y, w, h); ctx.globalAlpha = 1; }
@@ -50,11 +50,9 @@
     const l = window.__lenis;
     return l && typeof l.targetScroll === "number" ? l.targetScroll : (window.scrollY || 0);
   }
-  let armed = false;   // becomes true once every frame is decoded; until then the portrait holds on frame 1
   function update(force) {
     const p = Math.min(Math.max(scrollPos() / travel, 0), 1);
     if (force) current = -1;
-    if (!armed) { draw(0); return; }
     draw(p * (COUNT - 1));
     stage.style.setProperty("--p", p.toFixed(3));
   }
@@ -68,23 +66,23 @@
     loaded++;
   }
 
-  function arm() { if (armed) return; armed = true; stage.classList.add("is-armed"); update(true); }
   (async () => {
     await load(0);
-    stage.classList.add("is-ready"); size();
+    stage.classList.add("is-ready", "is-armed"); size();
     if (reduce) return;
-    // six parallel lanes so the sequence fills in quickly. Arm once the set is essentially complete,
-    // and in any case after 8 seconds, so a single slow or missing file can never freeze the portrait.
-    const lanes = 6, timer = setTimeout(arm, 8000);
-    await Promise.all(Array.from({ length: lanes }, (_, k) => (async () => {
-      for (let i = 1 + k; i < COUNT; i += lanes) { await load(i); if (loaded >= COUNT * 0.9) arm(); }
+    // Frames load strictly in order, six at a time, so whatever the visitor has scrolled to so far
+    // is always available; a frame that has not arrived yet shows its nearest loaded neighbour.
+    let next = 1;
+    await Promise.all(Array.from({ length: 6 }, () => (async () => {
+      while (next < COUNT) { const i = next++; await load(i); if (i % 4 === 0) update(true); }
     })()));
-    clearTimeout(timer); arm();
+    update(true);
   })();
 
   if (!reduce) {
     let raf = 0;
-    const tick = () => { update(); raf = requestAnimationFrame(tick); };
+    let last = -1;
+    const tick = () => { const sp = scrollPos(); if (sp !== last) { last = sp; update(); } raf = requestAnimationFrame(tick); };
     raf = requestAnimationFrame(tick);
     document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(tick); });
   }
