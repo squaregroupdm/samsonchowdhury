@@ -8,7 +8,7 @@
   /* ---- Smooth scroll (Lenis, optional). If the library fails to load, native scroll is used. ---- */
   let lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis = new window.Lenis({ lerp: 0.14, smoothWheel: true });
     window.__lenis = lenis;
     const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);

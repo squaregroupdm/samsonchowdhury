@@ -1,72 +1,76 @@
 /* Scroll-scrubbed portrait. The hero stays fixed on screen while you scroll; the scroll position
-   picks which frame of the 89-frame sequence to draw. Scroll down: forward. Scroll up: backward.
-   Frames live in img/seq/f001.webp to f089.webp. No library needed. */
+   picks which frame of the sequence to draw. Scroll down: forward. Scroll up: backward.
+   Frames are transparent WebP in img/seq/. They are decoded once into GPU-ready bitmaps, and the
+   frame index follows the wheel target directly (not the eased page position), so it answers the
+   instant you move. No library needed. */
 (function () {
   "use strict";
   const stage = document.querySelector("[data-scrub]");
   if (!stage) return;
-  const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d");
+  const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
   const pin = document.querySelector(".hero-pin");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const COUNT = 89, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
-  let ready = 0, current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const COUNT = 163, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
+  const canBitmap = "createImageBitmap" in window;
+  let current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2), loaded = 0, travel = 1;
 
   function size() {
     const r = stage.getBoundingClientRect();
     canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
     canvas.style.width = r.width + "px"; canvas.style.height = r.height + "px";
-    current = -1; draw(lastIndex);
+    travel = pin ? Math.max(pin.offsetHeight - window.innerHeight, 1) : 1;
+    current = -1; update(true);
   }
 
   function draw(i) {
     const img = frames[i];
-    if (!img || !img.complete || i === current) return;
+    if (!img || i === current) return;
     current = i;
-    const cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
-    // "contain" with the subject anchored to the bottom, so shoulders sit at the bottom edge
-    const s = Math.min(cw / iw, ch / ih);
-    const w = iw * s * 0.94, h = ih * s * 0.94, x = (cw - w) / 2, y = (ch - h) * 0.72;
+    const cw = canvas.width, ch = canvas.height, iw = img.width, ih = img.height;
+    const s = Math.min(cw / iw, ch / ih) * 0.88;
+    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.04, y = (ch - h) * 0.52;
     ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, x, y, w, h);
   }
 
-  let lastIndex = 0;
-  function progress() {
-    if (!pin) return 0;
-    const r = pin.getBoundingClientRect();
-    const travel = pin.offsetHeight - window.innerHeight;
-    if (travel <= 0) return 0;
-    return Math.min(Math.max(-r.top / travel, 0), 1);
+  // scroll position: the wheel target when smooth scrolling is on, else the real position
+  function scrollPos() {
+    const l = window.__lenis;
+    return l && typeof l.targetScroll === "number" ? l.targetScroll : (window.scrollY || 0);
   }
-  function update() {
-    const p = progress();
-    const i = Math.min(COUNT - 1, Math.round(p * (COUNT - 1)));
-    lastIndex = i;
-    // if that frame is not loaded yet, draw the nearest loaded one behind it
-    let j = i; while (j > 0 && !(frames[j] && frames[j].complete)) j--;
-    draw(j);
+  function update(force) {
+    const p = Math.min(Math.max(scrollPos() / travel, 0), 1);
+    let i = Math.min(COUNT - 1, Math.round(p * (COUNT - 1)));
+    while (i > 0 && !frames[i]) i--;              // nearest frame that has arrived
+    if (force) current = -1;
+    draw(i);
     stage.style.setProperty("--p", p.toFixed(3));
   }
 
-  // load frame 0 first, then the rest in order
-  function load(i) {
-    return new Promise((res) => {
-      const img = new Image(); img.decoding = "async";
-      img.onload = img.onerror = () => { ready++; res(); };
-      img.src = src(i); frames[i] = img;
-    });
+  async function load(i) {
+    try {
+      const img = new Image(); img.decoding = "async"; img.src = src(i);
+      await img.decode();
+      frames[i] = canBitmap ? await createImageBitmap(img) : img;
+    } catch (e) { /* skip a missing frame; neighbours cover it */ }
+    loaded++;
   }
-  load(0).then(() => {
-    stage.classList.add("is-ready"); size(); update();
-    if (reduce) { draw(0); return; }
-    (async () => { for (let i = 1; i < COUNT; i++) { await load(i); if (i % 8 === 0) update(); } update(); })();
-  });
+
+  (async () => {
+    await load(0);
+    stage.classList.add("is-ready"); size();
+    if (reduce) return;
+    // four parallel lanes so the sequence fills in quickly
+    const lanes = 4;
+    await Promise.all(Array.from({ length: lanes }, (_, k) => (async () => { for (let i = 1 + k; i < COUNT; i += lanes) { await load(i); if (loaded % 6 === 0) update(); } })()));
+    update(true);
+  })();
 
   if (!reduce) {
-    let ticking = false;
-    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { update(); ticking = false; }); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    if (window.__lenis) window.__lenis.on("scroll", onScroll);
+    let raf = 0;
+    const tick = () => { update(); raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(tick); });
   }
   window.addEventListener("resize", size);
 })();
