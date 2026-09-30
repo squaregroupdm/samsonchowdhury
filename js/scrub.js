@@ -31,6 +31,12 @@
     const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.04, y = (ch - h) * 0.52;
     ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, x, y, w, h);
+    // dissolve the lower quarter so the shoulders fade into the sky
+    const g = ctx.createLinearGradient(0, y + h * 0.72, 0, y + h);
+    g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,1)");
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = g; ctx.fillRect(x, y + h * 0.72, w, h * 0.28);
+    ctx.globalCompositeOperation = "source-over";
   }
 
   // scroll position: the wheel target when smooth scrolling is on, else the real position

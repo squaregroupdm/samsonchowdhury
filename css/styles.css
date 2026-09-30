@@ -171,7 +171,7 @@ body.menu-open .menu-links a { transform: none; opacity: 1; }
 .hero-pin .hero { position: sticky; top: 0; height: 100dvh; min-height: 0; }
 .scrub { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(360px, 54vw, 940px); z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s var(--ease); display: flex; align-items: flex-end; justify-content: center; }
 .scrub.is-ready { opacity: 1; }
-.scrub canvas { width: 100%; height: 100%; -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%); }
+.scrub canvas { width: 100%; height: 100%; }
 .scrub::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 40% 46% at 50% 52%, rgba(116, 230, 255, 0.1), rgba(143, 116, 255, 0.05) 45%, transparent 72%); filter: blur(28px); z-index: -1; }
 .scrub-hint { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 2; display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); opacity: 0; animation: fade 1s var(--ease) 1.6s forwards; }
 .scrub-hint i { width: 64px; height: 1px; background: var(--line-2); position: relative; overflow: hidden; }
