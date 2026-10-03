@@ -11,7 +11,7 @@
     if (!fine.matches) return;
     const star = document.createElement("div");
     star.className = "star-cursor"; star.setAttribute("aria-hidden", "true");
-    star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0c.7 7.2 4.8 11.3 12 12-7.2.7-11.3 4.8-12 12-.7-7.2-4.8-11.3-12-12 7.2-.7 11.3-4.8 12-12z"/></svg>';
+    star.innerHTML = '<i class="glow"></i><svg viewBox="0 0 24 24"><path d="M12 0c.7 7.2 4.8 11.3 12 12-7.2.7-11.3 4.8-12 12-.7-7.2-4.8-11.3-12-12 7.2-.7 11.3-4.8 12-12z"/></svg>';
     document.body.appendChild(star);
     const root = document.documentElement;
     const INTERACTIVE = "a, button, [role=button], summary, select, .ph, .vcard, .pill";
@@ -20,8 +20,8 @@
       if (!(target instanceof Element)) return;
       if (target.closest(INTERACTIVE)) { star.classList.add("is-link"); star.classList.remove("is-text"); return; }
       star.classList.remove("is-link");
-      const cur = getComputedStyle(target).cursor;
-      star.classList.toggle("is-text", cur === "text" || cur === "vertical-text" || target.closest("input, textarea, [contenteditable]") !== null);
+      // only form fields keep the native text cursor; everywhere else the star stays
+      star.classList.toggle("is-text", target.closest("input, textarea, select, [contenteditable]") !== null);
     }
     function move(e) {
       star.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
