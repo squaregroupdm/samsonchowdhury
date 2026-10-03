@@ -221,7 +221,7 @@ body.menu-open { overflow: hidden; }
 /* ---------- Star cursor (fine pointers only; added by js/cursor.js) ---------- */
 .star-cursor { position: fixed; left: 0; top: 0; width: 20px; height: 20px; margin: -10px 0 0 -10px; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 120ms; will-change: transform; contain: layout style; }
 .star-cursor svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; fill: var(--fg); filter: drop-shadow(0 0 3px rgba(242, 237, 227, 0.6)); transition: transform 140ms var(--ease), fill 140ms, opacity 120ms; transform-origin: 50% 50%; }
-.star-cursor .glow { position: absolute; left: 50%; top: 50%; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 237, 227, 0.16), rgba(212, 191, 152, 0.07) 40%, transparent 70%); mix-blend-mode: screen; transition: transform 160ms var(--ease), opacity 160ms; }
+.star-cursor .glow { position: absolute; left: 50%; top: 50%; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 237, 227, 0.14), rgba(212, 191, 152, 0.07) 35%, rgba(212, 191, 152, 0.025) 60%, transparent 72%); mix-blend-mode: screen; transition: transform 160ms var(--ease), opacity 160ms; }
 .star-cursor.is-on { opacity: 1; }
 .star-cursor.is-text svg { opacity: 0; }
 .star-cursor.is-link svg { transform: scale(1.45); fill: #fff; }
