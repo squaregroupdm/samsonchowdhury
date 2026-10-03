@@ -7,6 +7,44 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.remove("no-js");
 
+  /* ---- Glide scroll (mouse wheel and trackpad only). Each wheel tick sets a target and the page
+     glides to it over about a tenth of a second, time-based so it feels the same at any frame
+     rate. Keyboard, touch, anchors and scrollbars stay native; the target simply resyncs to
+     wherever the page is. Off under reduced motion and inside scrollable panels. ---- */
+  (function glideScroll() {
+    if (reduce || !window.matchMedia("(pointer: fine)").matches) return;
+    let target = window.scrollY, writing = 0, raf = 0, last = 0;
+    const maxY = () => Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    function frame(now) {
+      const y = window.scrollY, d = target - y;
+      if (Math.abs(d) <= 1) { writing = Math.round(target); window.scrollTo(0, writing); raf = 0; last = 0; return; }
+      const dt = last ? Math.min(now - last, 100) : 16; last = now;
+      const next = y + d * (1 - Math.exp(-dt / 90));
+      writing = Math.round(next); window.scrollTo(0, writing);
+      raf = requestAnimationFrame(frame);
+    }
+    function scrollsItself(el) { // is the wheel over a panel that scrolls on its own?
+      for (let n = el; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 1) return true;
+      }
+      return false;
+    }
+    window.addEventListener("wheel", (e) => {
+      if (e.ctrlKey || e.defaultPrevented) return; // pinch-zoom
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // sideways: leave to the browser
+      if (document.body.classList.contains("menu-open") || $(".lightbox.is-open") || scrollsItself(e.target)) return;
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+      if (!raf) target = window.scrollY; // start from where the page really is
+      target = Math.min(Math.max(target + e.deltaY * unit, 0), maxY());
+      if (!raf) raf = requestAnimationFrame(frame);
+    }, { passive: false });
+    window.addEventListener("scroll", () => { // someone else moved the page (keys, anchor, script): follow it
+      if (Math.abs(window.scrollY - writing) > 1) { target = window.scrollY; if (raf) { cancelAnimationFrame(raf); raf = 0; last = 0; } }
+    }, { passive: true });
+  })();
+
   /* ---- Header: solid once the page has scrolled, current page marked ---- */
   const nav = $(".nav");
   let solid = null;

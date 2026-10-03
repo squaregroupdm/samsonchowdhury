@@ -68,7 +68,7 @@
     const d = target - shown;
     if (Math.abs(d) < 0.0004) { shown = target; paint(shown); gliding = 0; last = 0; return; }
     const dt = last ? Math.min(now - last, 100) : 16; last = now;
-    shown += d * (1 - Math.exp(-dt / 90)); // time-based, so the glide feels the same at any frame rate
+    shown += d * (1 - Math.exp(-dt / 50)); // time-based, so the glide feels the same at any frame rate
     paint(shown);
     gliding = requestAnimationFrame(glide);
   }
