@@ -1,29 +1,36 @@
-/* Scroll-scrubbed portrait. The hero stays fixed on screen while you scroll; the scroll position
-   picks which frame of the sequence to draw. Scroll down: forward. Scroll up: backward.
-   Frames are transparent WebP in img/seq/. They are decoded once into GPU-ready bitmaps, and the
-   frame index follows the wheel target directly (not the eased page position), so it answers the
-   instant you move. No library needed. */
+/* Scroll-turned portrait. The hero stays on screen for one extra viewport of scrolling and the
+   scroll position chooses the frame: down turns forward, up turns back. Frames are transparent
+   WebP files in img/seq/, decoded once into bitmaps. Drawing happens only when the page scrolls,
+   never on a timer, and stops entirely once the hero has left the viewport.
+   A poster image sits behind the canvas until the first frame is ready. No library. */
 (function () {
   "use strict";
   const stage = document.querySelector("[data-scrub]");
   if (!stage) return;
-  const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
+  const canvas = stage.querySelector("canvas"), ctx = canvas.getContext("2d", { alpha: true });
   const pin = document.querySelector(".hero-pin");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const COUNT = 163, frames = new Array(COUNT), src = (i) => `img/seq/f${String(i + 1).padStart(3, "0")}.webp`;
+  const TOTAL = 163;
+  // On small screens or metered connections, use every second frame: half the bytes, same motion.
+  const conn = navigator.connection || {};
+  const slow = conn.saveData || /2g|3g/.test(conn.effectiveType || "");
+  const light = window.innerWidth < 900 || slow;
+  const step = slow ? 4 : light ? 2 : 1;
+  const idx = []; for (let i = 0; i < TOTAL; i += step) idx.push(i);
+  if (idx[idx.length - 1] !== TOTAL - 1) idx.push(TOTAL - 1);
+  const COUNT = idx.length, frames = new Array(COUNT);
+  const src = (k) => `img/seq/f${String(idx[k] + 1).padStart(3, "0")}.webp`;
   const canBitmap = "createImageBitmap" in window;
-  let current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2), loaded = 0, travel = 1;
+  let current = -1, dpr = Math.min(window.devicePixelRatio || 1, 2), travel = 1, queued = 0;
 
   function size() {
     const r = stage.getBoundingClientRect();
     canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
-    canvas.style.width = r.width + "px"; canvas.style.height = r.height + "px";
     travel = pin ? Math.max(pin.offsetHeight - window.innerHeight, 1) : 1;
-    current = -1; update(true);
+    current = -1; update();
   }
 
   function draw(f) {
-    // f is a fractional frame index; draw the lower frame and blend the next one on top
     let i = Math.floor(f); const t = f - i;
     while (i > 0 && !frames[i]) i--;
     const a = frames[i], b = frames[i + 1];
@@ -33,11 +40,10 @@
     current = key;
     const cw = canvas.width, ch = canvas.height, iw = a.width, ih = a.height;
     const s = Math.min(cw / iw, ch / ih) * 0.88;
-    const w = iw * s, h = ih * s, x = (cw - w) / 2 + cw * 0.04, y = (ch - h) * 0.52;
+    const w = iw * s, h = ih * s, x = (cw - w) / 2 + (light ? -cw * 0.03 : cw * 0.04), y = (ch - h) * 0.52;
     ctx.clearRect(0, 0, cw, ch);
     ctx.globalAlpha = 1; ctx.drawImage(a, x, y, w, h);
     if (b && t > 0.02) { ctx.globalAlpha = t; ctx.drawImage(b, x, y, w, h); ctx.globalAlpha = 1; }
-    // dissolve the lower quarter so the shoulders fade into the sky
     const g = ctx.createLinearGradient(0, y + h * 0.72, 0, y + h);
     g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,1)");
     ctx.globalCompositeOperation = "destination-out";
@@ -45,46 +51,35 @@
     ctx.globalCompositeOperation = "source-over";
   }
 
-  // scroll position: the wheel target when smooth scrolling is on, else the real position
-  function scrollPos() {
-    const l = window.__lenis;
-    return l && typeof l.targetScroll === "number" ? l.targetScroll : (window.scrollY || 0);
-  }
-  function update(force) {
-    const p = Math.min(Math.max(scrollPos() / travel, 0), 1);
-    if (force) current = -1;
+  function update() {
+    queued = 0;
+    const y = window.scrollY || 0;
+    if (y > travel + window.innerHeight) return; // hero is off screen: nothing to do
+    const p = Math.min(Math.max(y / travel, 0), 1);
     draw(p * (COUNT - 1));
     stage.style.setProperty("--p", p.toFixed(3));
   }
+  function onScroll() { if (!queued) queued = requestAnimationFrame(update); }
 
-  async function load(i) {
+  async function load(k) {
     try {
-      const img = new Image(); img.decoding = "async"; img.src = src(i);
+      const img = new Image(); img.decoding = "async"; img.src = src(k);
       await img.decode();
-      frames[i] = canBitmap ? await createImageBitmap(img) : img;
-    } catch (e) { /* skip a missing frame; neighbours cover it */ }
-    loaded++;
+      frames[k] = canBitmap ? await createImageBitmap(img) : img;
+    } catch (e) { /* a missing frame is covered by its neighbour */ }
   }
 
   (async () => {
     await load(0);
-    stage.classList.add("is-ready", "is-armed"); size();
+    stage.classList.add("is-ready"); size();
     if (reduce) return;
-    // Frames load strictly in order, six at a time, so whatever the visitor has scrolled to so far
-    // is always available; a frame that has not arrived yet shows its nearest loaded neighbour.
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", size);
+    // frames arrive in order, six at a time, so whatever has been scrolled to is always available
     let next = 1;
     await Promise.all(Array.from({ length: 6 }, () => (async () => {
-      while (next < COUNT) { const i = next++; await load(i); if (i % 4 === 0) update(true); }
+      while (next < COUNT) { const k = next++; await load(k); if (k % 4 === 0) { current = -1; update(); } }
     })()));
-    update(true);
+    current = -1; update();
   })();
-
-  if (!reduce) {
-    let raf = 0;
-    let last = -1;
-    const tick = () => { const sp = scrollPos(); if (sp !== last) { last = sp; update(); } raf = requestAnimationFrame(tick); };
-    raf = requestAnimationFrame(tick);
-    document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(tick); });
-  }
-  window.addEventListener("resize", size);
 })();

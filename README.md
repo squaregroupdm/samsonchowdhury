@@ -1,81 +1,86 @@
-# Samson H Chowdhury website (v5: starry sky, portrait, scroll timeline)
+# Samson H Chowdhury website (v6: dignified, editorial, immediate)
 
-Plain HTML, CSS and JavaScript. No installation, no build step, no database.
-Upload the whole folder to any web host (Hostinger, cPanel, Cloudflare Pages, Netlify) and it works.
+Plain HTML, CSS and JavaScript. No installation, no build step, no database, no libraries.
+Upload the whole folder to any web host and it works. The live copy is deployed from this
+repository to Cloudflare Workers (see wrangler.jsonc).
 
 ## Files, sorted A to Z
 
-- accolades.html : Honours and positions held, with filter pills
-- biography.html : Decade timeline plus the full life story with a sticky table of contents
-- css/styles.css : The entire design system (colours, type, layout, motion)
+- about.html : About this archive: purpose, sources, accuracy notes, language
+- accolades.html : Honours (award name first, year second) and positions held, with filter pills
+- build/ : The Python templates that generate every HTML page. Edit a template, then run `python3 build/build_all.py`. Editing the HTML directly also works, but the next build would overwrite it.
+- biography.html : Portrait header, decade timeline, the full life story with a sticky table of contents and three archival photographs
+- css/styles.css : The entire design system (colours, type scale, layout, motion)
 - data/media-data.js : Photo albums, captions and video list
-- data/news-data.js : Every News Room item. Edit this file to add news.
-- data/quotes-data.js : Every quote. Edit this file to add quotes.
+- data/news-data.js : Every News Room record. Each has a stable id used for its permanent link.
+- data/quotes-data.js : Every quote. Each has a stable id used for its permanent link.
 - data/tributes-data.js : The short recollections rotating on the home page
+- img/favicon.svg : Browser tab icon
 - img/never-stop-thinking.png : The handwritten motto above the name, transparent background
 - img/og.jpg : The picture shown when a link to the site is shared on WhatsApp or Facebook
-- img/portrait-sm.jpg : The portrait used in the menu overlay
-- img/seq/ : The 163 frames of the scroll-driven portrait (f001 to f163.webp), cut from SHC360.mp4 with the black background made transparent
-- img/signature.png : His signature (from the clean master), transparent background, used above the footer; signature-sm.png is the header copy
+- img/portrait-bio.jpg : The full portrait, used on the Biography page
+- img/portrait-sm.jpg : The small portrait used in the menu
+- img/portrait-tribute.jpg : The portrait beside the recollection on the home page
+- img/seq/ : The 163 frames of the scroll-turned portrait (f001 to f163.webp), background made transparent
+- img/signature.png : His signature, transparent background, above the footer; signature-sm.png is the header copy
 - index.html : Home page
-- js/main.js : Shared behaviour (menu, smooth scroll, reveals, cursor light, tilt cards, 3D ring, quote deck, lightbox)
-- js/sky.js : The starry sky behind every page (three depth layers, twinkle, shooting stars)
-- js/scrub.js : The scroll-driven portrait in the hero (draws the frame that matches the scroll position)
-- js/story.js : Home-page storytelling: count-up numbers, the sticky statement, parallax
-- js/timeline.js : The scroll-driven timeline on the home page
-- js/vendor/ : Three.js, GSAP, ScrollTrigger and Lenis, stored locally so nothing depends on the internet
-- newsroom.html : Searchable, filterable news archive
+- js/main.js : Shared behaviour (header, menu, reveals, quote deck, recollection carousel, lightbox, copy buttons)
+- js/scrub.js : The scroll-turned portrait in the hero (draws the frame that matches the scroll position)
+- js/sky.js : The star field behind every page, drawn once
+- js/story.js : Count-up for the one quantity on the home page (36,000)
+- js/timeline.js : The milestones scroller on the home page (previous/next, year rail, keyboard)
+- newsroom.html : Searchable, filterable news archive with permanent links per record
 - photos.html : Album filter plus lightbox gallery
-- quotes.html : Quote wall with copy buttons
-- recollections.html : Ten tributes, expandable
-- videos.html : Video grid with in-page player
+- quotes.html : Quote wall with copy and permanent-link buttons
+- recollections.html : One featured recollection, nine more that expand in place
+- videos.html : Film grid with in-page player, duration badges and error states
+- wrangler.jsonc : Cloudflare Workers deployment settings (static assets from this folder)
 
 ## How to preview on your computer
 
-1. Unzip the folder.
+1. Download the folder.
 2. Double-click index.html. It opens in your browser.
-3. Click through the menu. Everything works offline except photos and videos, which load from the current samsonchowdhury.com server until you move them (see below).
+3. Everything works offline except photos and videos, which still load from the old samsonchowdhury.com server (see below).
 
 ## How to add a news item (no coding needed)
 
 1. Open data/news-data.js in Notepad (Windows) or TextEdit (Mac).
 2. Copy one block that starts with { and ends with }, (including the comma).
 3. Paste it directly under the line `window.NEWS = [`.
-4. Change the date (YYYY-MM-DD), title, summary, source, url and type.
+4. Change the id (short, unique, never change it later), date (YYYY-MM-DD), title, summary, source, url and type.
    type must be one of: Tribute, Award, Event, Coverage, Announcement
-5. Save. Refresh the page. The newest date automatically becomes the featured story.
+   url: paste the link to the original article, or leave "" if there is none. Never invent one.
+5. Save. Refresh the page. The newest date becomes the featured record ("From the archive").
 
-Adding a quote works the same way in data/quotes-data.js.
+Adding a quote works the same way in data/quotes-data.js (give it an id too).
 
 ## Photos and videos
 
-Right now the pages load images from https://samsonchowdhury.com/en/photo-gallery/ and videos from https://samsonchowdhury.com/en/videos/.
-When you host the new site on samsonchowdhury.com itself:
+The pages still load images from https://samsonchowdhury.com/en/photo-gallery/ and videos from https://samsonchowdhury.com/en/videos/.
+If that server cannot be reached, every photo hides itself cleanly, the milestone cards fall back to a typographic design, and the Photos and Videos pages show one quiet notice instead of empty tiles.
 
-1. Copy the existing `photo-gallery` and `videos` folders into the same folder as index.html.
+To make the site self-contained:
+
+1. Copy the old site's `photo-gallery` and `videos` folders into the same folder as index.html.
 2. In data/media-data.js change
    `window.PHOTO_BASE = "https://samsonchowdhury.com/en/";` to `window.PHOTO_BASE = "";`
    and `window.VIDEO_BASE = "https://samsonchowdhury.com/en/videos/";` to `window.VIDEO_BASE = "videos/";`
+3. In build/build_common.py change `P = "https://samsonchowdhury.com/en/photo-gallery/"` to `P = "photo-gallery/"` and run `python3 build/build_all.py` (or search index.html and biography.html for the old address and replace it with `photo-gallery/`).
 
-To add a photo to an album: upload NN.jpg and NN-th.jpg (thumbnail) into that album's folder, then add "NN" to the album's files list in data/media-data.js.
+To add a photo to an album: upload NN.jpg into that album's folder, then add "NN" to the album's files list in data/media-data.js.
 
-## Things to change before going live
+## Things still needed
 
-- recollections.html has a "Send a recollection" button. Replace REPLACE-WITH-YOUR-EMAIL with the real address.
-- The hero portrait on the home page currently uses photo-gallery/while-at-work-or-at-leisure/01.jpg. Swap the file name in index.html for the portrait you prefer.
-- The fonts (Geist, Geist Mono and Cormorant Garamond) load from Google Fonts. Everything else is local. If the font fails to load the site uses a system font.
+- A contact address for "Send a recollection". The old placeholder link was removed; the invitation will go back on recollections.html once a real address is supplied.
+- The original photo-gallery and videos folders, so the archive no longer depends on the old server.
+- A reviewed Bangla translation before any language switch is added.
 
 ## Design notes
 
-- Register: futuristic and classy. Near-black midnight base with a starry sky behind every page; colour arrives only as light in four spectral hues (cyan, violet, magenta, amber). Geist for headlines and text, Geist Mono for years and labels, Cormorant Garamond for quotations only.
-- The sky is a live WebGL field: three layers of stars at different depths, twinkling, drifting gently with the cursor and with scroll, and shooting stars every few seconds. It runs behind the whole site.
-- The hero is pinned for about one and a half screens of scrolling. On the right, a 163-frame sequence cut from a 3D orbit of his portrait plays forward as you scroll down and backward as you scroll up; the page only moves on once the orbit is complete. The black background was cut out of every frame, so he sits on the sky with no veil. Frames are decoded once into GPU bitmaps; the frame index follows the wheel directly from the first scroll (frames load in order, so early scrolling always has what it needs) with a cross-fade between neighbouring frames, so there is no lag and no self-motion. "Never Stop Thinking" writes itself in above the name on load. His signature is the site mark in the header and draws itself once per visit.
-- "The man" is a sticky editorial statement: the section holds for part of the scroll while the words sharpen from blur, justified, at reading size.
-- Fact cards are compact: label, number, description. Numbers count up when they enter view; the border lights where the cursor is; the image card colours on hover.
-- "Eighty-six years, one line" is a scroll-driven timeline: the section pins, vertical scrolling moves sixteen moments sideways, a spectral progress line fills, the card at the centre lights up and opens, and the year rail jumps to any point. On phones it is a swipeable strip.
-- Fact cards tilt toward the cursor; the lead award and the quote deck carry a rotating spectral border; the photo strip is a coverflow; a soft cursor light follows the pointer.
-- Shape rule: panels 20px radius, images 14px, buttons and chips fully round.
-- All motion, including the sky, becomes still for visitors who set "reduce motion" in their system.
-
-## Replacing the hero video
-Film or render the subject on pure black. Ask for the frames to be extracted and keyed (the script is in the project notes); name them f001.webp onward in img/seq/, and set COUNT in js/scrub.js to the number of frames.
+- Register: dignified, editorial, cinematic, historically credible. Deep ink background, warm ivory text, one champagne accent. Geist for navigation and body, Cormorant Garamond for quotations only.
+- Scrolling is native everywhere. Nothing intercepts the wheel or touch. There is no smooth-scroll library, no scroll-jacking and no mandatory snapping.
+- The hero holds for one extra screen of scrolling while the portrait turns; the frame follows the scroll position directly, in both directions. A poster frame shows until the first frame is decoded; under "reduce motion" the portrait is a still and the page does not hold.
+- The home page shows eight milestones in a horizontal scroller with previous/next buttons, a year rail and keyboard arrows. It never captures vertical scrolling. On phones the cards stack.
+- Motion is short (150 to 320 ms), one-time, opacity and transform only. Nothing animates permanently; the one exception is a faint shooting star every nine to sixteen seconds, which runs for under a second and is off under "reduce motion".
+- Type scale: hero name 44 to 100 px, inner-page titles 38 to 64 px, section headings 30 to 40 px, body 17 px at line height 1.6, labels 13 px.
+- Every quotation, recollection, news record and film has a permanent link.
