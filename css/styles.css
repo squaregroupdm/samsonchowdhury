@@ -145,7 +145,7 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 720px) { .section-head { flex-direction: column; align-items: flex-start; } .section-head .side { justify-content: flex-start; } }
 
 /* ---------- Hero with the scroll-turned portrait ---------- */
-.hero-pin { position: relative; height: 200vh; }
+.hero-pin { position: relative; height: 340vh; }
 .hero-pin .hero { position: sticky; top: 0; height: 100vh; height: 100dvh; }
 .hero { position: relative; display: flex; align-items: center; overflow: hidden; }
 .hero .wrap { position: relative; z-index: 1; padding-top: var(--nav-h); width: min(var(--max), 100% - 2 * var(--gutter)); }
@@ -164,7 +164,7 @@ body.menu-open { overflow: hidden; }
 .hero .lead { margin-top: 22px; }
 .hero .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
 @media (max-width: 900px) {
-  .hero-pin { height: 160vh; }
+  .hero-pin { height: 230vh; }
   .hero { flex-direction: column; justify-content: center; align-items: stretch; }
   .hero .wrap { padding-top: 0; padding-bottom: 0; }
   .hero-copy { max-width: none; }

@@ -51,13 +51,34 @@
     ctx.globalCompositeOperation = "source-over";
   }
 
+  // The frame follows the scroll position through a short glide (about a tenth of a second), so
+  // the turn reads as one continuous motion rather than a series of steps. The glide loop runs
+  // only until it has caught up, then stops.
+  let target = 0, shown = 0, gliding = 0;
+  function progress() {
+    const y = window.scrollY || 0;
+    return Math.min(Math.max(y / travel, 0), 1);
+  }
+  function paint(p) {
+    draw(p * (COUNT - 1));
+    stage.style.setProperty("--p", p.toFixed(3));
+  }
+  let last = 0;
+  function glide(now) {
+    const d = target - shown;
+    if (Math.abs(d) < 0.0004) { shown = target; paint(shown); gliding = 0; last = 0; return; }
+    const dt = last ? Math.min(now - last, 100) : 16; last = now;
+    shown += d * (1 - Math.exp(-dt / 90)); // time-based, so the glide feels the same at any frame rate
+    paint(shown);
+    gliding = requestAnimationFrame(glide);
+  }
   function update() {
     queued = 0;
     const y = window.scrollY || 0;
-    if (y > travel + window.innerHeight) return; // hero is off screen: nothing to do
-    const p = Math.min(Math.max(y / travel, 0), 1);
-    draw(p * (COUNT - 1));
-    stage.style.setProperty("--p", p.toFixed(3));
+    if (y > travel + window.innerHeight) { if (gliding) { cancelAnimationFrame(gliding); gliding = 0; } return; } // hero is off screen
+    target = progress();
+    if (reduce) { shown = target; paint(shown); return; }
+    if (!gliding) gliding = requestAnimationFrame(glide);
   }
   function onScroll() { if (!queued) queued = requestAnimationFrame(update); }
 
