@@ -260,6 +260,10 @@ html.has-star :is(a, button, [role="button"], summary, select, .ph, .vcard, .pil
 .tl-card.no-img .ghost { position: absolute; top: 12px; right: 16px; z-index: 2; font-family: var(--mono); font-size: 5.5rem; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px var(--line-2); pointer-events: none; }
 .tl-card:not(.no-img) .ghost { display: none; }
 .tl-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 22px; flex-wrap: wrap; }
+/* pinned mode: the section is as tall as the sideways travel plus one screen; its content sticks */
+[data-timeline].is-pinned { height: calc(100vh + var(--tl-travel, 0px)); padding: 0; }
+[data-timeline].is-pinned > .wrap { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding-top: var(--nav-h); }
+[data-timeline].is-pinned .tl-track { scroll-snap-type: none; overflow-x: hidden; }
 @media (max-width: 720px) {
   .tl-head { flex-direction: column; align-items: flex-start; }
   .tl-nav, .tl-rail, .tl-line { display: none; }

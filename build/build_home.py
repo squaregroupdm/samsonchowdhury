@@ -60,7 +60,7 @@ body = f'''
         <span class="chip">1925 - 2012</span>
       </div>
       <h1 class="hero-title">Samson H Chowdhury</h1>
-      <p class="lead">A village pharmacy in Pabna became one of Bangladesh's largest conglomerates. His life, his work and his words, kept here for the record.</p>
+      <p class="lead">A dreamer who saw possibilities beyond his time. A visionary who turned belief into enterprise, and a lifetime of work into inspiration for generations.</p>
       <div class="cta"><a class="btn btn-primary" href="biography.html">Read his story {A}</a><a class="btn" href="newsroom.html">Explore the archive</a></div>
     </div>
   </div>

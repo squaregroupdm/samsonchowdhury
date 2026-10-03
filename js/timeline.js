@@ -10,6 +10,33 @@
   const prev = wrap.querySelector("[data-tl-prev]"), next = wrap.querySelector("[data-tl-next]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let active = 0, pending = null, settle = 0;
+  // Pinned mode (wide screens, no reduced motion): the section holds on screen and vertical
+  // scrolling moves the cards sideways, one pixel for one pixel, until the last card is reached.
+  const pinnable = () => window.matchMedia("(min-width: 900px) and (min-height: 640px)").matches && !reduce;
+  let pinned = false, top = 0, travel = 1, maxX = 0, queued = 0;
+  function measurePin() {
+    const was = pinned; pinned = pinnable();
+    wrap.classList.toggle("is-pinned", pinned);
+    if (!pinned) { if (was) wrap.style.removeProperty("--tl-travel"); return; }
+    maxX = Math.max(track.scrollWidth - track.clientWidth, 0);
+    travel = Math.max(maxX, 1);
+    wrap.style.setProperty("--tl-travel", travel + "px");
+    top = wrap.getBoundingClientRect().top + window.scrollY;
+  }
+  function follow() {
+    queued = 0;
+    if (!pinned) return;
+    const y = window.scrollY;
+    if (y + window.innerHeight < top || y > top + wrap.offsetHeight) return;
+    const p = Math.min(Math.max((y - top) / travel, 0), 1);
+    const x = Math.round(p * maxX);
+    if (Math.abs(track.scrollLeft - x) >= 1) track.scrollLeft = x;
+    if (fill) fill.style.transform = `scaleX(${p})`;
+    setActive(Math.round(p * (cards.length - 1))); // progress maps evenly onto the cards
+  }
+  window.addEventListener("scroll", () => { if (!queued) queued = requestAnimationFrame(follow); }, { passive: true });
+  window.addEventListener("resize", () => { measurePin(); follow(); });
+  window.addEventListener("load", () => { measurePin(); follow(); });
 
   cards.forEach((c, i) => {
     const b = document.createElement("button");
@@ -29,6 +56,7 @@
   function goTo(i) {
     i = Math.max(0, Math.min(cards.length - 1, i));
     pending = i; // a requested card stays active until the track has stopped moving
+    if (pinned) { pending = null; window.scrollTo({ top: Math.round(top + (i / Math.max(cards.length - 1, 1)) * travel), behavior: "smooth" }); setActive(i); return; }
     track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior: reduce ? "auto" : "smooth" });
     setActive(i);
     clearTimeout(settle); settle = setTimeout(() => { pending = null; }, 2000);
@@ -39,6 +67,7 @@
     if (raf) return;
     raf = requestAnimationFrame(() => {
       raf = 0;
+      if (pinned) return; // the page scroll drives everything in pinned mode
       const max = track.scrollWidth - track.clientWidth;
       if (fill) fill.style.transform = `scaleX(${max > 0 ? track.scrollLeft / max : 0})`;
       if (pending !== null) { // hold the requested card until the track has arrived (or hit its end)
@@ -60,4 +89,5 @@
     if (e.key === "ArrowLeft") { e.preventDefault(); goTo(active - 1); }
   });
   setActive(0);
+  measurePin(); follow();
 })();
