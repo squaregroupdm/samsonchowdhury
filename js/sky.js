@@ -13,11 +13,11 @@
   host.append(main, fx);
   const mctx = main.getContext("2d"), fctx = fx.getContext("2d");
   const LAYERS = [ // density (px² per star), size, pointer amplitude px, scroll speed
-    { per: 5200, size: 0.9, amp: 8, speed: 0.02, stars: null },
-    { per: 7000, size: 1.25, amp: 18, speed: 0.045, stars: null },
-    { per: 16000, size: 1.8, amp: 34, speed: 0.08, stars: null },
+    { per: 1500, size: 0.85, amp: 10, speed: 0.025, stars: null },
+    { per: 2600, size: 1.2, amp: 22, speed: 0.05, stars: null },
+    { per: 6500, size: 1.7, amp: 40, speed: 0.09, stars: null },
   ];
-  let w = 0, h = 0, dpr = 1, px = 0, py = 0, sparkles = [], queued = 0;
+  let w = 0, h = 0, dpr = 1, px = 0, py = 0, tx = 0, ty = 0, sparkles = [], queued = 0;
   let seed = 7;
   const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
 
@@ -36,7 +36,7 @@
         const size = L.size * (0.5 + rnd() * 0.8), a = 0.2 + rnd() * 0.55;
         g.fillStyle = rnd() < 0.12 ? `rgba(230, 214, 184, ${a})` : `rgba(235, 238, 245, ${a})`;
         g.beginPath(); g.arc(x, y, size, 0, 6.2832); g.fill();
-        if (li === 2 && r > 0.93) sparkles.push({ x, y, phase: rnd() * 6.28, rate: 0.6 + rnd() * 1.2, size: size + 0.6 });
+        if (li === 2 && r > 0.8) sparkles.push({ x, y, phase: rnd() * 6.28, rate: 0.6 + rnd() * 1.2, size: size + 0.6 });
         if (r > 0.985) { const gr = g.createRadialGradient(x, y, 0, x, y, 6); gr.addColorStop(0, "rgba(235,238,245,0.3)"); gr.addColorStop(1, "rgba(235,238,245,0)"); g.fillStyle = gr; g.beginPath(); g.arc(x, y, 6, 0, 6.2832); g.fill(); }
       }
       L.stars = c; L.pad = pad; L.lh = lh;
@@ -64,7 +64,7 @@
   if (reduce) return;
 
   window.addEventListener("scroll", request, { passive: true });
-  window.addEventListener("pointermove", (e) => { if (e.pointerType === "touch") return; px = (e.clientX / w) * 2 - 1; py = (e.clientY / h) * 2 - 1; request(); }, { passive: true });
+  window.addEventListener("pointermove", (e) => { if (e.pointerType === "touch") return; tx = (e.clientX / w) * 2 - 1; ty = (e.clientY / h) * 2 - 1; }, { passive: true });
 
   /* Twinkle at 8 frames a second, plus the occasional shooting star, on the small fx canvas. */
   let shot = null, nextShot = performance.now() + 6000 + Math.random() * 6000;
@@ -93,10 +93,13 @@
       if (k >= 1) { shot = null; nextShot = now + 9000 + Math.random() * 7000; }
     }
   }
-  function loop() {
-    if (!document.hidden) sparkleFrame(performance.now());
-    // full frame rate only while a shooting star is in flight, otherwise 8 fps
-    setTimeout(() => requestAnimationFrame(loop), shot ? 0 : 125);
+  function loop(now) {
+    requestAnimationFrame(loop);
+    if (document.hidden) return;
+    // the layers glide towards the pointer rather than jumping to it
+    const dx = tx - px, dy = ty - py;
+    if (Math.abs(dx) > 0.0005 || Math.abs(dy) > 0.0005) { px += dx * 0.06; py += dy * 0.06; compose(); }
+    sparkleFrame(now);
   }
   requestAnimationFrame(loop);
 })();
