@@ -18,6 +18,35 @@ cards = "".join(
     f'<div class="yr">{yr}<span>{sub}</span></div><h3>{h}</h3><p>{p}</p></article>'
     for yr, sub, h, p, img in MILESTONES)
 
+CH = [
+ ("Beginnings", "1925 to 1952", "A doctor's son who would not take no",
+  "Born at Aruakandi, Gopalganj, the eldest son of a mission-hospital medical officer. Schooled in Chandpur, Pabna, Mymensingh and Bishnupur. At 17 he left home for the Royal Indian Navy and refused a signals posting until, after five days in custody, he was given radar.",
+  "biography.html#early-life", "Early life and the Navy", P + "early-life/05.jpg", "Young Samson. From the album Early Life."),
+ ("The founding", "1952 to 1958", "Four friends, Rs 17,000, a tin shed",
+  "In 1952 he took over his father's medicine shop in Ataikula. By 1956 he was making syrups at home, his wife Anita his only assistant. In 1958, with three friends, he opened Square in a rented tin shed in Pabna with twelve workers. No profit for three years.",
+  "biography.html#square", "The establishment of Square", P + "while-at-work-or-at-leisure/02.jpg", "At work. From the album At Work and at Leisure."),
+ ("The standard", "1974 to 2012", "Quality, quality and quality everywhere",
+  "A licence from Janssen Pharmaceutica in 1974 rebuilt the plant to international standards. Market leader by 1985, the first Bangladeshi pharmaceutical exporter in 1987, UK MHRA approval in 2007 and TGA Australia in 2012. His motto never changed.",
+  "biography.html#growth", "The growth of Square", P + "while-at-work-or-at-leisure/10.jpg", "From the album At Work and at Leisure."),
+ ("The man", "1925 to 2012", "To his followers, a hero",
+  "To his contemporaries, an icon. To young entrepreneurs, a mentor. To regulators, a symbol of fairness. He put people's welfare at the centre of enterprise, and in five decades there was never a single day of labour unrest in any company he built.",
+  "recollections.html", "How his peers remember him", "img/portrait-tribute.jpg", "Samson H Chowdhury."),
+]
+chapters = "".join(f'''<article class="ch" data-ch="{i}" id="chapter-{i+1}">
+        <div class="ch-copy">
+          <span class="mono">Chapter {i+1}. {label}, {yrs}</span>
+          <h2 class="h2">{title}</h2>
+          <p>{text}</p>
+          <a class="btn btn-sm" href="{href}">{link} {A}</a>
+        </div>
+        <figure class="ch-art">
+          <img class="ch-back" src="{img}" alt="" loading="{"eager" if i == 0 else "lazy"}" width="900" height="600" data-fallback="img/portrait-tribute.jpg" aria-hidden="true">
+          <div class="ch-front"><img src="{img}" alt="{cap}" loading="{"eager" if i == 0 else "lazy"}" width="900" height="1125" data-fallback="img/portrait-tribute.jpg"></div>
+          <figcaption class="small">{cap}</figcaption>
+        </figure>
+      </article>''' for i,(label,yrs,title,text,href,link,img,cap) in enumerate(CH))
+chapter_nav = "".join(f'<li><button type="button" data-go="{i}"><span class="n">0{i+1}</span><span class="t">{label}</span></button></li>' for i,(label,*_) in enumerate(CH))
+
 body = f'''
 <div class="hero-pin">
 <section class="hero" aria-label="Introduction">
@@ -38,21 +67,15 @@ body = f'''
 </section>
 </div>
 
-<section class="section-tight" aria-labelledby="intro-h">
-  <div class="wrap">
-    <div class="section-head reveal"><h2 class="h2" id="intro-h">A life in three parts</h2><div class="side"><a class="btn btn-sm" href="biography.html">Full biography {A}</a></div></div>
-    <div class="intro">
-      <article class="panel reveal"><span class="mono">Beginnings, 1925 to 1952</span><h3>A doctor's son who would not take no</h3><p>Born at Aruakandi, Gopalganj, the eldest son of a mission-hospital medical officer. Schooled in Chandpur, Pabna, Mymensingh and Bishnupur. At 17 he left home for the Royal Indian Navy and refused a signals posting until, after five days in custody, he was given radar.</p><a href="biography.html#early-life">Early life and the Navy {A}</a></article>
-      <article class="panel reveal" data-delay="1"><span class="mono">The founding of Square, 1958</span><h3>Four friends, Rs 17,000, a tin shed</h3><p>In 1952 he took over his father's medicine shop in Ataikula. In 1958, with Dr Kazi Harunur Rashid, Dr PK Shaha and Radha Binod Roy, he opened a factory in a rented tin shed in Pabna with twelve workers. No profit for three years. Market leader by 1985.</p><a href="biography.html#square">The establishment of Square {A}</a></article>
-      <article class="panel reveal" data-delay="2"><span class="mono">His principles</span><h3>Quality, quality and quality everywhere</h3><p>No shortcut to success. People's welfare at the centre of enterprise: in five decades, not a single day of labour unrest in any company he built. A man who read the Bible before breakfast and saw himself as a steward of what he had been given.</p><a href="quotes.html">In his own words {A}</a></article>
+<section class="story" data-story aria-label="His story in four chapters">
+  <div class="story-stage">
+    <div class="wrap story-grid">
+      {chapters}
+      <nav class="story-nav" aria-label="Chapters">
+        <ol>{chapter_nav}</ol>
+        <div class="story-bar" aria-hidden="true"><i></i></div>
+      </nav>
     </div>
-  </div>
-</section>
-
-<section class="statement" aria-label="The man">
-  <div class="wrap grid">
-    <span class="mono">The man</span>
-    <p>To his followers he was a <em>hero</em>. To his contemporaries, an <em>icon</em>. To young entrepreneurs, a <em>mentor</em>. To regulators, a symbol of <em>fairness</em>. He put people's welfare at the centre of enterprise, and in five decades there was never a single day of labour unrest in any company he built.</p>
   </div>
 </section>
 

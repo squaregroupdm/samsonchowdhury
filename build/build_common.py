@@ -80,7 +80,7 @@ def nav():
 
 def footer(scripts):
     main_tag = '<script src="js/main.js"></script>'
-    sky = '<script src="js/sky.js"></script>'
+    sky = '<script src="js/sky.js"></script><script src="js/cursor.js"></script>'
     if "<script>" in scripts:
         i = scripts.index("<script>")
         scripts = scripts[:i] + main_tag + "\n" + scripts[i:]

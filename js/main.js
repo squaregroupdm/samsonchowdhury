@@ -171,11 +171,15 @@
   };
 
   /* ---- Any photo that fails to load hides itself and marks its card ---- */
-  document.addEventListener("error", (e) => {
-    const img = e.target; if (!(img instanceof HTMLImageElement)) return;
+  function imgFailed(img) {
+    const fb = img.dataset.fallback; // a photo with a stand-in tries that first
+    if (fb && !img.dataset.fell) { img.dataset.fell = "1"; img.src = fb; return; }
     img.classList.add("is-missing");
     const card = img.closest(".tl-card, figure, .fact, .ph, .tribute-solo .img"); if (card) card.classList.add("no-img");
-  }, true);
+  }
+  document.addEventListener("error", (e) => { if (e.target instanceof HTMLImageElement) imgFailed(e.target); }, true);
+  // images that already failed before this script ran
+  $$("img").forEach((img) => { if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) imgFailed(img); });
 
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();
