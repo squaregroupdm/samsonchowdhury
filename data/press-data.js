@@ -461,7 +461,7 @@ window.PRESS = [
   },
   {
     "id": "2019-samson-h-chowdhury-memorial-conference",
-    "date": "2019",
+    "date": "2019-02-09",
     "title": "Samson H Chowdhury Memorial Conference 2019 on Bangladesh pharmaceuticals",
     "summary": "The fourth Samson H Chowdhury Memorial Conference, held at the Pan Pacific Sonargaon Hotel in Dhaka in February 2019, covered adverse drug reaction reporting, industry-university collaboration and the industry's challenges.",
     "source": "Square Pharmaceuticals PLC",
@@ -627,7 +627,7 @@ window.PRESS = [
   },
   {
     "id": "undated-in-loving-memory-of-samson",
-    "date": "",
+    "date": "2012-11-13",
     "title": "In Loving Memory of Samson H. Chowdhury, one of the greatest entrepreneurs the world has ever known",
     "summary": "Memorial piece on the Square founder, his business achievements, Baptist leadership roles and the many accolades he received.",
     "source": "The Worldfolio",
@@ -649,7 +649,7 @@ window.PRESS = [
   },
   {
     "id": "undated-prothom-alo-5",
-    "date": "",
+    "date": "2021-01-05",
     "title": "স্যামসন এইচ চৌধুরী ছিলেন দক্ষ কর্মী ও সৎ মানুষ",
     "summary": "District report in which speakers describe him as a skilled worker and an honest man.",
     "source": "Prothom Alo",
@@ -660,7 +660,7 @@ window.PRESS = [
   },
   {
     "id": "2026-samakal-6",
-    "date": "2026",
+    "date": "2026-09-25",
     "title": "স্যামসন এইচ চৌধুরীর ১০২তম জন্মদিন আজ",
     "summary": "Birthday note marking the Square founder's birth anniversary and recalling his life.",
     "source": "Samakal",
@@ -853,7 +853,7 @@ window.PRESS = [
   },
   {
     "id": "2020-samson-h-chowdhury-s-8th",
-    "date": "2020",
+    "date": "2020-01-05",
     "title": "Samson H Chowdhury’s 8th death anniversary today",
     "summary": "Short notice marking eight years since the Square founder's death.",
     "source": "New Age",
@@ -874,7 +874,7 @@ window.PRESS = [
   },
   {
     "id": "2026-ittefaq-26",
-    "date": "2026",
+    "date": "2026-09-26",
     "title": "স্কয়ার গ্রুপের প্রতিষ্ঠাতা চেয়ারম্যানের ১০১তম জন্মবার্ষিকী উদযাপন এবং স্মৃতিকথা সংকলন বইয়ের মোড়ক উন্মোচন",
     "summary": "Report on the 101st birth anniversary celebration and the unveiling of a memoir collection about the founder chairman.",
     "source": "Ittefaq",
@@ -884,7 +884,7 @@ window.PRESS = [
   },
   {
     "id": "undated-ntv-online-27",
-    "date": "",
+    "date": "2019-01-05",
     "title": "শ্রদ্ধা ভালোবাসায় স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী পালিত",
     "summary": "His death anniversary was observed with respect and affection.",
     "source": "NTV Online",
@@ -895,7 +895,7 @@ window.PRESS = [
   },
   {
     "id": "2026-desh-rupantor-28",
-    "date": "2026",
+    "date": "2026-09-26",
     "title": "স্যামসন এইচ. চৌধুরীর ১০১তম জন্মবার্ষিকীতে স্মৃতিকথা সংকলনের মোড়ক উন্মোচন",
     "summary": "Coverage of the memoir collection launched on the founder's 101st birth anniversary.",
     "source": "Desh Rupantor",
@@ -905,7 +905,7 @@ window.PRESS = [
   },
   {
     "id": "2026-usa-bangla-news-29",
-    "date": "2026",
+    "date": "2026-09-26",
     "title": "স্যামসন এইচ চৌধুরীর ১০১তম জন্মবার্ষিকীতে স্মরণ",
     "summary": "Remembrance of the Square founder on his 101st birth anniversary.",
     "source": "USA Bangla News",
@@ -958,7 +958,7 @@ window.PRESS = [
   },
   {
     "id": "2018-samakal-34",
-    "date": "2018",
+    "date": "2018-01-05",
     "title": "আজ স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী",
     "summary": "Print edition notice marking the Square founder's death anniversary.",
     "source": "Samakal",
@@ -999,7 +999,7 @@ window.PRESS = [
   },
   {
     "id": "2025-ittefaq-38",
-    "date": "2025",
+    "date": "2025-09-26",
     "title": "স্যামসন এইচ চৌধুরী: এক কিংবদন্তি শিল্পোদ্যোক্তার জন্মশতবর্ষ উদযাপন",
     "summary": "Piece on the birth centenary celebration of the legendary industrial entrepreneur.",
     "source": "Ittefaq",
@@ -1060,7 +1060,7 @@ window.PRESS = [
   },
   {
     "id": "2026-bangla-tribune-44",
-    "date": "2026",
+    "date": "2026-09-26",
     "title": "স্কয়ার গ্রুপের প্রতিষ্ঠাতা চেয়ারম্যানের স্মৃতিকথা সংকলন বইয়ের মোড়ক উন্মোচন",
     "summary": "Press release on the unveiling of a memoir compilation about Square Group's founder chairman.",
     "source": "Bangla Tribune",
@@ -1114,7 +1114,7 @@ window.PRESS = [
   },
   {
     "id": "undated-jugantor-49",
-    "date": "",
+    "date": "2019-01-05",
     "title": "স্যামসন এইচ চৌধুরী স্মৃতিতে অম্লান",
     "summary": "Opinion page remembrance saying Samson H Chowdhury remains unfading in memory.",
     "source": "Jugantor",
@@ -1124,7 +1124,7 @@ window.PRESS = [
   },
   {
     "id": "undated-bonik-barta-50",
-    "date": "",
+    "date": "2023-01-05",
     "title": "স্যামসন এইচ চৌধুরীর মূল্যবোধ ধারণ করেই বড় হচ্ছে স্কয়ার গ্রুপ",
     "summary": "Says Square Group keeps growing by holding on to the values of Samson H Chowdhury.",
     "source": "Bonik Barta",
@@ -1176,7 +1176,7 @@ window.PRESS = [
   },
   {
     "id": "2020-samakal-55",
-    "date": "2020",
+    "date": "2020-01-05",
     "title": "স্কয়ার গ্রুপের প্রতিষ্ঠাতা স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী আজ",
     "summary": "Print edition notice on the death anniversary of the Square Group founder.",
     "source": "Samakal",
@@ -1206,7 +1206,7 @@ window.PRESS = [
   },
   {
     "id": "2025-banglanews24-58",
-    "date": "2025",
+    "date": "2025-09-25",
     "title": "শিল্পপতি স্যামসন এইচ. চৌধুরীর শততম জন্মদিন আজ",
     "summary": "Notes that the day is the hundredth birthday of the industrialist who founded Square.",
     "source": "Banglanews24",
@@ -1258,7 +1258,7 @@ window.PRESS = [
   },
   {
     "id": "undated-prothom-alo-63",
-    "date": "",
+    "date": "2015-01-05",
     "title": "পাবনায় স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী পালিত",
     "summary": "Reports that his death anniversary was observed in Pabna.",
     "source": "Prothom Alo",
@@ -1269,7 +1269,7 @@ window.PRESS = [
   },
   {
     "id": "undated-bangla-tribune-64",
-    "date": "",
+    "date": "2020-10-01",
     "title": "স্যামসন এইচ চৌধুরীর সন্তানদের হাত ধরে এগিয়ে চলেছে স্কয়ার গ্রুপ",
     "summary": "Business feature on how his children are carrying Square Group forward after him.",
     "source": "Bangla Tribune",
@@ -1279,7 +1279,7 @@ window.PRESS = [
   },
   {
     "id": "undated-ntv-online-65",
-    "date": "",
+    "date": "2017-09-26",
     "title": "স্যামসন এইচ চৌধুরীর ৯১তম জন্মদিন পালিত",
     "summary": "Reports that his 91st birthday was observed.",
     "source": "NTV Online",
@@ -1290,7 +1290,7 @@ window.PRESS = [
   },
   {
     "id": "undated-ntv-online-66",
-    "date": "",
+    "date": "2016-09-25",
     "title": "স্যামসন এইচ চৌধুরীর ৮৯তম জন্মদিন আজ",
     "summary": "Notes that the day is his 89th birthday and recalls his life.",
     "source": "NTV Online",
@@ -1321,7 +1321,7 @@ window.PRESS = [
   },
   {
     "id": "undated-jugantor-69",
-    "date": "",
+    "date": "2018-01-06",
     "title": "স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী পালিত",
     "summary": "Print edition report that his death anniversary was observed.",
     "source": "Jugantor",
@@ -1331,7 +1331,7 @@ window.PRESS = [
   },
   {
     "id": "2018-ntv-online-70",
-    "date": "2018",
+    "date": "2018-01-04",
     "title": "স্যামসন এইচ চৌধুরীর ষষ্ঠ মৃত্যুবার্ষিকী শুক্রবার",
     "summary": "Advance notice of his sixth death anniversary falling on Friday.",
     "source": "NTV Online",
@@ -1413,7 +1413,7 @@ window.PRESS = [
   },
   {
     "id": "2012-samson-a-patriot-apart",
-    "date": "2012",
+    "date": "2012-01-06",
     "title": "Samson: a patriot apart",
     "summary": "Recalls his role in the 1971 Liberation War, helping refugees and journalists, and his later philanthropy.",
     "source": "The Daily Star",
@@ -1575,7 +1575,7 @@ window.PRESS = [
   },
   {
     "id": "2019-samson-h-chowdhury-a-true",
-    "date": "2019",
+    "date": "2020-01-03",
     "title": "Samson H. Chowdhury: a true entrepreneurial leader for Square Group",
     "summary": "Academic paper by Md. Rahat Khan analysing his entrepreneurial leadership style and strategy at Square Group.",
     "source": "EuroMed Journal of Management",
@@ -1640,7 +1640,7 @@ window.PRESS = [
   },
   {
     "id": "2021-20-physicians-get-samson-h",
-    "date": "2021",
+    "date": "2021-12-11",
     "title": "20 physicians get Samson H Chowdhury award",
     "summary": "Twenty distinguished physicians received the award named after him at Square Hospital's 15th anniversary.",
     "source": "The Business Standard",
@@ -1651,7 +1651,7 @@ window.PRESS = [
   },
   {
     "id": "2025-anita-samson-trust-undertaking-many",
-    "date": "2025",
+    "date": "2025-05-22",
     "title": "Anita-Samson trust undertaking many initiatives for Samson H. Chowdhury's birth centenary: Tapan Chowdhury",
     "summary": "Tapan Chowdhury outlines the initiatives the Anita-Samson trust is taking to mark his father's birth centenary.",
     "source": "The Business Standard",
