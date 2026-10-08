@@ -2,12 +2,137 @@
    PRESS COVERAGE
    Every article about Samson H Chowdhury found online, newest first.
    Fields: id (stable, used for permanent links), date (YYYY-MM-DD, YYYY or ""), title, summary,
-   source (publication), url (the original article), type, lang (en or bn), img (a screen capture
-   of the publisher's page in img/press/, only where one exists).
+   source (publication), url (the original article, or "" for a print page), type, lang (en or bn),
+   img (a screen capture or a photograph of the printed page in img/press/, only where one exists),
+   focus ("top" or "bottom": which part of a tall page the globe pane shows; top if left out).
    To add an article, copy one block and paste it at the top of the list.
    ============================================================ */
 
 window.PRESS = [
+  {
+    "id": "2026-dhaka-tribune-101st-birth-anniversary",
+    "date": "2026-09-26",
+    "title": "Square Group celebrates 101st birth anniversary of founder chairman Samson H Chowdhury",
+    "summary": "An event at SFBL Arena in Dhaka marked what would have been his 101st birthday, with the launch of a memoir collection and an account of the charitable programmes that continue in his name.",
+    "source": "Dhaka Tribune",
+    "url": "https://www.dhakatribune.com/business/420700/square-group-celebrates-101st-birth-anniversary-of",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2026-dhaka-post-memoir-launch",
+    "date": "2026-09-26",
+    "title": "স্যামসন এইচ. চৌধুরীর ১০১তম জন্মবার্ষিকীতে স্মৃতিকথার মোড়ক উন্মোচন",
+    "summary": "A memorial event in Dhaka marked the 101st birth anniversary of Square Group's founder, where a collection of reminiscences about his life and principles was unveiled.",
+    "source": "Dhaka Post",
+    "url": "https://www.dhakapost.com/economy/485747",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "2026-kaler-kantho-memoir-launch",
+    "date": "2026-09-26",
+    "title": "স্যামসন এইচ চৌধুরীর স্মৃতিকথা সংকলন বইয়ের মোড়ক উন্মোচন",
+    "summary": "Kaler Kantho's corporate pages report the launch of the memoir collection on Samson H Chowdhury at the 101st birth anniversary event in Dhaka.",
+    "source": "Kaler Kantho",
+    "url": "https://www.kalerkantho.com/online/corporatecorner/2026/09/26/1744322",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "2026-ntv-memoir-launch",
+    "date": "2026-09-26",
+    "title": "স্যামসন এইচ চৌধুরীর ১০১তম জন্মবার্ষিকীতে স্মৃতিকথা সংকলনের মোড়ক উন্মোচন",
+    "summary": "NTV Online on the memorial event in Dhaka marking the 101st birth anniversary of Square Group's founder, with the launch of a book of reminiscences about his life and values.",
+    "source": "NTV Online",
+    "url": "https://www.ntvbd.com/economy/news-1809525",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "2026-print-bonik-barta-p5",
+    "date": "2026-09-25",
+    "title": "শিল্পের ভেতর এক আলোকিত জীবন",
+    "summary": "Bonik Barta's birth anniversary page: a full-page feature on his life in industry, a year-by-year chronology from 1925 to 2013, and recollections from Tapan Chowdhury, Samuel S Chowdhury and others.",
+    "source": "Bonik Barta",
+    "url": "",
+    "type": "Print",
+    "lang": "bn",
+    "img": "img/press/2026-print-bonik-barta-p5.jpg",
+    "focus": "top"
+  },
+  {
+    "id": "2026-print-bangladesh-pratidin-p5",
+    "date": "2026-09-25",
+    "title": "শিল্পসাম্রাজ্য গড়ার কারিগর",
+    "summary": "Bangladesh Pratidin's special page on his 101st birthday: the craftsman of an industrial empire, with his portrait, early photographs and the family.",
+    "source": "Bangladesh Pratidin",
+    "url": "",
+    "type": "Print",
+    "lang": "bn",
+    "img": "img/press/2026-print-bangladesh-pratidin-p5.jpg",
+    "focus": "top"
+  },
+  {
+    "id": "2026-print-samakal-front",
+    "date": "2026-09-25",
+    "title": "There is no shortcut to success: 101 years of Samson H Chowdhury",
+    "summary": "Square Group's tribute on the front page of Samakal on his 101st birth anniversary: his portrait, his own words, and the line Uncompromising integrity, 1925 - forever in our hearts.",
+    "source": "Samakal",
+    "url": "",
+    "type": "Print",
+    "lang": "en",
+    "img": "img/press/2026-print-samakal-front.jpg",
+    "focus": "bottom"
+  },
+  {
+    "id": "2026-print-bonik-barta-front",
+    "date": "2026-09-25",
+    "title": "There is no shortcut to success: 101 years of Samson H Chowdhury",
+    "summary": "Square Group's tribute on the front page of Bonik Barta on his 101st birth anniversary, beside a pointer to the paper's full-page feature inside.",
+    "source": "Bonik Barta",
+    "url": "",
+    "type": "Print",
+    "lang": "en",
+    "img": "img/press/2026-print-bonik-barta-front.jpg",
+    "focus": "bottom"
+  },
+  {
+    "id": "2026-print-prothom-alo-front",
+    "date": "2026-09-25",
+    "title": "There is no shortcut to success: 101 years of Samson H Chowdhury",
+    "summary": "Square Group's tribute on the front page of Prothom Alo on his 101st birth anniversary.",
+    "source": "Prothom Alo",
+    "url": "",
+    "type": "Print",
+    "lang": "en",
+    "img": "img/press/2026-print-prothom-alo-front.jpg",
+    "focus": "bottom"
+  },
+  {
+    "id": "2026-print-bangladesh-pratidin-front",
+    "date": "2026-09-25",
+    "title": "There is no shortcut to success: 101 years of Samson H Chowdhury",
+    "summary": "Square Group's tribute on the front page of Bangladesh Pratidin on his 101st birth anniversary.",
+    "source": "Bangladesh Pratidin",
+    "url": "",
+    "type": "Print",
+    "lang": "en",
+    "img": "img/press/2026-print-bangladesh-pratidin-front.jpg",
+    "focus": "bottom"
+  },
+  {
+    "id": "2026-print-daily-star-front",
+    "date": "2026-09-25",
+    "title": "There is no shortcut to success: 101 years of Samson H Chowdhury",
+    "summary": "Square Group's tribute on the front page of The Daily Star on his 101st birth anniversary.",
+    "source": "The Daily Star",
+    "url": "",
+    "type": "Print",
+    "lang": "en",
+    "img": "img/press/2026-print-daily-star-front.jpg",
+    "focus": "bottom"
+  },
   {
     "id": "2025-samson-h-chowdhury-s-birth",
     "date": "2025-09-25",

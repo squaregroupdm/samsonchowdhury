@@ -8,7 +8,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var gwrap = $("gwrap"); if (!gwrap) return;
   var ARTICLES = (window.PRESS || []).concat(window.NEWS || []).map(function (n) {
-    return { t: n.title, s: n.source, d: n.date || "", u: n.url || "", x: n.summary || "", l: n.lang || "en", k: n.type || "Coverage", m: n.img || "", id: n.id };
+    return { t: n.title, s: n.source, d: n.date || "", u: n.url || "", x: n.summary || "", l: n.lang || "en", k: n.type || "Coverage", m: n.img || "", f: n.focus || "top", id: n.id };
   });
   if (!ARTICLES.length) return;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -54,9 +54,15 @@
     c.fillText((a.k + "  " + fmt(a.d)).toUpperCase(), p, h - p - h * 0.04);
     c.restore();
   }
-  function paintPage(c, x, y, w, h, t) {
-    if (t.img && t.img.complete && t.img.naturalWidth) c.drawImage(t.img, x, y, w, h);
-    else typeset(c, x, y, w, h, t.a);
+  /* A capture fills the pane like a photograph in a frame: scaled to cover it, cropped to the top
+     (or the bottom, for a front page whose tribute sits low), never stretched. */
+  function paintPage(c, x, y, w, h, t, whole) {
+    var im = t.img;
+    if (!(im && im.complete && im.naturalWidth)) { typeset(c, x, y, w, h, t.a); return; }
+    if (whole) { c.drawImage(im, x, y, w, h); return; }
+    var iw = im.naturalWidth, ih = im.naturalHeight, sc = Math.max(w / iw, h / ih), sw = w / sc, sh = h / sc;
+    var sx = (iw - sw) / 2, sy = t.a.f === "bottom" ? ih - sh : t.a.f === "middle" ? (ih - sh) / 2 : 0;
+    c.drawImage(im, sx, sy, sw, sh, x, y, w, h);
   }
 
   /* ================= Globe ================= */
@@ -274,7 +280,13 @@
     $("fSum").textContent = a.x; $("fSrc").textContent = a.s;
     var link = $("fLink"); link.hidden = !a.u; link.href = a.u || "#";
     var rec = $("fRecord"); rec.href = "#" + a.id;
-    var c = fimg.getContext("2d"); c.clearRect(0, 0, fimg.width, fimg.height); paintPage(c, 0, 0, fimg.width, fimg.height, t);
+    // the card shows the whole page at its own proportions; tall pages scroll inside the card
+    var im = t.img, ok = im && im.complete && im.naturalWidth;
+    fimg.width = 960; fimg.height = ok ? Math.round(960 * im.naturalHeight / im.naturalWidth) : 720;
+    fimg.style.aspectRatio = fimg.width + " / " + fimg.height;
+    fimg.style.objectPosition = a.f === "bottom" ? "bottom" : a.f === "middle" ? "center" : "top";
+    fimg.classList.remove("is-whole");
+    var c = fimg.getContext("2d"); c.clearRect(0, 0, fimg.width, fimg.height); paintPage(c, 0, 0, fimg.width, fimg.height, t, true);
     focus.hidden = false; fcard.scrollTop = 0;
     if (!reduce && fcard.animate) {
       fcard.animate([{ transform: flyFrom(t), opacity: 0.5 }, { transform: "none", opacity: 1 }], { duration: 460, easing: "cubic-bezier(0.2,0.7,0.2,1)" });
@@ -291,6 +303,7 @@
     $("veil").animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, fill: "forwards" }).onfinish = function () { this.cancel(); };
     fcard.animate([{ transform: "none", opacity: 1 }, { transform: flyFrom(t), opacity: 0.2 }], { duration: 300, easing: "cubic-bezier(0.4,0,0.8,0.4)" }).onfinish = done;
   }
+  fimg.addEventListener("click", function () { fimg.classList.toggle("is-whole"); }); // tap a tall page to see all of it
   $("fclose").addEventListener("click", closePage);
   $("veil").addEventListener("click", closePage);
   $("fRecord").addEventListener("click", function () { closePage(); });
@@ -342,7 +355,7 @@
     return b.d.localeCompare(a.d);
   });
   var list = $("list"), q = $("q"), selType = $("selType"), selYear = $("selYear"), more = $("more");
-  var PAGE = 18, limit = PAGE, TYPE_ORDER = ["Tribute", "Event", "Profile", "Obituary", "Coverage", "Award", "Announcement"];
+  var PAGE = 18, limit = PAGE, TYPE_ORDER = ["Print", "Tribute", "Event", "Profile", "Obituary", "Coverage", "Award", "Announcement"];
   var counts = {}, years = {}, sources = {}, shots = 0;
   all.forEach(function (a) { counts[a.k] = (counts[a.k] || 0) + 1; years[a.d.slice(0, 4) || "Undated"] = 1; sources[a.s] = 1; if (a.m) shots++; });
   Object.keys(counts).sort(function (a, b) { var ia = TYPE_ORDER.indexOf(a), ib = TYPE_ORDER.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); })
@@ -380,7 +393,7 @@
   [q, selType, selYear].forEach(function (c) { c.addEventListener("input", function () { limit = PAGE; apply(); }); });
   more.addEventListener("click", function () { limit += PAGE; apply(); });
   $("reset").addEventListener("click", resetAll);
-  $("note").textContent = "The globe carries all " + all.length + " records in the archive. " + shots + " panes are screen captures of the publisher's own page. The others are typeset for this archive from the real headline, newspaper and date, because those sites did not allow a capture. Every pane opens the record, and the original article where one exists online.";
+  $("note").textContent = "The globe carries all " + all.length + " records in the archive. " + shots + " panes are screen captures of the publisher's page or photographs of the printed page. The others are typeset for this archive from the real headline, newspaper and date, because those sites did not allow a capture. Every pane opens the record, and the original article where one exists online.";
   apply();
   // a permanent link to one record: show it, even if it is past the first page
   if (location.hash) {
