@@ -10,6 +10,466 @@
 
 window.PRESS = [
   {
+    "id": "2012-in-his-passing-a-business",
+    "date": "2012-01-06",
+    "title": "In his passing, a business icon touches souls",
+    "summary": "Sohel Parvez reports the death of Square Group chairman Samson H Chowdhury at 86 in Singapore, with colleagues recalling an ethical leader who built Bangladesh's domestic pharmaceutical industry from a small Pabna business.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217127",
+    "type": "Obituary",
+    "lang": "en"
+  },
+  {
+    "id": "2012-square-the-rise-of-a",
+    "date": "2012-01-06",
+    "title": "Square: the rise of a giant",
+    "summary": "Star Business Report traces how Samson H Chowdhury's idea of making life-saving drugs from his Ataikula dispensary in Pabna grew into the multi-sector Square Group, published the day after his death.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217129",
+    "type": "Profile",
+    "lang": "en"
+  },
+  {
+    "id": "2012-deep-respects-for-samson",
+    "date": "2012-01-06",
+    "title": "Deep respects for Samson",
+    "summary": "Finance Minister AMA Muhith and business bodies mourned Samson H Chowdhury in January 2012, crediting him with pioneering the pharmaceutical industry and shaping the 1983 National Drug Policy.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217132",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-role-of-samson-chy-recalled",
+    "date": "2012-01-07",
+    "title": "Role of Samson Chy recalled",
+    "summary": "Trade bodies, political parties and social groups paid tribute after his death; ICC Bangladesh called Samson H Chowdhury the only business legend of our time in Bangladesh.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217291",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-tributes-paid-to-samson-chowdhury",
+    "date": "2012-01-07",
+    "title": "Tributes paid to Samson Chowdhury",
+    "summary": "Thousands including ministers, politicians and business leaders attended the funeral of Samson H Chowdhury at Kakrail Catholic Church in Dhaka on 6 January 2012, praising his honesty and patriotism.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217337",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2012-funeral-of-samson-h-chowdhury",
+    "date": "2012-01-07",
+    "title": "Funeral of Samson H Chowdhury",
+    "summary": "Photo report of the funeral of industrialist Samson H Chowdhury at Kakrail Catholic Church, Dhaka, where the crowd overflowed outside and his grieving son and daughter were pictured.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217362",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-tribute-to-samson",
+    "date": "2012-01-08",
+    "title": "Tribute to Samson",
+    "summary": "Daily Star editorial on the death of Samson H Chowdhury says he proved a Bangladeshi businessman can be both ethical and highly successful, from founding Square Pharmaceuticals in 1958 to building a diversified group.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217368",
+    "type": "Tribute",
+    "lang": "en"
+  },
+  {
+    "id": "2012-homage-to-samson-h-chowdhury",
+    "date": "2012-01-09",
+    "title": "Homage to Samson H Chowdhury",
+    "summary": "Letter to the editor by Dr Khairuddin Barkat mourning Samson H Chowdhury as a man of integrity and diligence who built a pharmaceutical company, an affordable hospital and food businesses for public welfare.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217501",
+    "type": "Tribute",
+    "lang": "en"
+  },
+  {
+    "id": "2012-goodbye-chacha",
+    "date": "2012-01-10",
+    "title": "Goodbye Chacha",
+    "summary": "In Memoriam piece by Renata CEO Kaiser Kabir recalling Samson H Chowdhury, known in the pharmaceutical industry as Chacha, for candid principled leadership, transparent long-term business and his love of jazz.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-217649",
+    "type": "Tribute",
+    "lang": "en"
+  },
+  {
+    "id": "2012-honesty-can-be-business-capital",
+    "date": "2012-01-13",
+    "title": "Honesty can be business capital",
+    "summary": "Letter from Chittagong student Shafeen Mahmood praising Samson H Chowdhury, who opened a village pharmacy in 1952 and built Square Pharmaceuticals employing about 33,000 people, as an example of integrity.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-218095",
+    "type": "Tribute",
+    "lang": "en"
+  },
+  {
+    "id": "2012-samson-chy-an-inspiration-to",
+    "date": "2012-01-14",
+    "title": "Samson Chy - an inspiration to nation",
+    "summary": "Speakers at a Pabna Press Club condolence meeting described Samson H Chowdhury as an entrepreneur who grew from a Pabna village to a business spanning 40 countries and sent his three sons to fight in 1971.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-218276",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2012-contribution-of-samson-chy-recalled",
+    "date": "2012-01-18",
+    "title": "Contribution of Samson Chy recalled",
+    "summary": "At a Dhaka memorial meeting State Minister for Law Kamrul Islam urged businesspeople to follow the honesty and courage of Samson H Chowdhury, calling him a true Bengali who contributed to the Liberation War.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-218900",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2013-samson-chy-s-first-anniversary",
+    "date": "2013-01-05",
+    "title": "Samson Chy's first anniversary of death today",
+    "summary": "On the first death anniversary in January 2013, Pabna marked the day with prayers at Samson H Chowdhury's farmhouse and an evening memorial meeting at the Pabna Press Club.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-263932",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2013-samson-h-chy-remembered",
+    "date": "2013-01-27",
+    "title": "Samson H Chy remembered",
+    "summary": "Square Pharmaceuticals held the first day-long Samson H Chowdhury Memorial Conference at Ruposhi Bangla Hotel, Dhaka, opened by Anita Samson, with pharmaceutical industry representatives taking part.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/news-detail-266699",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2015-business-luminaries-remembered",
+    "date": "2015-08-09",
+    "title": "Business luminaries remembered",
+    "summary": "MCCI memorial meeting in Dhaka honoured former president Samson H Chowdhury alongside Syed Humayun Kabir and Amjad Khan Chowdhury; Latifur Rahman recalled Chowdhury advising him despite becoming a competitor.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/business/business-luminaries-remembered-123835",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2016-samson-h-chy-s-anniversary",
+    "date": "2016-01-05",
+    "title": "Samson H Chy's anniversary of death today",
+    "summary": "Fourth death anniversary report noting prayers at the Astras farmhouse where Samson H Chowdhury is buried, a Pabna Press Club discussion, and honours including a Daily Star-DHL award and his 1985 orphanage.",
+    "source": "The Daily Star",
+    "url": "https://www.thedailystar.net/city/news/samson-h-chys-anniversary-death-today-197218",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-an-icon-of-bangladesh-entrepreneurship",
+    "date": "2012-01-06",
+    "title": "An icon of Bangladesh entrepreneurship",
+    "summary": "Banker Mamun Rashid remembers Samson H Chowdhury, who died in Singapore on 5 January 2012 at 86, for turning a 1950s pharmacy into Square Group through quality, ethics and persistence.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/last-page/an-icon-of-bangladesh-entrepreneurship",
+    "type": "Tribute",
+    "lang": "en"
+  },
+  {
+    "id": "2012-samson-s-death-condoled",
+    "date": "2012-01-06",
+    "title": "Samson's death condoled",
+    "summary": "Ministers, bankers and trade bodies condoled the death of Square Group chairman Samson H Chowdhury, praising him as a medicine-industry pioneer, top taxpayer and contributor to the anti-corruption movement.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/print/samsons-death-condoled",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-samson-chy-s-death-condoled",
+    "date": "2012-01-07",
+    "title": "Samson Chy's death condoled",
+    "summary": "Trade bodies and ministers mourned Samson H Chowdhury, 86, crediting decades of guidance on trade and investment policy, expanding healthcare access and raising the global profile of Bangladesh's pharmaceutical sector.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/print/samson-chys-death-condoled",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2012-reminiscence-meet-on-samson-h",
+    "date": "2012-01-14",
+    "title": "Reminiscence meet on Samson H Chy today",
+    "summary": "Announcement that several chambers of commerce would jointly hold a reminiscence meeting for the late Square Group chairman at the Bangabandhu International Conference Centre on 14 January 2012.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/print/reminiscence-meet-on-samson-h-chy-today",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2012-business-leaders-pay-homage-to",
+    "date": "2012-01-15",
+    "title": "Business leaders pay homage to Samson",
+    "summary": "Finance Minister AMA Muhith and chamber leaders honoured Samson H Chowdhury at a BICC memorial meeting, praising his ethics and job creation and urging his family to set up an institute or biography.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/first-page/business-leaders-pay-homage-to-samson",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2025-samson-h-chowdhury-s-honesty",
+    "date": "2025-09-27",
+    "title": "Samson H. Chowdhury's honesty, integrity, contributions lauded",
+    "summary": "At a Dhaka memorial marking his 100th birth anniversary, speakers called Samson H Chowdhury an institution-builder, recalling his role in creating the Central Depository System and the anti-corruption movement.",
+    "source": "The Financial Express",
+    "url": "https://thefinancialexpress.com.bd/national/samson-h-chowdhurys-honesty-integrity-contributions-lauded",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2007-samson-h-chy-elected-mtbl",
+    "date": "2007-06-19",
+    "title": "Samson H Chy elected MTBL chairman",
+    "summary": "Mutual Trust Bank's board elected former vice-chairman Samson H Chowdhury as chairman in June 2007; the report lists his roles at Square, Central Depository Ltd and Transparency International Bangladesh.",
+    "source": "The Financial Express",
+    "url": "https://today.thefinancialexpress.com.bd/print/samson-h-chy-elected-mtbl-chairman",
+    "type": "Coverage",
+    "lang": "en"
+  },
+  {
+    "id": "2025-square-launches-nationwide-mobile-healthcare",
+    "date": "2025-09-24",
+    "title": "SQUARE launches nationwide mobile healthcare service",
+    "summary": "Square Group announced the non-profit mobile healthcare initiative Chhappanno Hazar Square Mile Jure to mark founder Samson H Chowdhury's 100th birth anniversary, launching at a Dhaka ceremony on 25 September 2025.",
+    "source": "The Business Standard",
+    "url": "https://www.tbsnews.net/economy/corporates/square-launches-nationwide-mobile-healthcare-service-1244541",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2025-prothom-alo-24",
+    "date": "2025-05-22",
+    "title": "স্যামসন এইচ চৌধুরীর জন্মশতবর্ষে ‘অনিতা-স্যামসন’ ট্রাস্টের উদ্যোগে অনেক কার্যক্রম গ্রহণ করা হচ্ছে: তপন চৌধুরী",
+    "summary": "In Samson H Chowdhury's centenary year, Tapan Chowdhury said the Anita-Samson Trust plans a medical college, nursing college and hospital, speaking after Square won BIDA's Excellence in Investment Award 2025.",
+    "source": "Prothom Alo",
+    "url": "https://www.prothomalo.com/bangladesh/o4n89xyp93",
+    "type": "Coverage",
+    "lang": "bn"
+  },
+  {
+    "id": "2021-prothom-alo-25",
+    "date": "2021-11-21",
+    "title": "পাবনার আতাইকুলা থেকে এখন বিশ্বদরবারে",
+    "summary": "Sujoy Mohajan's Game Changer series profile traces how Samson H Chowdhury's small 1956 Pabna pharmacy survived the Ayub era and 1971 to become Square Group, now selling in 42 countries.",
+    "source": "Prothom Alo",
+    "url": "https://www.prothomalo.com/business/উদ্যোক্তা/পাবনার-আতাইকুলা-থেকে-এখন-বিশ্বদরবারে",
+    "type": "Profile",
+    "lang": "bn"
+  },
+  {
+    "id": "2021-prothom-alo-26",
+    "date": "2021-09-25",
+    "title": "স্যামসন চৌধুরীর নামে পাবনায় সড়ক",
+    "summary": "On his 96th birthday, 25 September 2021, Sujanagar municipality and upazila parishad named a Pabna road after Samson H Chowdhury; Anjan Chowdhury unveiled the name board and food was distributed to the poor.",
+    "source": "Prothom Alo",
+    "url": "https://www.prothomalo.com/bangladesh/স্যামসন-চৌধুরীর-নামে-পাবনায়-সড়ক",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "2012-daily-sangram-27",
+    "date": "2012-01-08",
+    "title": "স্যামসন এইচ চৌধুরীর মৃত্যুতে জামায়াতের শোক",
+    "summary": "Jamaat-e-Islami acting secretary general Dr Shafiqur Rahman expressed deep shock at the death of Square Group founder Samson H Chowdhury, praising his contribution to Bangladesh's economic development.",
+    "source": "Daily Sangram",
+    "url": "https://dailysangram.com/bangladesh/73907/",
+    "type": "Coverage",
+    "lang": "bn"
+  },
+  {
+    "id": "undated-samakal-28",
+    "date": "",
+    "title": "পাবনায় শ্রদ্ধা-ভালোবাসায় স্যামসন এইচ চৌধুরীর মৃত্যুবার্ষিকী পালিত",
+    "summary": "Samakal's district report on Samson H Chowdhury's death anniversary being observed in Pabna with respect and affection.",
+    "source": "Samakal",
+    "url": "https://samakal.com/whole-country/article/91672/",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "undated-samakal-29",
+    "date": "",
+    "title": "স্মৃতিতে অম্লান স্যামসন এইচ চৌধুরী",
+    "summary": "A Samakal opinion-page tribute remembering Square Group founder Samson H Chowdhury as a figure who remains undimmed in memory.",
+    "source": "Samakal",
+    "url": "https://samakal.com/editorial-subeditorial/article/48569/",
+    "type": "Tribute",
+    "lang": "bn"
+  },
+  {
+    "id": "undated-samakal-30",
+    "date": "",
+    "title": "উদ্যোক্তাদের বাতিঘর",
+    "summary": "A Samakal editorial-page piece calling Square Group founder Samson H Chowdhury a lighthouse for Bangladesh's entrepreneurs.",
+    "source": "Samakal",
+    "url": "https://samakal.com/editorial/article/149640/",
+    "type": "Tribute",
+    "lang": "bn"
+  },
+  {
+    "id": "2025-samakal-31",
+    "date": "2025",
+    "title": "সাধারণ থেকেও অসাধারণ হয়ে ওঠার আখ্যান",
+    "summary": "A Samakal special-section feature on how Samson H Chowdhury rose from ordinary beginnings to extraordinary achievement as the founder of Square Group.",
+    "source": "Samakal",
+    "url": "https://samakal.com/special-ayojon/article/317382/",
+    "type": "Profile",
+    "lang": "bn"
+  },
+  {
+    "id": "2025-samakal-32",
+    "date": "2025",
+    "title": "প্রেরণার আলো হয়ে আছেন তিনি",
+    "summary": "A Samakal special-section tribute describing Samson H Chowdhury as an enduring light of inspiration, published alongside its feature on his life.",
+    "source": "Samakal",
+    "url": "https://samakal.com/special-ayojon/article/317383/",
+    "type": "Tribute",
+    "lang": "bn"
+  },
+  {
+    "id": "2026-bangladesh-pratidin-33",
+    "date": "2026-09-27",
+    "title": "স্যামসন এইচ. চৌধুরীর ১০১তম জন্মবার্ষিকী উদ্‌যাপন",
+    "summary": "Bangladesh Pratidin's industry page reports Square Group celebrating founder Samson H Chowdhury's 101st birth anniversary in September 2026.",
+    "source": "Bangladesh Pratidin",
+    "url": "https://www.bd-pratidin.com/industrial-trade/2026/09/27/1305614",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "2025-bdnews24-com-34",
+    "date": "2025-09-25",
+    "title": "স্যামসন এইচ চৌধুরীর জন্মশতবর্ষে 'মোবাইল হেলথকেয়ার'",
+    "summary": "Square Group launched a mobile healthcare programme of mobile clinics and telemedicine for remote communities to mark founder Samson H Chowdhury's birth centenary in September 2025, continuing his goal of accessible healthcare.",
+    "source": "bdnews24.com",
+    "url": "https://bangla.bdnews24.com/corporate/01b71727c995",
+    "type": "Coverage",
+    "lang": "bn"
+  },
+  {
+    "id": "2025-dhaka-post-35",
+    "date": "2025-09-26",
+    "title": "শ্রদ্ধা, ভালোবাসায় স্যামসন এইচ চৌধুরীকে পরিবার ও শুভানুধ্যায়ীদের স্মরণ",
+    "summary": "Family, colleagues, church leaders and figures including Abdul Muktadir, Iftekharuzzaman and Mohammed Farashuddin paid tribute to Samson H Chowdhury at a centenary memorial meeting at St Mary's Cathedral, Dhaka, in September 2025.",
+    "source": "Dhaka Post",
+    "url": "https://www.dhakapost.com/economy/397707",
+    "type": "Event",
+    "lang": "bn"
+  },
+  {
+    "id": "undated-founder-chairman-s-profile",
+    "date": "",
+    "title": "Founder Chairman's Profile",
+    "summary": "Square Pharmaceuticals' official profile of founder Samson H Chowdhury (1925-2012), covering his 1952 Ataikula pharmacy, the 1958 founding of Square with three friends, his MCCI, TIB, CDBL and MTB roles, and awards from 1998 to 2010.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/founder-chairman-profile.php",
+    "type": "Profile",
+    "lang": "en"
+  },
+  {
+    "id": "undated-banglapedia-37",
+    "date": "",
+    "title": "চৌধুরী, স্যামসন এইচ",
+    "summary": "The Bangla Banglapedia entry on Samson H Chowdhury, born 25 September 1925, founder of Square Pharmaceuticals in 1958, honoured by the NBR as a top taxpayer, who died on 5 January 2012.",
+    "source": "Banglapedia",
+    "url": "https://bn.banglapedia.org/index.php/চৌধুরী,_স্যামসন_এইচ",
+    "type": "Profile",
+    "lang": "bn"
+  },
+  {
+    "id": "2013-samson-h-chowdhury-memorial-conference",
+    "date": "2013-01-26",
+    "title": "Samson H Chowdhury Memorial Conference 2013 takes place",
+    "summary": "Square Pharmaceuticals reports the first Samson H Chowdhury Memorial Conference, held on 26 January 2013 at the Ruposhi Bangla Hotel in Dhaka and inaugurated by Anita Chowdhury.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse16",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2013-samson-h-chowdhury-memorial-lecture",
+    "date": "2013-05-04",
+    "title": "Samson H Chowdhury Memorial Lecture inaugurated at Jahangirnagar University",
+    "summary": "The Samson H Chowdhury Memorial Lecture series was inaugurated on 4 May 2013 at the Department of Pharmacy, Jahangirnagar University, with Square professionals presenting on solid dosage packaging.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse19",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2013-samson-h-chowdhury-memorial-lecture-2",
+    "date": "2013-07-09",
+    "title": "Samson H Chowdhury Memorial Lecture inaugurated at the University of Dhaka",
+    "summary": "The Samson H Chowdhury Memorial Lecture at Dhaka University's Pharmacy Lecture Theatre on 9 July 2013, organised by Square Herbal and Nutraceuticals, was opened by Dean Dr Md Saiful Islam.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse24",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2013-samson-h-chowdhury-centre-of",
+    "date": "2013-09-14",
+    "title": "Samson H Chowdhury Centre of Excellence inaugurated",
+    "summary": "Anita Chowdhury inaugurated the Samson H Chowdhury Centre of Excellence on 14 September 2013, a research facility named after the founder for work on biosimilars and advanced pharmaceutical sciences.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse27",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2013-launching-of-samson-h-chowdhury",
+    "date": "2013-09-26",
+    "title": "Launching of Samson H Chowdhury web portal",
+    "summary": "A web portal on the life, work and economic contributions of Samson H Chowdhury was launched on his birth anniversary in September 2013 at the Square Hospital auditorium by Anita Chowdhury.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse31",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2017-samson-h-chowdhury-memorial-conference",
+    "date": "2017-02-18",
+    "title": "Samson H Chowdhury Memorial Conference 2017 on the Bangladesh pharmaceutical industry",
+    "summary": "The Samson H Chowdhury Memorial Conference 2017 was held on 18 February 2017 at the Samson H Chowdhury Centre, Dhaka Club, inaugurated by Tapan Chowdhury, and included Samson H Chowdhury Awards for young scientists.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse77",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2019-press-conference-on-the-4th",
+    "date": "2019-02-05",
+    "title": "Press conference on the 4th Samson H Chowdhury Memorial Conference at Square Hospital",
+    "summary": "Square Pharmaceuticals held a press conference at the Square Hospital auditorium on 5 February 2019 to announce the fourth Samson H Chowdhury Memorial Conference.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse88",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
+    "id": "2019-samson-h-chowdhury-memorial-conference",
+    "date": "2019",
+    "title": "Samson H Chowdhury Memorial Conference 2019 on Bangladesh pharmaceuticals",
+    "summary": "The fourth Samson H Chowdhury Memorial Conference, held at the Pan Pacific Sonargaon Hotel in Dhaka in February 2019, covered adverse drug reaction reporting, industry-university collaboration and the industry's challenges.",
+    "source": "Square Pharmaceuticals PLC",
+    "url": "https://www.squarepharma.com.bd/latest-news.php#collapse89",
+    "type": "Event",
+    "lang": "en"
+  },
+  {
     "id": "2026-dhaka-tribune-101st-birth-anniversary",
     "date": "2026-09-26",
     "title": "Square Group celebrates 101st birth anniversary of founder chairman Samson H Chowdhury",
