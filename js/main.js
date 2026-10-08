@@ -138,7 +138,7 @@
   }
 
   /* ---- News renderers ---- */
-  const fmt = (d) => { const x = new Date(d + "T00:00:00"); return isNaN(x) ? d : x.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); };
+  const fmt = (d) => { if (!d) return "Undated"; if (d.length === 4) return d; const x = new Date(d + "T00:00:00"); return isNaN(x) ? d : x.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); };
   window.fmtDate = fmt;
   window.renderNewsCard = (n) => `<article class="ncard panel reveal" id="${n.id || ""}">
       <div class="meta"><span class="tag">${n.type}</span><time datetime="${n.date}">${fmt(n.date)}</time></div>
@@ -146,12 +146,12 @@
       <div class="src"><span>${n.source}</span>${n.url ? `<a href="${n.url}" target="_blank" rel="noopener">Original article</a>` : ""}</div>
     </article>`;
   window.renderNewsRow = (n) => `<a class="nrow reveal" href="newsroom.html${n.id ? "#" + n.id : ""}">
-      <time class="d" datetime="${n.date}">${fmt(n.date)}</time><h3>${n.title}</h3><span class="s">${n.source}</span>
+      <time class="d" datetime="${n.date}">${fmt(n.date)}</time><h3 lang="${n.lang || "en"}">${n.title}</h3><span class="s">${n.source}</span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>`;
   const preview = $("[data-news-preview]");
-  if (preview && window.NEWS) {
-    const items = [...window.NEWS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+  if (preview && (window.NEWS || window.PRESS)) {
+    const items = [...(window.PRESS || []), ...(window.NEWS || [])].filter((n) => n.date).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
     preview.innerHTML = items.map(window.renderNewsRow).join("");
     observeNew(preview);
   }

@@ -14,7 +14,7 @@
     star.innerHTML = '<i class="glow"></i><svg viewBox="0 0 24 24"><path d="M12 0c.7 7.2 4.8 11.3 12 12-7.2.7-11.3 4.8-12 12-.7-7.2-4.8-11.3-12-12 7.2-.7 11.3-4.8 12-12z"/></svg>';
     document.body.appendChild(star);
     const root = document.documentElement;
-    const INTERACTIVE = "a, button, [role=button], summary, select, .ph, .vcard, .pill";
+    const INTERACTIVE = "a, button, [role=button], summary, select, .ph, .vcard, .pill, .globe";
     let shown = false;
     function classify(target) {
       if (!(target instanceof Element)) return;

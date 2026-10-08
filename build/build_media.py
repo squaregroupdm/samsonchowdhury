@@ -96,26 +96,58 @@ scripts = '''<script src="data/media-data.js"></script>
 page("videos.html", "Videos", "Video archive of Samson H Chowdhury: A Glimpse of Life, Establishment of Square, Liberation War Memories, Message for the New Generation and more.", body, scripts)
 
 # ---------------- NEWS ROOM ----------------
+FULL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path id="fsIcon" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>'
+EXT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>'
 body = f'''
-<section class="page-hero">
-  <div class="wrap grid">
-    <span class="mono kicker reveal">News Room</span>
-    <h1 class="h1 reveal">News Room</h1>
-    <p class="lead reveal" data-delay="1">Every report, tribute, honour and event connected to him, in one place, kept for the record.</p>
+<section class="page-hero news-hero">
+  <div class="wrap news-grid">
+    <div class="copy">
+      <span class="mono kicker reveal">News Room</span>
+      <h1 class="h1 reveal">News Room</h1>
+      <p class="lead reveal" data-delay="1">Every report, tribute, honour and event connected to him, in one place, kept for the record.</p>
+      <div class="stats mono reveal" id="stats" data-delay="2"></div>
+    </div>
+    <div class="gwrap" id="gwrap">
+      <div class="globe" id="globe">
+        <canvas id="gc" tabindex="0" role="img" aria-label="Globe of newspaper pages. Arrow keys turn it, Enter opens the page facing you. Every article is also in the list below."></canvas>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <div class="gbar">
+        <span class="mono" id="hint">Drag to turn. Select a page to open it.</span>
+        <button class="btn btn-sm" id="fs" type="button">{FULL}<span id="fsText">Full screen</span></button>
+      </div>
+      <div class="focus" id="focus" role="dialog" aria-modal="true" aria-labelledby="fHead" hidden>
+        <div class="veil" id="veil"></div>
+        <div class="fcard" id="fcard">
+          <button class="icon-btn fclose" id="fclose" type="button" aria-label="Close and return to the globe">{CLOSE}</button>
+          <canvas id="fimg" width="960" height="720" aria-hidden="true"></canvas>
+          <div class="fbody">
+            <div class="meta"><span class="tag" id="fType"></span><span id="fDate"></span></div>
+            <h2 id="fHead"></h2>
+            <p class="sum" id="fSum"></p>
+            <div class="factions">
+              <span class="src" id="fSrc"></span>
+              <span class="acts"><a class="btn btn-sm" id="fRecord" href="#">Record</a><a class="btn btn-primary btn-sm" id="fLink" href="#" target="_blank" rel="noopener">Original article {EXT}</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<section class="section-tight">
+<section class="section-tight" id="archive">
   <div class="wrap">
-    <div class="news-featured" data-featured></div>
+    <div class="section-head"><div><span class="mono" style="display:block;margin-bottom:12px">The archive</span><h2 class="h2">All coverage</h2></div></div>
     <div class="news-tools">
-      <label class="field"><span class="sr-only">Search the archive</span>{SEARCH}<input type="search" placeholder="Search headlines, sources, people" data-q></label>
-      <label class="field"><span class="sr-only">Filter by type</span><select data-type><option value="all">All types</option><option>Announcement</option><option>Award</option><option>Coverage</option><option>Event</option><option>Tribute</option></select>{CHEV_D}</label>
-      <label class="field"><span class="sr-only">Filter by year</span><select data-year-f><option value="all">All years</option></select>{CHEV_D}</label>
-      <button class="btn btn-sm" data-reset type="button">Clear filters</button>
+      <label class="field"><span class="sr-only">Search the archive</span>{SEARCH}<input id="q" type="search" placeholder="Search headlines, sources, people" autocomplete="off"></label>
+      <label class="field"><span class="sr-only">Filter by type</span><select id="selType"><option value="all">All types</option></select>{CHEV_D}</label>
+      <label class="field"><span class="sr-only">Filter by year</span><select id="selYear"><option value="all">All years</option></select>{CHEV_D}</label>
+      <button class="btn btn-sm" id="reset" type="button" hidden>Clear filters</button>
     </div>
-    <div class="stat-row"><span class="stat" data-total aria-live="polite"></span><span class="stat" data-range></span></div>
-    <div class="news-list" data-list></div>
-    <p class="small" style="margin-top:28px;max-width:66ch">Records without a link are held as scans or clippings in the archive and have no online original. Links are added only when an original article can be found.</p>
+    <div class="stat-row"><span class="stat" id="total" aria-live="polite"></span><span class="stat" id="range"></span></div>
+    <div class="news-list" id="list"></div>
+    <div class="more"><button class="btn" id="more" type="button">Show more</button></div>
+    <p class="small note" id="note"></p>
   </div>
 </section>
 <section class="section-tight">
@@ -125,33 +157,6 @@ body = f'''
   </div>
 </section>
 '''
-scripts = '''<script src="data/news-data.js"></script>
-<script>
-(function(){
-  var all = (window.NEWS || []).slice().sort(function(a,b){ return b.date.localeCompare(a.date); });
-  var list = document.querySelector('[data-list]'), q = document.querySelector('[data-q]'), type = document.querySelector('[data-type]'), yr = document.querySelector('[data-year-f]');
-  var total = document.querySelector('[data-total]'), range = document.querySelector('[data-range]'), feat = document.querySelector('[data-featured]');
-  var years = []; all.forEach(function(n){ var y = n.date.slice(0,4); if(years.indexOf(y) < 0) years.push(y); });
-  years.forEach(function(y){ var o = document.createElement('option'); o.textContent = y; yr.appendChild(o); });
-  if (all.length) {
-    var f = all[0], rest = all.slice(1, 4);
-    feat.innerHTML = '<div class="nf-main panel"><div class="label mono">From the archive</div><h2>' + f.title + '</h2><p class="lead">' + f.summary + '</p><p class="small">' + f.source + ', ' + window.fmtDate(f.date) + (f.url ? ' <a href="' + f.url + '" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px;color:var(--fg)">Original article</a>' : '') + ' <a href="#' + f.id + '" style="text-decoration:underline;text-underline-offset:3px;color:var(--fg)">Record</a></p></div>' +
-      '<div class="nf-side">' + rest.map(function(n){ return '<a class="item panel" href="#' + n.id + '"><b>' + n.title + '</b><small>' + n.source + ', ' + window.fmtDate(n.date) + '</small></a>'; }).join('') + '</div>';
-  }
-  function apply(){
-    var s = q.value.trim().toLowerCase(), t = type.value, y = yr.value;
-    var out = all.filter(function(n){
-      return (t === 'all' || n.type === t) && (y === 'all' || n.date.slice(0,4) === y) && (!s || (n.title + ' ' + n.summary + ' ' + n.source).toLowerCase().indexOf(s) >= 0);
-    });
-    list.innerHTML = out.length ? out.map(window.renderNewsCard).join('') : '<div class="empty"><span>Nothing in the archive matches that search.</span><button class="btn btn-sm" data-reset type="button">Clear filters</button></div>';
-    total.innerHTML = '<b>' + out.length + '</b> of ' + all.length + ' records';
-    range.innerHTML = years.length ? '<b>' + years[years.length-1] + '</b> to <b>' + years[0] + '</b>' : '';
-    window.observeNew && window.observeNew(list);
-  }
-  [q, type, yr].forEach(function(el){ el.addEventListener('input', apply); });
-  document.addEventListener('click', function(e){ var r = e.target.closest('[data-reset]'); if (!r) return; q.value = ''; type.value = 'all'; yr.value = 'all'; apply(); q.focus(); });
-  apply();
-  if (location.hash) { var t = document.querySelector(location.hash); if (t) { t.classList.add('in'); t.scrollIntoView(); t.style.borderColor = 'var(--accent-soft)'; } }
-})();
-</script>'''
+scripts = '''<script src="data/press-data.js"></script><script src="data/news-data.js"></script>
+<script src="js/globe.js"></script>'''
 page("newsroom.html", "News Room", "The Samson H Chowdhury News Room: a searchable archive of news coverage, tributes, honours and events, kept for future generations.", body, scripts)

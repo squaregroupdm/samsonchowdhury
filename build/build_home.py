@@ -173,7 +173,7 @@ body = f'''
 </section>
 '''
 
-scripts = '''<script src="data/quotes-data.js"></script><script src="data/news-data.js"></script><script src="data/tributes-data.js"></script><script src="data/media-data.js"></script>
+scripts = '''<script src="data/quotes-data.js"></script><script src="data/press-data.js"></script><script src="data/news-data.js"></script><script src="data/tributes-data.js"></script><script src="data/media-data.js"></script>
 <script>
 (function(){
   /* Featured film: only shown once the browser confirms the file can be read. */

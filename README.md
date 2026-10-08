@@ -12,24 +12,27 @@ repository to Cloudflare Workers (see wrangler.jsonc).
 - biography.html : Portrait header, decade timeline, the full life story with a sticky table of contents and three archival photographs
 - css/styles.css : The entire design system (colours, type scale, layout, motion)
 - data/media-data.js : Photo albums, captions and video list
-- data/news-data.js : Every News Room record. Each has a stable id used for its permanent link.
+- data/news-data.js : The 13 archive records without online originals (honours, events). Each has a stable id used for its permanent link.
+- data/press-data.js : Every press article about him found online (105 at last count), with source, date, summary, link and, where one exists, a screen capture in img/press/. Add new articles at the top of this list.
 - data/quotes-data.js : Every quote. Each has a stable id used for its permanent link.
 - data/tributes-data.js : The short recollections rotating on the home page
 - img/favicon.svg : Browser tab icon
 - img/never-stop-thinking.png : The handwritten motto above the name, transparent background
 - img/og.jpg : The picture shown when a link to the site is shared on WhatsApp or Facebook
 - img/portrait-bio.jpg : The full portrait, used on the Biography page
+- img/press/ : Screen captures of newspaper pages, one per article that allowed capture, named by the article id
 - img/portrait-sm.jpg : The small portrait used in the menu
 - img/portrait-tribute.jpg : The portrait beside the recollection on the home page
 - img/seq/ : The 163 frames of the scroll-turned portrait (f001 to f163.webp), background made transparent
 - img/signature.png : His signature, transparent background, above the footer; signature-sm.png is the header copy
 - index.html : Home page
+- js/globe.js : The News Room globe of newspaper pages (drag, click to open, full screen) and the filterable archive list
 - js/main.js : Shared behaviour (header, menu, reveals, quote deck, recollection carousel, lightbox, copy buttons)
 - js/scrub.js : The scroll-turned portrait in the hero (draws the frame that matches the scroll position)
 - js/sky.js : The star field behind every page, drawn once
 - js/story.js : Count-up for the one quantity on the home page (36,000)
 - js/timeline.js : The milestones scroller on the home page (previous/next, year rail, keyboard)
-- newsroom.html : Searchable, filterable news archive with permanent links per record
+- newsroom.html : A glass globe tiled with every newspaper page in the archive, then the searchable, filterable list with permanent links per record
 - photos.html : Album filter plus lightbox gallery
 - quotes.html : Quote wall with copy and permanent-link buttons
 - recollections.html : One featured recollection, nine more that expand in place
@@ -44,7 +47,9 @@ repository to Cloudflare Workers (see wrangler.jsonc).
 
 ## How to add a news item (no coding needed)
 
-1. Open data/news-data.js in Notepad (Windows) or TextEdit (Mac).
+For an article that exists online, use data/press-data.js (fields: id, date, title, summary, source, url, type, lang). For an event or honour with no online original, use data/news-data.js. Both work the same way:
+
+1. Open the file in Notepad (Windows) or TextEdit (Mac).
 2. Copy one block that starts with { and ends with }, (including the comma).
 3. Paste it directly under the line `window.NEWS = [`.
 4. Change the id (short, unique, never change it later), date (YYYY-MM-DD), title, summary, source, url and type.
