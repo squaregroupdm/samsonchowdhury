@@ -211,7 +211,7 @@
   /* ---- Any photo that fails to load hides itself and marks its card ---- */
   function imgFailed(img) {
     const fb = img.dataset.fallback; // a photo with a stand-in tries that first
-    if (fb && !img.dataset.fell) { img.dataset.fell = "1"; img.src = fb; return; }
+    if (fb && !img.dataset.fell) { img.dataset.fell = "1"; img.src = fb; if (img.dataset.fallbackFocus) img.style.setProperty("--focus", img.dataset.fallbackFocus); return; }
     img.classList.add("is-missing");
     const card = img.closest(".tl-card, figure, .fact, .ph, .tribute-solo .img"); if (card) card.classList.add("no-img");
   }

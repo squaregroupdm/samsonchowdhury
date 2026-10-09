@@ -13,8 +13,15 @@ MILESTONES = [
  ("2008", "National Board of Revenue", "Highest taxpayer in the country", "Honoured on the first National Income Tax Day, 15 September 2008.", "with-dignitaries/01.jpg"),
  ("2012", "5 January", "Passes away in Singapore", "Laid to rest at Astra Farmhouse, Pabna. The Ekushey Padak follows in 2013.", "in-memoriam/01.jpg"),
 ]
+# Where each archive photograph is cropped around, as "x% y%" of the picture (0% 0% is the top-left
+# corner). Photographs not listed here use 50% 30%: upper centre, where a face usually sits.
+# To move a crop, change the numbers; nothing else needs editing.
+FOCUS = {
+  "img/portrait-tribute.jpg": "62% 33%",
+}
+def focus(src): return f' style="--focus: {FOCUS[src]}"' if src in FOCUS else ""
 cards = "".join(
-    f'<article class="tl-card" data-yr="{yr}"><div class="img"><img src="{P}{img}" alt="" loading="lazy" width="600" height="450"></div><span class="ghost" aria-hidden="true">{yr}</span>'
+    f'<article class="tl-card" data-yr="{yr}"><div class="img"><img src="{P}{img}" alt="" loading="lazy" width="600" height="450"{focus(P + img)}></div><span class="ghost" aria-hidden="true">{yr}</span>'
     f'<div class="yr">{yr}<span>{sub}</span></div><h3>{h}</h3><p>{p}</p></article>'
     for yr, sub, h, p, img in MILESTONES)
 
@@ -40,8 +47,8 @@ chapters = "".join(f'''<article class="ch" data-ch="{i}" id="chapter-{i+1}">
           <a class="btn btn-sm" href="{href}">{link} {A}</a>
         </div>
         <figure class="ch-art">
-          <img class="ch-back" src="{img}" alt="" loading="{"eager" if i == 0 else "lazy"}" width="900" height="600" data-fallback="img/portrait-tribute.jpg" aria-hidden="true">
-          <div class="ch-front"><img src="{img}" alt="{cap}" loading="{"eager" if i == 0 else "lazy"}" width="900" height="1125" data-fallback="img/portrait-tribute.jpg"></div>
+          <img class="ch-back" src="{img}" alt="" loading="{"eager" if i == 0 else "lazy"}" width="900" height="600" data-fallback="img/portrait-tribute.jpg" data-fallback-focus="62% 33%" aria-hidden="true"{focus(img)}>
+          <div class="ch-front"><img src="{img}" alt="{cap}" loading="{"eager" if i == 0 else "lazy"}" width="900" height="1125" data-fallback="img/portrait-tribute.jpg" data-fallback-focus="62% 33%"{focus(img)}></div>
           <figcaption class="small">{cap}</figcaption>
         </figure>
       </article>''' for i,(label,yrs,title,text,href,link,img,cap) in enumerate(CH))

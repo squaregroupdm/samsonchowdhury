@@ -19,6 +19,7 @@
     const N = chapters.length;
     let travel = 1, top = 0, active = -1, queued = 0, on = false;
     const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+    const ease = (x) => x * x * (3 - 2 * x); // smoothstep
 
     function measure() {
       const r = story.getBoundingClientRect();
@@ -40,8 +41,9 @@
       const p = clamp((y - top) / travel, 0, 1) * (N - 1); // 0 .. N-1, chapter i is centred at p = i
       chapters.forEach((c, i) => {
         const d = p - i, ad = Math.abs(d);
-        // photographs cross-dissolve; the text of one chapter is fully gone before the next arrives
-        const oArt = clamp((0.6 - ad) / 0.18, 0, 1), oCopy = clamp((0.5 - ad) / 0.14, 0, 1);
+        // photographs cross-dissolve; the text of one chapter is fully gone before the next arrives.
+        // Both fades are eased (slow in, slow out) so nothing starts or stops with a jolt.
+        const oArt = ease(clamp((0.62 - ad) / 0.26, 0, 1)), oCopy = ease(clamp((0.52 - ad) / 0.2, 0, 1));
         c.style.visibility = oArt > 0 ? "visible" : "hidden";
         c.style.pointerEvents = oCopy > 0.5 ? "auto" : "none";
         const copy = c.querySelector(".ch-copy"), art = c.querySelector(".ch-art"), front = c.querySelector(".ch-front img"), back = c.querySelector(".ch-back");

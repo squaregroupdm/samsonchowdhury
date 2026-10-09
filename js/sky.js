@@ -22,7 +22,7 @@
   const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
 
   function build() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5); // stars are tiny; 1.5x is sharp enough and half the pixels of 2x
     w = window.innerWidth; h = window.innerHeight;
     [main, fx].forEach((c) => { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); });
     seed = 7; sparkles = [];
@@ -93,12 +93,15 @@
       if (k >= 1) { shot = null; nextShot = now + 9000 + Math.random() * 7000; }
     }
   }
+  let lastT = 0;
   function loop(now) {
     requestAnimationFrame(loop);
-    if (document.hidden) return;
-    // the layers glide towards the pointer rather than jumping to it
-    const dx = tx - px, dy = ty - py;
-    if (Math.abs(dx) > 0.0005 || Math.abs(dy) > 0.0005) { px += dx * 0.06; py += dy * 0.06; compose(); }
+    if (document.hidden) { lastT = 0; return; }
+    // the layers glide towards the pointer rather than jumping to it; time-based, so the glide
+    // takes the same fraction of a second on a 60 Hz and a 144 Hz screen
+    const dt = lastT ? Math.min(now - lastT, 100) : 16; lastT = now;
+    const k = 1 - Math.exp(-dt / 220), dx = tx - px, dy = ty - py;
+    if (Math.abs(dx) > 0.0005 || Math.abs(dy) > 0.0005) { px += dx * k; py += dy * k; compose(); }
     sparkleFrame(now);
   }
   requestAnimationFrame(loop);
