@@ -14,40 +14,53 @@ BN_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
 
 def esc(s): return html.escape(s, quote=False)
 
-def entry(r, n):
+OCC = [None,
+ {"en": "Interview, recorded by MediaCom", "bn": "সাক্ষাৎকার (মিডিয়াকম ধারণকৃত)"},
+ {"en": "Memorial meeting of the MCCI and Bonik Barta, 27 September 2025", "bn": "এম সি সি আই ও বণিক বার্তা আয়োজিত স্মরণ সভা, ২৭শে সেপ্টেম্বর ২০২৫"},
+ {"en": "Centenary celebration at Ramna Cathedral, 25 September 2025", "bn": "রমনা ক্যাথেড্রাল-এ শতবার্ষিকী উদযাপন, ২৫শে সেপ্টেম্বর ২০২৫"},
+]
+TITLES = ("His Eminence Cardinal ", "Barrister ", "Dr ", "Mrs ", "Mr ")
+def plain(name):
+    for t in TITLES:
+        if name.startswith(t): name = name[len(t):]
+    return name
+def slug(name): return re.sub(r"[^a-z0-9]+", "-", plain(name).lower()).strip("-")
+
+# One entry per person, A to Z by name (titles such as Dr ignored for the order); a person who
+# spoke more than once has each piece under its own occasion.
+people = {}
+for r in STORIES:
+    k = slug(r["name"]["en"])
+    people.setdefault(k, {"name": r["name"], "role": r["role"], "pieces": []})
+    people[k]["pieces"].append(r)
+    if len(r["role"]["en"]) > len(people[k]["role"]["en"]): people[k]["role"] = r["role"]
+order = sorted(people, key=lambda k: plain(people[k]["name"]["en"]).lower())
+
+def piece(r):
     en = "".join(f"<p>{esc(p)}</p>" for p in r["en"])
     bn = "".join(f"<p>{esc(p)}</p>" for p in r["bn"])
-    return f'''<article class="st" id="{r["id"]}">
+    o = OCC[r["section"]]
+    return f'''<section class="st-piece" id="{r["id"]}">
+    <p class="mono st-occ"><span class="st-en">{esc(o["en"])}</span><span class="st-bn" lang="bn">{esc(o["bn"])}</span></p>
+    <div class="st-body st-en">{en}</div>
+    <div class="st-body st-bn" lang="bn">{bn}</div>
+  </section>'''
+
+def entry(k):
+    pr = people[k]
+    return f'''<article class="st" id="{k}">
   <header class="st-head">
-    <span class="mono st-n">{n:02d}</span>
     <div>
-      <h3 class="st-en">{esc(r["name"]["en"])}</h3><h3 class="st-bn" lang="bn">{esc(r["name"]["bn"])}</h3>
-      <p class="st-role st-en">{esc(r["role"]["en"])}</p><p class="st-role st-bn" lang="bn">{esc(r["role"]["bn"])}</p>
+      <h2 class="st-en">{esc(pr["name"]["en"])}</h2><h2 class="st-bn" lang="bn">{esc(pr["name"]["bn"])}</h2>
+      <p class="st-role st-en">{esc(pr["role"]["en"])}</p><p class="st-role st-bn" lang="bn">{esc(pr["role"]["bn"])}</p>
     </div>
-    <a class="st-link" href="#{r["id"]}" aria-label="Link to this story">#</a>
+    <a class="st-link" href="#{k}" aria-label="Link to this speaker">#</a>
   </header>
-  <div class="st-body st-en">{en}</div>
-  <div class="st-body st-bn" lang="bn">{bn}</div>
+  {"".join(piece(r) for r in pr["pieces"])}
 </article>'''
 
-toc, sections = [], []
-n = 0
-for i, sec in enumerate(SECTIONS, 1):
-    rows = [r for r in STORIES if r["section"] == i]
-    toc.append(f'<a class="toc-sec" href="#part-{i}"><span class="st-en">{esc(sec["en"])}</span><span class="st-bn" lang="bn">{esc(sec["bn"])}</span></a>')
-    items = []
-    for r in rows:
-        n += 1
-        items.append(entry(r, n))
-        toc.append(f'<a class="toc-sub" href="#{r["id"]}"><span class="st-en">{esc(r["name"]["en"])}</span><span class="st-bn" lang="bn">{esc(r["name"]["bn"])}</span></a>')
-    sections.append(f'''<section class="st-part" id="part-{i}">
-  <div class="st-part-head">
-    <span class="mono">Part {NUMS[i]}</span>
-    <h2 class="h2"><span class="st-en">{esc(sec["en"])}</span><span class="st-bn" lang="bn">{esc(sec["bn"])}</span></h2>
-    <p class="small">{len(rows)} {"voice" if len(rows) == 1 else "voices"}</p>
-  </div>
-  {"".join(items)}
-</section>''')
+toc = [f'<a class="toc-sub" href="#{k}"><span class="st-en">{esc(plain(people[k]["name"]["en"]))}</span><span class="st-bn" lang="bn">{esc(people[k]["name"]["bn"])}</span></a>' for k in order]
+sections = [entry(k) for k in order]
 
 body = f'''
 <section class="page-hero">
@@ -55,7 +68,7 @@ body = f'''
     <div class="grid">
       <span class="mono kicker reveal">Stories</span>
       <h1 class="h1 reveal">Stories of Samson H Chowdhury</h1>
-      <p class="lead reveal" data-delay="1">A legacy interview series. {len(STORIES)} interviews and speeches by the people who knew him, recorded for his birth centenary in 2025. Read them in English, or switch to the original Bangla.</p>
+      <p class="lead reveal" data-delay="1">A legacy interview series. {len(STORIES)} interviews and speeches by {len(people)} people who knew him, recorded for his birth centenary in 2025, listed A to Z. Read them in English, or switch to the original Bangla.</p>
       <div class="tools reveal" data-delay="2">
         <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" class="pill is-active" data-lang="en" aria-pressed="true">English</button>
@@ -69,7 +82,7 @@ body = f'''
 <section class="section-tight stories" data-stories data-lang="en">
   <div class="wrap">
     <div class="bio-layout">
-      <nav class="toc toc-stories reveal" aria-label="Speakers">{"".join(toc)}</nav>
+      <nav class="toc toc-stories reveal" aria-label="Speakers, A to Z">{"".join(toc)}</nav>
       <div class="st-list">
         {"".join(sections)}
         <p class="note small">From the collection "Stories of Samson H. Chowdhury: A Legacy Interview Series". The interviews were recorded by MediaCom; the speeches were given at the memorial meeting of the MCCI and Bonik Barta on 27 September 2025 and at the centenary celebration at Ramna Cathedral on 25 September 2025. The English texts are translations of the Bangla originals, which can be read with the language switch above.</p>
