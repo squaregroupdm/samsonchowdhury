@@ -17,7 +17,11 @@ MILESTONES = [
 # corner). Photographs not listed here use 50% 30%: upper centre, where a face usually sits.
 # To move a crop, change the numbers; nothing else needs editing.
 FOCUS = {
-  "img/portrait-tribute.jpg": "62% 33%",
+  "img/portrait-tribute.jpg": "62% 33%",                       # studio portrait, hand on cheek
+  P + "while-at-work-or-at-leisure/02.jpg": "28% 25%",          # seated on the left, family photo on the right
+  P + "while-at-work-or-at-leisure/03.jpg": "50% 0%",           # seated in the armchair, head at the very top
+  P + "with-familly-members/02.jpg": "50% 28%",                 # group beside the van
+  P + "while-at-work-or-at-leisure/10.jpg": "50% 30%",          # group at the office
 }
 def focus(src): return f' style="--focus: {FOCUS[src]}"' if src in FOCUS else ""
 cards = "".join(
@@ -34,7 +38,7 @@ CH = [
   "biography.html#square", "The establishment of Square", P + "while-at-work-or-at-leisure/02.jpg", "At work. From the album At Work and at Leisure."),
  ("The standard", "1974 to 2012", "Quality, quality and quality everywhere",
   "A licence from Janssen Pharmaceutica in 1974 rebuilt the plant to international standards. Market leader by 1985, the first Bangladeshi pharmaceutical exporter in 1987, UK MHRA approval in 2007 and TGA Australia in 2012. His motto never changed.",
-  "biography.html#growth", "The growth of Square", P + "while-at-work-or-at-leisure/10.jpg", "From the album At Work and at Leisure."),
+  "biography.html#growth", "The growth of Square", P + "while-at-work-or-at-leisure/03.jpg", "From the album At Work and at Leisure."),
  ("The man", "1925 to 2012", "To his followers, a hero",
   "To his contemporaries, an icon. To young entrepreneurs, a mentor. To regulators, a symbol of fairness. He put people's welfare at the centre of enterprise, and in five decades there was never a single day of labour unrest in any company he built.",
   "recollections.html", "How his peers remember him", "img/portrait-tribute.jpg", "Samson H Chowdhury."),
