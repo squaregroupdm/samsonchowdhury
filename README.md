@@ -14,6 +14,7 @@ repository to Cloudflare Workers (see wrangler.jsonc).
 - data/media-data.js : Photo albums, captions and video list
 - data/news-data.js : The 13 archive records without online originals (honours, events). Each has a stable id used for its permanent link.
 - data/press-data.js : Every press article about him found online (105 at last count), with source, date, summary, link and, where one exists, a screen capture in img/press/. Add new articles at the top of this list.
+- data/stories-data.js : The 34 centenary interviews and speeches ("Stories of Samson H Chowdhury: A Legacy Interview Series"), each with the English translation and the Bangla original. Edit here, then run the build; stories.html is generated from it.
 - data/quotes-data.js : Every quote. Each has a stable id used for its permanent link.
 - data/tributes-data.js : The short recollections rotating on the home page
 - img/favicon.svg : Browser tab icon
@@ -36,6 +37,7 @@ repository to Cloudflare Workers (see wrangler.jsonc).
 - photos.html : Album filter plus lightbox gallery
 - quotes.html : Quote wall with copy and permanent-link buttons
 - recollections.html : One featured recollection, nine more that expand in place
+- stories.html : The centenary interviews and speeches, English by default with a switch to the original Bangla (stories.html?lang=bn opens in Bangla)
 - videos.html : Film grid with in-page player, duration badges and error states
 - wrangler.jsonc : Cloudflare Workers deployment settings (static assets from this folder)
 

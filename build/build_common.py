@@ -10,6 +10,7 @@ PAGES = [
     ("biography.html", "Biography"),
     ("accolades.html", "Accolades"),
     ("recollections.html", "Recollections"),
+    ("stories.html", "Stories"),
     ("photos.html", "Photos"),
     ("videos.html", "Videos"),
     ("newsroom.html", "News Room"),

@@ -199,7 +199,7 @@ body = f'''
 <section class="section-tight">
   <div class="wrap">
     <div class="section-head"><h2 class="h2">Continue exploring</h2></div>
-    {continue_links([("newsroom.html","News Room","The tributes as they were first published."),("quotes.html","In his own words","Nine sayings, with the moments that produced them."),("biography.html#demise","Demise","January 2012, as the country said goodbye.")])}
+    {continue_links([("stories.html","Stories","Thirty-four centenary interviews and speeches, in English and Bangla."),("newsroom.html","News Room","The tributes as they were first published."),("quotes.html","In his own words","Nine sayings, with the moments that produced them.")])}
   </div>
 </section>
 '''
