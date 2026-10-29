@@ -1,6 +1,6 @@
 /* ============================================================
    PRESS COVERAGE
-   Every article about Samson H Chowdhury found online, newest first.
+   Every article about Samson H Chowdhury found online, plus printed pages, newest first.
    Fields: id (stable, used for permanent links), date (YYYY-MM-DD, YYYY or ""), title, summary,
    source (publication), url (the original article, or "" for a print page), type, lang (en or bn),
    img (a screen capture or a photograph of the printed page in img/press/, only where one exists),
@@ -9,6 +9,292 @@
    ============================================================ */
 
 window.PRESS = [
+  {
+    "id": "2025-print-the-daily-star-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "The Daily Star",
+    "url": "https://drive.google.com/file/d/1ioEiGS8U33CazCkdK3SnqmwZhcCXbCf2/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1ioEiGS8U33CazCkdK3SnqmwZhcCXbCf2=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-jugantor-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Jugantor",
+    "url": "https://drive.google.com/file/d/1itRxa-DcOI0T2NKg_Tiu2JOZH9COciFC/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1itRxa-DcOI0T2NKg_Tiu2JOZH9COciFC=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-kaler-kantho-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Kaler Kantho",
+    "url": "https://drive.google.com/file/d/1MLYUZoSMcEPc7lbK3Jn0CkcmXiAEiO3h/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1MLYUZoSMcEPc7lbK3Jn0CkcmXiAEiO3h=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-samakal-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Samakal",
+    "url": "https://drive.google.com/file/d/1glR5C2sbECQHil3P9YI6dBHqEPHlCBoA/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1glR5C2sbECQHil3P9YI6dBHqEPHlCBoA=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-prothom-alo-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Prothom Alo",
+    "url": "https://drive.google.com/file/d/1EJsRq3EkEQC8RaXnDFresNjWG5xXdcYs/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1EJsRq3EkEQC8RaXnDFresNjWG5xXdcYs=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-sangbad-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Sangbad",
+    "url": "https://drive.google.com/file/d/1frTBDT6mmODj6eAp1yMqDb9kUF4JM8wz/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1frTBDT6mmODj6eAp1yMqDb9kUF4JM8wz=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-financial-express-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "The Financial Express",
+    "url": "https://drive.google.com/file/d/1OuAhpQLH40_fkmd6Ku6JVXb_s5tuJMSu/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1OuAhpQLH40_fkmd6Ku6JVXb_s5tuJMSu=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bonik-barta-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/1OXUAjFZ7Y3LmyvGlXcMdrdaEs35e2DBA/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1OXUAjFZ7Y3LmyvGlXcMdrdaEs35e2DBA=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-amar-desh-centenary-homage",
+    "date": "2025-09-25",
+    "title": "If you love people, God will love you: homage on his birth centenary",
+    "summary": "Square Group's full-page homage to the humanitarian Samson H Chowdhury on his birth centenary: his portrait, his own words, and the line 100 years of uncompromising integrity, 1925, forever in our hearts.",
+    "source": "Amar Desh",
+    "url": "https://drive.google.com/file/d/1mBCLonyYyKWHHqOBTzot5WPVVEO6FeWU/view",
+    "type": "Print",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1mBCLonyYyKWHHqOBTzot5WPVVEO6FeWU=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-kaler-kantho-mobile-hospital",
+    "date": "2025-09-25",
+    "title": "বিনামূল্যে চিকিৎসা দেবে স্কয়ার গ্রুপের ভ্রাম্যমাণ হাসপাতাল",
+    "summary": "Kaler Kantho reports the mobile hospital announced at the Samson Centre in Gulshan for his birth centenary: free primary care, mother and child care, eye tests, spectacles and medicines for low-income and working people, run through the Anita and Samson Foundation.",
+    "source": "Kaler Kantho",
+    "url": "https://drive.google.com/file/d/1mhelPYj8vBI_PyVj86XyWw8U_QCIoiqQ/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1mhelPYj8vBI_PyVj86XyWw8U_QCIoiqQ=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bangladesh-pratidin-life-of-dreams",
+    "date": "2025-09-25",
+    "title": "স্বপ্ন ও সাধনার জীবন",
+    "summary": "Bangladesh Pratidin's birth centenary profile: the doctor's son who joined the Royal Indian Navy at 17, took over Hossain Pharmacy, started Esons with Tk 5,000 in 1956 and founded Square with three friends in 1958.",
+    "source": "Bangladesh Pratidin",
+    "url": "https://drive.google.com/file/d/1I7GA_QKSWFMcoih11MFbBr7IDydR3YNS/view",
+    "type": "Profile",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1I7GA_QKSWFMcoih11MFbBr7IDydR3YNS=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-jugantor-mobile-healthcare",
+    "date": "2025-09-25",
+    "title": "স্যামসন এইচ চৌধুরীর জন্মশতবর্ষে স্কয়ার গ্রুপের মোবাইল হেলথকেয়ার",
+    "summary": "Jugantor on the launch of Chhappanno Hazar Square Mile Jure, the mobile healthcare initiative his four children opened at St Mary's Cathedral on his hundredth birthday.",
+    "source": "Jugantor",
+    "url": "https://drive.google.com/file/d/1r_T-N11BUGyTqCwoWJ_3CgJB-sUum6bE/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1r_T-N11BUGyTqCwoWJ_3CgJB-sUum6bE=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-new-age-remembered",
+    "date": "2025-09-27",
+    "title": "Samson H Chowdhury remembered on birth centenary",
+    "summary": "New Age's report on the remembrance at St Mary's Cathedral, Kakrail: Cardinal Patrick D'Rozario's blessing and tributes from Abdul Muktadir, Iftekharuzzaman, Mahbubur Rahman, Dennis Dilip Datta, Rasheda K Chowdhury and Mohammed Farashuddin.",
+    "source": "New Age",
+    "url": "https://drive.google.com/file/d/14f6_hWp0ucq8gunyzVAX41BJutQEE9Ta/view",
+    "type": "Event",
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/14f6_hWp0ucq8gunyzVAX41BJutQEE9Ta=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-kaler-kantho-inspiration",
+    "date": "2025-09-25",
+    "title": "উদ্যোক্তাদের কাছে আজও তিনি অনুপ্রেরণা",
+    "summary": "Masud Rumee's centenary tribute in Kaler Kantho: business as a means of social welfare, from a village pharmacy to Square Group, and the philosophy that there is no shortcut to success.",
+    "source": "Kaler Kantho",
+    "url": "https://drive.google.com/file/d/1Pd1C9fu0ypt0rbHmAGU0fGMv2SZfUNzl/view",
+    "type": "Profile",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1Pd1C9fu0ypt0rbHmAGU0fGMv2SZfUNzl=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-prothom-alo-remembered",
+    "date": "2025-09-26",
+    "title": "শ্রদ্ধা, ভালোবাসায় স্যামসন এইচ চৌধুরীকে স্মরণ",
+    "summary": "Prothom Alo's report on the centenary remembrance at St Mary's Cathedral, with more than a thousand guests, the cake-cutting by the family, and the speakers who called him a visionary and a pioneer who never compromised.",
+    "source": "Prothom Alo",
+    "url": "https://drive.google.com/file/d/1jWKGPgiMfsPzdQGdBy4fDY3xH8EJ9Neu/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1jWKGPgiMfsPzdQGdBy4fDY3xH8EJ9Neu=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-prothom-alo-mobile-hospital",
+    "date": "2025-09-25",
+    "title": "ভ্রাম্যমাণ হাসপাতাল চালু করছে স্কয়ার গ্রুপ",
+    "summary": "Prothom Alo visits the air-conditioned minibus fitted out as a small hospital, to travel the country's 56,000 square miles with free care for low-income people, announced by Tapan Chowdhury for his father's birth centenary.",
+    "source": "Prothom Alo",
+    "url": "https://drive.google.com/file/d/1q3JQfLV4vmOwvi2b6w1zW-_sFscojzDa/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1q3JQfLV4vmOwvi2b6w1zW-_sFscojzDa=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-naya-diganta-remembered",
+    "date": "2025-09-27",
+    "title": "শ্রদ্ধায় স্যামসন এইচ চৌধুরীকে স্মরণ",
+    "summary": "Naya Diganta's report on the birth centenary remembrance at St Mary's Cathedral: prayers, tributes, the family's thanks given by Tapan Chowdhury, and the video on the new mobile healthcare initiative.",
+    "source": "Naya Diganta",
+    "url": "https://drive.google.com/file/d/108exnwyrQcYmDEmqm32m61N4iN-PGXDI/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/108exnwyrQcYmDEmqm32m61N4iN-PGXDI=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bonik-barta-mobile-healthcare",
+    "date": "2025-09-25",
+    "title": "মোবাইল হেলথকেয়ার প্রোগ্রাম চালু করল স্কয়ার গ্রুপ",
+    "summary": "Bonik Barta on the press conference at the Samson Centre: Tapan Chowdhury announces the non-profit mobile clinic and telemedicine programme named for the country's 56,000 square miles, saying healthcare is a basic right, not a privilege.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/1BaMglVy2M8k9ZFehIN0aGUNcplu4hdv1/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1BaMglVy2M8k9ZFehIN0aGUNcplu4hdv1=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bonik-barta-remembered",
+    "date": "2025-09-26",
+    "title": "শ্রদ্ধা-ভালোবাসায় স্যামসন এইচ চৌধুরীকে স্মরণ পরিবার ও শুভানুধ্যায়ীদের",
+    "summary": "Bonik Barta's full report on the centenary remembrance at St Mary's Cathedral, quoting Mohammed Farashuddin, Mahbubur Rahman, Rasheda K Choudhury, Abdul Muktadir, Iftekharuzzaman, Dennis Dilip Datta, Sanchia Chowdhury and Tapan Chowdhury.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/1Gye-OZDCUa0Zve2OZNrH-Gt1BoqHfgU3/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1Gye-OZDCUa0Zve2OZNrH-Gt1BoqHfgU3=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bonik-barta-tapan-interview",
+    "date": "2025-09-18",
+    "title": "সাধারণ মানুষের জীবনকে স্পর্শ করার বড় বিনিয়োগে আসছে স্কয়ার",
+    "summary": "Bonik Barta's interview with Tapan Chowdhury a week before the centenary: Square's investment plans, and the family trust formed in his late father's name to run a mobile hospital, a school programme with BRAC and other work for ordinary people.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/1UukfXZrdfTkrsgxFNriMIIS1gpdt5mXN/view",
+    "type": "Coverage",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1UukfXZrdfTkrsgxFNriMIIS1gpdt5mXN=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2026-print-naya-diganta-memoir",
+    "date": "2026-09-27",
+    "title": "স্যামসন এইচ চৌধুরীর জন্মবার্ষিকী উদযাপন এবং স্মৃতিকথা সঙ্কলন বইয়ের মোড়ক উন্মোচন",
+    "summary": "Naya Diganta on the 101st birth anniversary gathering at SFBL Arena, where the memoir collection Samson H. Chowdhury: Stories of Uncompromising Integrity was unveiled and an excerpt of the documentary Samson: Through a Son's Lens was shown.",
+    "source": "Naya Diganta",
+    "url": "https://drive.google.com/file/d/1EsHWbroGBbg6sui7ljU-WD5z4GpdbnWh/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1EsHWbroGBbg6sui7ljU-WD5z4GpdbnWh=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2026-print-bonik-barta-memoir",
+    "date": "2026-09-27",
+    "title": "স্যামসন এইচ চৌধুরীর ১০১তম জন্মবার্ষিকীতে স্মরণ অনুষ্ঠান",
+    "summary": "Bonik Barta on the 101st birth anniversary remembrance at SFBL Arena, Madani Avenue: the memoir collection unveiled, Tapan Chowdhury's keynote, Sanchia Chowdhury for the family and Mahbubur Rahman's recollections.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/19ZBkYGg0ZA5LdD5tiNN0jR5zo2UrpWkI/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/19ZBkYGg0ZA5LdD5tiNN0jR5zo2UrpWkI=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2026-print-samakal-memoir",
+    "date": "2026-09-27",
+    "title": "স্যামসন এইচ চৌধুরীর জন্মবার্ষিকীতে বইয়ের মোড়ক উন্মোচন",
+    "summary": "Report on the 101st birth anniversary remembrance at SFBL Arena and the unveiling of the memoir collection, with Tapan Chowdhury, Mahbubur Rahman and Sanchia Chowdhury.",
+    "source": "Samakal",
+    "url": "https://drive.google.com/file/d/1XQZrqIt14vhlRoZ1chdIVH-AhwY58fwl/view",
+    "type": "Event",
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1XQZrqIt14vhlRoZ1chdIVH-AhwY58fwl=w1400",
+    "focus": "top"
+  },
+  {
+    "id": "2025-print-bonik-barta-supplement",
+    "date": "2025-09-25",
+    "title": "কালপুরুষ স্যামসন এইচ চৌধুরী: জন্মশতবর্ষ উদযাপন বিশেষ সংখ্যা",
+    "summary": "Bonik Barta's special supplement for his birth centenary: a full life story, a chronology from 1925 to 2013, Tapan Chowdhury's long recollection of his father, and tributes from Salehuddin Ahmed, Mahbubur Rahman, Sk Bashir Uddin and Debapriya Bhattacharya.",
+    "source": "Bonik Barta",
+    "url": "https://drive.google.com/file/d/1vysunEhpiFMyenqTLCfdp2Ent2u6fysj/view",
+    "type": "Profile",
+    "lang": "bn"
+  },
   {
     "id": "2012-in-his-passing-a-business",
     "date": "2012-01-06",
@@ -227,7 +513,9 @@ window.PRESS = [
     "source": "The Financial Express",
     "url": "https://thefinancialexpress.com.bd/national/samson-h-chowdhurys-honesty-integrity-contributions-lauded",
     "type": "Event",
-    "lang": "en"
+    "lang": "en",
+    "img": "https://lh3.googleusercontent.com/d/1ktWLjw9HFjgrTGrAejYYkxVxS6fLNID1=w1400",
+    "focus": "top"
   },
   {
     "id": "2007-samson-h-chy-elected-mtbl",
@@ -347,7 +635,9 @@ window.PRESS = [
     "source": "Bangladesh Pratidin",
     "url": "https://www.bd-pratidin.com/industrial-trade/2026/09/27/1305614",
     "type": "Event",
-    "lang": "bn"
+    "lang": "bn",
+    "img": "https://lh3.googleusercontent.com/d/1Q17LsUEqBqa-1IWTe0COx3GezKd-qnu2=w1400",
+    "focus": "top"
   },
   {
     "id": "2025-bdnews24-com-34",

@@ -13,7 +13,7 @@ repository to Cloudflare Workers (see wrangler.jsonc).
 - css/styles.css : The entire design system (colours, type scale, layout, motion)
 - data/media-data.js : Photo albums, captions and video list
 - data/news-data.js : The 13 archive records without online originals (honours, events). Each has a stable id used for its permanent link.
-- data/press-data.js : Every press article about him found online (105 at last count), with source, date, summary, link and, where one exists, a screen capture in img/press/. Add new articles at the top of this list.
+- data/press-data.js : Every press article about him found online and every printed page in the collection (186 at last count), with source, date, summary, link and, where one exists, a screen capture in img/press/. Add new articles at the top of this list.
 - data/stories-data.js : The 34 centenary interviews and speeches ("Stories of Samson H Chowdhury: A Legacy Interview Series"), each with the English translation and the Bangla original. Edit here, then run the build; stories.html is generated from it.
 - data/quotes-data.js : Every quote. Each has a stable id used for its permanent link.
 - data/tributes-data.js : The short recollections rotating on the home page
