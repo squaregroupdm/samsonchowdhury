@@ -32,10 +32,34 @@
       chapters.forEach((c, k) => c.classList.toggle("is-active", k === i));
       nav.forEach((b, k) => { b.classList.toggle("is-active", k === i); b.setAttribute("aria-current", k === i ? "step" : "false"); });
     }
+    // The blurred backdrop behind each photograph is produced once, into a canvas, instead of
+    // asking the browser to blur and mask a moving image on every frame (that was the single
+    // heaviest thing on the page). Falls back to the CSS filter where canvas filters are missing.
+    function bake(c) {
+      const back = c.querySelector("img.ch-back");
+      if (!back || !back.complete || !back.naturalWidth || !("filter" in CanvasRenderingContext2D.prototype)) return;
+      try {
+        const w = Math.min(back.naturalWidth, 900), h = Math.round(back.naturalHeight * w / back.naturalWidth);
+        const cv = document.createElement("canvas"); cv.width = w; cv.height = h; cv.className = "ch-back is-baked"; cv.setAttribute("aria-hidden", "true");
+        const g = cv.getContext("2d");
+        g.filter = "grayscale(1) blur(2px) brightness(0.8)"; g.drawImage(back, 0, 0, w, h); g.filter = "none";
+        g.globalCompositeOperation = "destination-in";
+        g.translate(w / 2, h / 2); g.scale(1, h / w); // an elliptical fade, like the CSS mask it replaces
+        const m = g.createRadialGradient(0, 0, 0, 0, 0, w * 0.6);
+        m.addColorStop(0.3, "rgba(0,0,0,1)"); m.addColorStop(1, "rgba(0,0,0,0)");
+        g.fillStyle = m; g.fillRect(-w, -w, 2 * w, 2 * w);
+        cv.style.transform = back.style.transform;
+        back.replaceWith(cv);
+      } catch (e) { /* a cross-origin image that cannot be read keeps the CSS version */ }
+    }
+    chapters.forEach((c) => {
+      const back = c.querySelector("img.ch-back"); if (!back) return;
+      back.addEventListener("load", () => { if (on) bake(c); });
+    });
     function render() {
       queued = 0;
       if (!wide() || reduce) { if (on) { on = false; story.classList.remove("is-live"); chapters.forEach((c) => { c.style.cssText = ""; c.querySelectorAll("img, .ch-copy, .ch-art, figcaption").forEach((el) => { el.style.transform = ""; el.style.opacity = ""; }); }); } return; }
-      if (!on) { on = true; story.classList.add("is-live"); measure(); }
+      if (!on) { on = true; story.classList.add("is-live"); measure(); chapters.forEach(bake); }
       const y = window.scrollY;
       if (y + window.innerHeight < top || y > top + story.offsetHeight) return; // off screen: do nothing
       const p = clamp((y - top) / travel, 0, 1) * (N - 1); // 0 .. N-1, chapter i is centred at p = i
@@ -63,6 +87,7 @@
       window.scrollTo({ top: Math.round(top + (travel * i) / Math.max(N - 1, 1)), behavior: reduce ? "auto" : "smooth" });
     }));
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("glidescroll", render);
     window.addEventListener("resize", () => { measure(); render(); });
     window.addEventListener("load", () => { measure(); render(); });
     measure(); render(); setActive(0);

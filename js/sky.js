@@ -22,7 +22,7 @@
   const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
 
   function build() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5); // stars are tiny; 1.5x is sharp enough and half the pixels of 2x
+    dpr = 1; // stars are soft points of light; 1x pixels are enough and keep every recomposition cheap
     w = window.innerWidth; h = window.innerHeight;
     [main, fx].forEach((c) => { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); });
     seed = 7; sparkles = [];
@@ -64,6 +64,7 @@
   if (reduce) return;
 
   window.addEventListener("scroll", request, { passive: true });
+  window.addEventListener("glidescroll", compose);
   window.addEventListener("pointermove", (e) => { if (e.pointerType === "touch") return; tx = (e.clientX / w) * 2 - 1; ty = (e.clientY / h) * 2 - 1; }, { passive: true });
 
   /* Twinkle at 8 frames a second, plus the occasional shooting star, on the small fx canvas. */

@@ -7,20 +7,26 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.remove("no-js");
 
-  /* ---- Glide scroll (mouse wheel and trackpad only). Each wheel tick sets a target and the page
-     glides to it over about a tenth of a second, time-based so it feels the same at any frame
-     rate. Keyboard, touch, anchors and scrollbars stay native; the target simply resyncs to
-     wherever the page is. Off under reduced motion and inside scrollable panels. ---- */
+  /* ---- Glide scroll (mouse wheel and trackpad only). Each wheel tick moves a target and the page
+     eases towards it with one time constant (about 140 ms), so a burst of ticks becomes one
+     continuous motion that settles gently, the same on a 60 Hz and a 144 Hz screen. Positions are
+     written with sub-pixel precision. After every write the page tells the scroll-driven pieces
+     (hero portrait, story, milestones, star field) with a "glidescroll" event, so they draw in the
+     same frame instead of one frame behind. Keyboard, touch, anchors and scrollbars stay native;
+     the target simply resyncs to wherever the page is. Off under reduced motion and inside
+     scrollable panels. ---- */
   (function glideScroll() {
     if (reduce || !window.matchMedia("(pointer: fine)").matches) return;
-    let target = window.scrollY, writing = 0, raf = 0, last = 0;
+    const TAU = 140, MAX_TICK = 260;
+    let target = window.scrollY, writing = window.scrollY, raf = 0, last = 0;
     const maxY = () => Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    const tell = () => window.dispatchEvent(new Event("glidescroll"));
     function frame(now) {
       const y = window.scrollY, d = target - y;
-      if (Math.abs(d) <= 1) { writing = Math.round(target); window.scrollTo(0, writing); raf = 0; last = 0; return; }
-      const dt = last ? Math.min(now - last, 100) : 16; last = now;
-      const next = y + d * (1 - Math.exp(-dt / 90));
-      writing = Math.round(next); window.scrollTo(0, writing);
+      const dt = last ? Math.min(now - last, 64) : 16; last = now;
+      if (Math.abs(d) < 0.4) { writing = target; window.scrollTo(0, target); tell(); raf = 0; last = 0; return; }
+      writing = y + d * (1 - Math.exp(-dt / TAU));
+      window.scrollTo(0, writing); tell();
       raf = requestAnimationFrame(frame);
     }
     function scrollsItself(el) { // is the wheel over a panel that scrolls on its own?
@@ -36,12 +42,13 @@
       if (document.body.classList.contains("menu-open") || $(".lightbox.is-open") || scrollsItself(e.target)) return;
       e.preventDefault();
       const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+      const step = Math.max(-MAX_TICK, Math.min(MAX_TICK, e.deltaY * unit)); // one notch never jumps a screen
       if (!raf) target = window.scrollY; // start from where the page really is
-      target = Math.min(Math.max(target + e.deltaY * unit, 0), maxY());
-      if (!raf) raf = requestAnimationFrame(frame);
+      target = Math.min(Math.max(target + step, 0), maxY());
+      if (!raf) { last = 0; raf = requestAnimationFrame(frame); }
     }, { passive: false });
     window.addEventListener("scroll", () => { // someone else moved the page (keys, anchor, script): follow it
-      if (Math.abs(window.scrollY - writing) > 1) { target = window.scrollY; if (raf) { cancelAnimationFrame(raf); raf = 0; last = 0; } }
+      if (Math.abs(window.scrollY - writing) > 2) { target = writing = window.scrollY; if (raf) { cancelAnimationFrame(raf); raf = 0; last = 0; } }
     }, { passive: true });
   })();
 

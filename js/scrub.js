@@ -95,6 +95,7 @@
     stage.classList.add("is-ready"); size();
     if (reduce) return;
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("glidescroll", update); // the glide already runs inside a frame
     window.addEventListener("resize", size);
     // frames arrive in order, six at a time, so whatever has been scrolled to is always available
     let next = 1;

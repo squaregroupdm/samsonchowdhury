@@ -35,6 +35,7 @@
     setActive(Math.round(p * (cards.length - 1))); // progress maps evenly onto the cards
   }
   window.addEventListener("scroll", () => { if (!queued) queued = requestAnimationFrame(follow); }, { passive: true });
+  window.addEventListener("glidescroll", follow);
   window.addEventListener("resize", () => { measurePin(); follow(); });
   window.addEventListener("load", () => { measurePin(); follow(); });
 
