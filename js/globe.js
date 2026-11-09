@@ -67,7 +67,7 @@
 
   /* ================= Globe ================= */
   var globe = $("globe"), cv = $("gc"), ctx = cv.getContext("2d"), tip = $("tip");
-  var N = ARTICLES.length, DK = 4, ASPECT = 0.75, GAP = 0.16, MARGIN = 0.1;
+  var DK = 4, ASPECT = 0.75, GAP = 0.16, MARGIN = 0.1;
 
   function bands(aw) {
     var ah = aw * ASPECT, g = aw * GAP, rows = Math.max(1, Math.floor((Math.PI - ah * 0.9) / (ah + g))), out = [], total = 0;
@@ -78,29 +78,39 @@
     }
     return { rows: out, total: total };
   }
-  var lo = 0.04, hi = 1.3;
-  for (var it = 0; it < 40; it++) { var mid = (lo + hi) / 2; if (bands(mid).total >= N) lo = mid; else hi = mid; }
-  var AW = lo, B = bands(AW), spare = B.total - N, turn = 0;
-  while (spare > 0) {
-    var bi = 0, bn = -1;
-    B.rows.forEach(function (r, i) { var score = r.n + ((i + turn) % 2) * 0.5; if (score > bn) { bn = score; bi = i; } });
-    B.rows[bi].n--; spare--; turn++;
+
+  /* The globe carries only the records that have a picture of the page: the archive's own captures
+     and printed pages at once, and the live snapshots as they arrive. Its layout is computed from
+     that list and recomputed when the list grows, so every pane is a real page. */
+  var N = 0, AW = 0.3, SW = 240, SH = 180, SM = 24, tiles = [];
+  function layout(list) {
+    N = list.length;
+    var lo = 0.04, hi = 1.3;
+    for (var it = 0; it < 40; it++) { var mid = (lo + hi) / 2; if (bands(mid).total >= N) lo = mid; else hi = mid; }
+    AW = lo; var B = bands(AW), spare = B.total - N, turn = 0;
+    while (spare > 0) {
+      var bi = 0, bn = -1;
+      B.rows.forEach(function (r, i) { var score = r.n + ((i + turn) % 2) * 0.5; if (score > bn) { bn = score; bi = i; } });
+      B.rows[bi].n--; spare--; turn++;
+    }
+    var slots = [];
+    B.rows.forEach(function (r, i) { for (var j = 0; j < r.n; j++) slots.push({ lat: r.lat, lon: (j + (i % 2) * 0.5) * 2 * Math.PI / r.n }); });
+    var seed = 20120105, order = list.map(function (_, i) { return i; });
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var k = order.length - 1; k > 0; k--) { var r2 = Math.floor(rnd() * (k + 1)), tmp = order[k]; order[k] = order[r2]; order[r2] = tmp; }
+    SW = N <= 150 ? 240 : N <= 320 ? 168 : 128; SH = Math.round(SW * ASPECT); SM = Math.round(SW * MARGIN);
+    ARTICLES.forEach(function (a) { a._tile = null; });
+    tiles = slots.map(function (sl, i) {
+      var a = list[order[i]], cl = Math.cos(sl.lat), sn = Math.sin(sl.lat), co = Math.cos(sl.lon), so = Math.sin(sl.lon);
+      var t = { a: a, lat: sl.lat, lon: sl.lon, n: [cl * so, -sn, cl * co], u: [co, 0, -so], d: [sn * so, cl, sn * co], img: a.img || null, sp: document.createElement("canvas") };
+      t.sp.width = SW + 2 * SM; t.sp.height = SH + 2 * SM;
+      a._tile = t; bake(t);
+      return t;
+    });
+    hover = -1; dirty = true;
+    if (typeof refreshCards === "function") refreshCards();
+    if (typeof note === "function" && $("note")) note();
   }
-  var slots = [];
-  B.rows.forEach(function (r, i) { for (var j = 0; j < r.n; j++) slots.push({ lat: r.lat, lon: (j + (i % 2) * 0.5) * 2 * Math.PI / r.n }); });
-
-  var seed = 20120105, order = ARTICLES.map(function (_, i) { return i; });
-  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-  for (var s = order.length - 1; s > 0; s--) { var r2 = Math.floor(rnd() * (s + 1)), tmp = order[s]; order[s] = order[r2]; order[r2] = tmp; }
-
-  var SW = N <= 150 ? 240 : N <= 320 ? 168 : 128, SH = Math.round(SW * ASPECT), SM = Math.round(SW * MARGIN);
-  var tiles = slots.map(function (sl, i) {
-    var a = ARTICLES[order[i]], cl = Math.cos(sl.lat), sn = Math.sin(sl.lat), co = Math.cos(sl.lon), so = Math.sin(sl.lon);
-    var t = { a: a, lat: sl.lat, lon: sl.lon, n: [cl * so, -sn, cl * co], u: [co, 0, -so], d: [sn * so, cl, sn * co], img: null, sp: document.createElement("canvas") };
-    t.sp.width = SW + 2 * SM; t.sp.height = SH + 2 * SM;
-    a._tile = t;
-    return t;
-  });
 
   function bake(t) {
     var c = t.sp.getContext("2d"), w = SW, h = SH, r = SW * 0.045, pad = SW * 0.035;
@@ -116,17 +126,22 @@
     rrect(c, 0.75, 0.75, w - 1.5, h - 1.5, r); c.lineWidth = 1.5; c.strokeStyle = st; c.stroke();
     c.restore();
   }
-  tiles.forEach(function (t) {
-    bake(t);
-    if (t.a.m) { t.img = new Image(); t.img.decoding = "async"; t.img.onload = function () { bake(t); dirty = true; repaintCard(t); }; t.img.src = t.a.m; }
+
+  var pictured = ARTICLES.filter(function (a) { return a.m; });
+  layout(pictured);
+  pictured.forEach(function (a) {
+    a.img = new Image(); a.img.decoding = "async";
+    a.img.onload = function () { if (a._tile) { a._tile.img = a.img; bake(a._tile); dirty = true; } repaintCard(a); };
+    a.img.onerror = function () { a.img = null; }; // a capture that cannot be fetched leaves a typeset pane
+    a.img.src = a.m;
   });
 
   /* ---- Live snapshots. Records without a capture ask a public snapshot service for a picture of
      the original page. Newspapers listed in SNAP_BLOCKED (data/press-data.js) refuse such services
-     and keep their typeset clipping. When the picture can be inspected, a nearly blank one (a
-     "verifying your browser" or "403" page) is rejected. The service renders a page the first time
-     it is asked, so a small placeholder answer is looked up again a little later. Requests run a
-     few at a time so the globe is not held up. ---- */
+     and stay off the globe. When the picture can be inspected, a nearly blank one (a "verifying
+     your browser" or "403" page) is rejected. The service renders a page the first time it is
+     asked, so a small placeholder answer is looked up again a little later. Requests run a few at
+     a time, and the globe is re-laid out in batches as pictures arrive. ---- */
   var BLOCKED = (window.SNAP_BLOCKED || []).map(function (s) { return s.toLowerCase(); });
   function snapURL(a) {
     if (!a.u || !/^https?:/.test(a.u) || BLOCKED.indexOf(a.s.toLowerCase()) >= 0) return "";
@@ -138,30 +153,36 @@
       var g = k.getContext("2d"); g.drawImage(im, 0, 0, 48, 30);
       var d = g.getImageData(0, 0, 48, 30).data, light = 0, n = d.length / 4;
       for (var i = 0; i < d.length; i += 4) { if (Math.min(d[i], d[i + 1], d[i + 2]) > 200) light++; }
-      return light / n > 0.9;
+      return light / n > 0.92;
     } catch (e) { return false; } // the picture cannot be read across origins: trust it
   }
-  function accept(t, im) { t.img = im; bake(t); dirty = true; repaintCard(t); }
-  function loadSnap(t, done) {
-    var url = snapURL(t.a), tries = 0;
+  var arrived = [], relayoutTimer = 0, lastLayout = performance.now();
+  function scheduleLayout() {
+    clearTimeout(relayoutTimer);
+    var wait = performance.now() - lastLayout > 9000 ? 0 : 2500; // settle for a moment, but never wait too long
+    relayoutTimer = setTimeout(function () { lastLayout = performance.now(); layout(pictured.concat(arrived)); }, wait);
+  }
+  function accept(a, im) { a.img = im; arrived.push(a); scheduleLayout(); repaintCard(a); }
+  function loadSnap(a, done) {
+    var url = snapURL(a), tries = 0;
     if (!url) { done(); return; }
     function attempt(cors) {
       var im = new Image(); im.decoding = "async"; if (cors) im.crossOrigin = "anonymous";
       im.onload = function () {
         if (im.naturalWidth < 600 && tries++ < 2) { setTimeout(function () { attempt(cors); }, 8000); return; } // still rendering
         if (cors && looksBlank(im)) { done(); return; }
-        accept(t, im); done();
+        accept(a, im); done();
       };
       im.onerror = function () { if (cors) attempt(false); else done(); };
       im.src = url + (tries ? "&r=" + tries : "");
     }
     attempt(true);
   }
-  var snapQueue = tiles.filter(function (t) { return !t.a.m && snapURL(t.a); }), running = 0;
+  var snapQueue = ARTICLES.filter(function (a) { return !a.m && snapURL(a); }), running = 0;
   function pump() {
     while (running < 3 && snapQueue.length) {
-      var t = snapQueue.shift(); running++;
-      loadSnap(t, function () { running--; setTimeout(pump, 150); });
+      var a = snapQueue.shift(); running++;
+      loadSnap(a, function () { running--; setTimeout(pump, 150); });
     }
   }
   setTimeout(pump, 1200);
@@ -409,17 +430,16 @@
   yrs.concat(years.Undated ? ["Undated"] : []).forEach(function (y) { var o = el("option", "", y); o.value = y; selYear.appendChild(o); });
   $("stats").innerHTML = "<span><b>" + all.length + "</b> records</span><span><b>" + Object.keys(sources).length + "</b> publications</span><span><b>" + yrs[yrs.length - 1] + "</b> to <b>" + yrs[0] + "</b></span>";
 
-  // Each card opens with the same picture its pane on the globe shows: the capture or printed page,
-  // the live snapshot once it has arrived, or the typeset clipping.
+  // Each card opens with the picture its record has: the capture or printed page, the live snapshot
+  // once it has arrived, or the typeset clipping for the rest.
   var cardCanvases = {};
-  function paintCard(k, t) { var g = k.getContext("2d"); g.clearRect(0, 0, k.width, k.height); paintPage(g, 0, 0, k.width, k.height, t); }
-  function repaintCard(t) { var k = cardCanvases[t.a.id]; if (k && k.isConnected) paintCard(k, t); }
+  function paintCard(k, a) { var g = k.getContext("2d"); g.clearRect(0, 0, k.width, k.height); paintPage(g, 0, 0, k.width, k.height, { a: a, img: a.img }); }
+  function repaintCard(a) { var k = cardCanvases[a.id]; if (k && k.isConnected) paintCard(k, a); }
+  function refreshCards() { if (typeof apply === "function" && list) apply(); }
   function card(a) {
     var c = el("article", "ncard panel"); c.id = a.id;
-    if (a._tile) {
-      var f = el("div", "snap"), k = document.createElement("canvas"); k.width = 640; k.height = 400; k.setAttribute("aria-hidden", "true");
-      paintCard(k, a._tile); cardCanvases[a.id] = k; f.appendChild(k); c.appendChild(f);
-    }
+    var f = el("div", "snap"), k = document.createElement("canvas"); k.width = 640; k.height = 400; k.setAttribute("aria-hidden", "true");
+    paintCard(k, a); cardCanvases[a.id] = k; f.appendChild(k); c.appendChild(f);
     var m = el("div", "meta"); m.appendChild(el("span", "tag", a.k)); m.appendChild(el("span", "", fmt(a.d)));
     var h = el("h3", "", a.t); h.lang = a.l;
     var s = el("div", "src"); s.appendChild(el("span", "", a.s));
@@ -447,7 +467,8 @@
   [q, selType, selYear].forEach(function (c) { c.addEventListener("input", function () { limit = PAGE; apply(); }); });
   more.addEventListener("click", function () { limit += PAGE; apply(); });
   $("reset").addEventListener("click", resetAll);
-  $("note").textContent = "The globe carries all " + all.length + " records in the archive. " + shots + " panes are screen captures of the publisher's page or photographs of the printed page. The others are typeset for this archive from the real headline, newspaper and date, because those sites did not allow a capture. Every pane opens the record, and the original article where one exists online.";
+  function note() { if (typeof shots !== "number") return; $("note").textContent = "The globe carries the " + tiles.length + " records that have a picture of the page: " + shots + " captures of the publisher's page or photographs of the printed page, and live snapshots of the other articles as they arrive. Records whose sites allow no picture are in the list below as typeset clippings. Every pane opens the record, and the original article where one exists online."; }
+  note();
   apply();
   // a permanent link to one record: show it, even if it is past the first page
   if (location.hash) {
