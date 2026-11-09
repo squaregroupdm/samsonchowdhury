@@ -364,8 +364,27 @@
   yrs.concat(years.Undated ? ["Undated"] : []).forEach(function (y) { var o = el("option", "", y); o.value = y; selYear.appendChild(o); });
   $("stats").innerHTML = "<span><b>" + all.length + "</b> records</span><span><b>" + Object.keys(sources).length + "</b> publications</span><span><b>" + yrs[yrs.length - 1] + "</b> to <b>" + yrs[0] + "</b></span>";
 
+  // A snapshot for each card: the page capture or printed page where the archive has one, otherwise a
+  // live screenshot of the original article fetched from a public snapshot service when the card is
+  // seen. If the snapshot cannot be made, the card simply shows without one.
+  function snapOf(a) {
+    if (a.m) return a.m;
+    if (a.u && /^https?:/.test(a.u)) return "https://s0.wp.com/mshots/v1/" + encodeURIComponent(a.u) + "?w=1200";
+    return "";
+  }
   function card(a) {
     var c = el("article", "ncard panel"); c.id = a.id;
+    var snap = snapOf(a);
+    if (snap) {
+      var f = el("div", "snap"), im = new Image();
+      im.loading = "lazy"; im.decoding = "async"; im.alt = ""; im.referrerPolicy = "no-referrer";
+      im.addEventListener("error", function () { f.remove(); c.classList.add("no-snap"); });
+      if (!a.m) { // the service answers with a small "still rendering" picture the first time a page is asked for; look again once
+        var tries = 0;
+        im.addEventListener("load", function () { if (im.naturalWidth < 600 && tries++ < 2) setTimeout(function () { im.src = snap + "&r=" + tries; }, 7000); });
+      }
+      im.src = snap; f.appendChild(im); c.appendChild(f);
+    }
     var m = el("div", "meta"); m.appendChild(el("span", "tag", a.k)); m.appendChild(el("span", "", fmt(a.d)));
     var h = el("h3", "", a.t); h.lang = a.l;
     var s = el("div", "src"); s.appendChild(el("span", "", a.s));
