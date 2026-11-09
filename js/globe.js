@@ -118,8 +118,53 @@
   }
   tiles.forEach(function (t) {
     bake(t);
-    if (t.a.m) { t.img = new Image(); t.img.decoding = "async"; t.img.onload = function () { bake(t); dirty = true; }; t.img.src = t.a.m; }
+    if (t.a.m) { t.img = new Image(); t.img.decoding = "async"; t.img.onload = function () { bake(t); dirty = true; repaintCard(t); }; t.img.src = t.a.m; }
   });
+
+  /* ---- Live snapshots. Records without a capture ask a public snapshot service for a picture of
+     the original page. Newspapers listed in SNAP_BLOCKED (data/press-data.js) refuse such services
+     and keep their typeset clipping. When the picture can be inspected, a nearly blank one (a
+     "verifying your browser" or "403" page) is rejected. The service renders a page the first time
+     it is asked, so a small placeholder answer is looked up again a little later. Requests run a
+     few at a time so the globe is not held up. ---- */
+  var BLOCKED = (window.SNAP_BLOCKED || []).map(function (s) { return s.toLowerCase(); });
+  function snapURL(a) {
+    if (!a.u || !/^https?:/.test(a.u) || BLOCKED.indexOf(a.s.toLowerCase()) >= 0) return "";
+    return "https://s0.wp.com/mshots/v1/" + encodeURIComponent(a.u) + "?w=1200";
+  }
+  function looksBlank(im) {
+    try {
+      var k = document.createElement("canvas"); k.width = 48; k.height = 30;
+      var g = k.getContext("2d"); g.drawImage(im, 0, 0, 48, 30);
+      var d = g.getImageData(0, 0, 48, 30).data, light = 0, n = d.length / 4;
+      for (var i = 0; i < d.length; i += 4) { if (Math.min(d[i], d[i + 1], d[i + 2]) > 200) light++; }
+      return light / n > 0.9;
+    } catch (e) { return false; } // the picture cannot be read across origins: trust it
+  }
+  function accept(t, im) { t.img = im; bake(t); dirty = true; repaintCard(t); }
+  function loadSnap(t, done) {
+    var url = snapURL(t.a), tries = 0;
+    if (!url) { done(); return; }
+    function attempt(cors) {
+      var im = new Image(); im.decoding = "async"; if (cors) im.crossOrigin = "anonymous";
+      im.onload = function () {
+        if (im.naturalWidth < 600 && tries++ < 2) { setTimeout(function () { attempt(cors); }, 8000); return; } // still rendering
+        if (cors && looksBlank(im)) { done(); return; }
+        accept(t, im); done();
+      };
+      im.onerror = function () { if (cors) attempt(false); else done(); };
+      im.src = url + (tries ? "&r=" + tries : "");
+    }
+    attempt(true);
+  }
+  var snapQueue = tiles.filter(function (t) { return !t.a.m && snapURL(t.a); }), running = 0;
+  function pump() {
+    while (running < 3 && snapQueue.length) {
+      var t = snapQueue.shift(); running++;
+      loadSnap(t, function () { running--; setTimeout(pump, 150); });
+    }
+  }
+  setTimeout(pump, 1200);
 
   var W = 0, H = 0, R = 100, dpr = 1, ry = 0.3, rx = -0.14, vel = 0, target = null, dirty = true;
   var hover = -1, dragging = false, moved = false, inView = true, last = 0, holdUntil = 0, full = false, open = null;
@@ -364,26 +409,16 @@
   yrs.concat(years.Undated ? ["Undated"] : []).forEach(function (y) { var o = el("option", "", y); o.value = y; selYear.appendChild(o); });
   $("stats").innerHTML = "<span><b>" + all.length + "</b> records</span><span><b>" + Object.keys(sources).length + "</b> publications</span><span><b>" + yrs[yrs.length - 1] + "</b> to <b>" + yrs[0] + "</b></span>";
 
-  // A snapshot for each card: the page capture or printed page where the archive has one, otherwise a
-  // live screenshot of the original article fetched from a public snapshot service when the card is
-  // seen. If the snapshot cannot be made, the card simply shows without one.
-  function snapOf(a) {
-    if (a.m) return a.m;
-    if (a.u && /^https?:/.test(a.u)) return "https://s0.wp.com/mshots/v1/" + encodeURIComponent(a.u) + "?w=1200";
-    return "";
-  }
+  // Each card opens with the same picture its pane on the globe shows: the capture or printed page,
+  // the live snapshot once it has arrived, or the typeset clipping.
+  var cardCanvases = {};
+  function paintCard(k, t) { var g = k.getContext("2d"); g.clearRect(0, 0, k.width, k.height); paintPage(g, 0, 0, k.width, k.height, t); }
+  function repaintCard(t) { var k = cardCanvases[t.a.id]; if (k && k.isConnected) paintCard(k, t); }
   function card(a) {
     var c = el("article", "ncard panel"); c.id = a.id;
-    var snap = snapOf(a);
-    if (snap) {
-      var f = el("div", "snap"), im = new Image();
-      im.loading = "lazy"; im.decoding = "async"; im.alt = ""; im.referrerPolicy = "no-referrer";
-      im.addEventListener("error", function () { f.remove(); c.classList.add("no-snap"); });
-      if (!a.m) { // the service answers with a small "still rendering" picture the first time a page is asked for; look again once
-        var tries = 0;
-        im.addEventListener("load", function () { if (im.naturalWidth < 600 && tries++ < 2) setTimeout(function () { im.src = snap + "&r=" + tries; }, 7000); });
-      }
-      im.src = snap; f.appendChild(im); c.appendChild(f);
+    if (a._tile) {
+      var f = el("div", "snap"), k = document.createElement("canvas"); k.width = 640; k.height = 400; k.setAttribute("aria-hidden", "true");
+      paintCard(k, a._tile); cardCanvases[a.id] = k; f.appendChild(k); c.appendChild(f);
     }
     var m = el("div", "meta"); m.appendChild(el("span", "tag", a.k)); m.appendChild(el("span", "", fmt(a.d)));
     var h = el("h3", "", a.t); h.lang = a.l;

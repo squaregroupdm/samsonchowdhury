@@ -8,6 +8,11 @@
    To add an article, copy one block and paste it at the top of the list.
    ============================================================ */
 
+/* Newspapers whose websites refuse the snapshot service (they show "verifying your browser" or
+   "403" instead of the page). Their records keep the typeset clipping. Add a name here exactly as it
+   appears in the source field to switch a newspaper's live snapshots off. */
+window.SNAP_BLOCKED = ["Dhaka Tribune", "Dhaka Post", "Kaler Kantho"];
+
 window.PRESS = [
   {
     "id": "2025-print-the-daily-star-centenary-homage",
